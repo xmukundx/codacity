@@ -1,6 +1,5 @@
 'use client'
 import { useEffect, useState } from "react";
-import Button from "./utilityComponents/Button";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 
@@ -37,7 +36,7 @@ const Navbar = () => {
           <li className="cursor-pointer hover:text-purple-500">About us</li>
           <li className="cursor-pointer hover:text-purple-500"> <a href="/faqs">FAQs</a></li>
           
-         <Button title="Sign in"/>
+          <button className="bg-purple-500 text-white hover:bg-white hover:border-purple-500 hover:text-purple-500 border-2  font-bold py-1 px-3 rounded">Sign In</button>
          </ul>
       </div>
 

@@ -1,6 +1,5 @@
 import Achievements from "../../components/Achievements";
 import Content from "../../components/Content";
-import FAQSection from "../../components/FAQs";
 import Footer from "../../components/Footer";
 import Marqueediv from "../../components/Marquee";
 import Navbar from "../../components/Navbar";
@@ -18,7 +17,6 @@ export default function Home() {
       {/* <TestComponent /> */}
      <Test/>
       {/* <Navbar /> */}
-      {/* <FAQSection/> */}
       {/* <Hero /> 
       <Achievements/>
       <Marqueediv/>
