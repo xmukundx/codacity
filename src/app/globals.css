@@ -4,6 +4,11 @@
 @tailwind utilities;
 
 
+@layer base{
+  body{
+    background-color: white;
+  }
+}
 
 * {
   margin: 0;
@@ -12,11 +17,17 @@
   font-family: 'Poppins', sans-serif;
 }
 
+/* react slick  */
+.slick-slide > div{
+ margin: 0 10px;
+}
 .flexAdjustBtn{
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
+  width: 96px;
+  border-radius: 10px;
 }
 
 

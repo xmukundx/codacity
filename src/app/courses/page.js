@@ -5,7 +5,7 @@ import { RiFilter2Fill } from "react-icons/ri";
 import data from "@/utillity/data";
 import { FaRupeeSign } from "react-icons/fa";
 import { MdOutlineWatchLater } from "react-icons/md";
-import Dialog from "./Dialog";
+import { ButtonGray } from "../../../components/utilityComponents/Buttons";
 
 const Test = () => {
 
@@ -16,7 +16,7 @@ const Test = () => {
   };
 
   return (
-    <div className="grid grid-rows-1 grid-cols-5 bg-lime-100">
+    <div className="grid grid-rows-1 grid-cols-5 bg-zinc-200">
       <aside className=" hidden sm:block bg-red-500flexAdjustBtn text-sm  border border-black py-1 px-3">
         <h1>All courses</h1>
         <h1 onClick={showModalHandler} className="flexAdjustBtn  border  border-black py-1 px-3 w-fit border-r bg-white ">
@@ -36,12 +36,13 @@ const Test = () => {
           <button onClick={showModalHandler} className="flexAdjustBtn  border bg-gray-100 border-black py-1 px-1 active:bg-purple-500 active:text-white">
             <RiFilter2Fill /> Filter
           </button>
+          {/* <ButtonGray>  Filter</ButtonGray> */}
           <button className="flexAdjustBtn  border bg-gray-100 border-black py-1 px-1 active:bg-purple-500 active:text-white ">
             <BiSort /> Sort
           </button>
         </div>
         {/* main course content */}
-        <main className="grid  m-4 w-[90%] justify-around md:grid-cols-2 lg:grid-cols-[repeat(3,350px)] justify-items-center gap-8 sm:gap-6 p-2 sm:p-4">
+        <main className="grid  m-4 w-[90%]  justify-around md:grid-cols-2 lg:grid-cols-[repeat(3,350px)] justify-items-center gap-8 sm:gap-6 p-2 sm:p-4">
 
           {data.map((item) => (
             <div

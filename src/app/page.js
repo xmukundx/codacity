@@ -1,11 +1,12 @@
 import Achievements from "../../components/Achievements";
-import Content from "../../components/Content";
-import Footer from "../../components/Footer";
+import TrendingCourses from "../../components/TrendingCourses";
+import Hero from "../../components/Hero";
 import Marqueediv from "../../components/Marquee";
 import Navbar from "../../components/Navbar";
 import Test from "../../components/test";
 import TestComponent from "../../components/testComponent";
 import Modal from "../../components/utilityComponents/Modal";
+import Title from "../../components/utilityComponents/Title";
 
 export default function Home() {
   
@@ -14,14 +15,15 @@ export default function Home() {
     <main>
       
     
-      {/* <TestComponent /> */}
-     <Test/>
-      {/* <Navbar /> */}
-      {/* <Hero /> 
+     {/* <Test/> */}
+      
+      <Hero /> 
       <Achievements/>
+      <Title subTitle={"Our students have gotten offers from big names"} title={"Placement Partners"} />
       <Marqueediv/>
-      <Content/>
-      <Footer/>  */}
+      <Title subTitle={"Choose the most demanding courses in the market"} title={"Top Courses"} />
+      <TrendingCourses/>
+    
     </main>
 
   );

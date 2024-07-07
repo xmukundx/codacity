@@ -2,8 +2,11 @@ import { FaRegCopyright } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className=" text-white fixed bottom-0 z-50 w-full text-xs md:text-sm bg-gray-500">
-      <section className="w-full md:font-semibold md:mx-10 flex justify-evenly items-center md:justify-between md:px-5 p-x-2   ">
+    <footer
+      className=" relative bottom-0 text-white
+     z-10 w-full h-10 text-xs md:text-sm bg-gray-700 flex justify-between items-center"
+    >
+      <section className="w-full  md:font-semibold flex justify-evenly  md:justify-between md:px-5 px-2   ">
         <div id="left" className="">
           <p>
             <span className="inline-block md:mr-1">
