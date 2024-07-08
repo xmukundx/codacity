@@ -52,9 +52,8 @@ const FAQSection = () => {
     },
   ];
   return (
-    <>
-    <Navbar/>
-    <div className="flex  flex-col items-center sm:justify-start pt-[5%] justify-center  h-screen bg-lime-50">
+    
+    <div className="flex  flex-col items-center sm:justify-start pt-[5%] justify-center  h-screen">
       <div
         id="left"
         className="w-full md:w-2/5 flex px-5 justify-center  my-10"
@@ -67,7 +66,7 @@ const FAQSection = () => {
         </h1>
       </div>
       
-      <div className=" w-4/5 md:w-3/5 self-center bg-gray-50 p-4 rounded-lg md:mx-3 border">
+      <div className=" w-4/5 md:w-3/5 self-center bg-gray-50 p-4 rounded-lg md:mx-3 border-4">
         {FAQ_DATA.map((data, index) => (
           <Accordion
             key={index}
@@ -77,7 +76,7 @@ const FAQSection = () => {
         ))}
       </div>
     </div>
-    </>
+    
   );
 };
 

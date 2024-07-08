@@ -63,19 +63,19 @@ const TrendingCourses = () => {
   };
 
   return (
-    <div id="slider-container" className="w-4/6 h-4/5 mx-auto">
+    <div id="slider-container" className="w-4/6 h-4/5 mx-auto ">
       <Slider {...settings}>
         {data.slice(0, 4).map((item, index) => {
           return (
-            <div className="relative rounded-lg bg-blue-700 border-2 border-trans flex flex-col cursor-pointer shadow-md hover:shadow-gray-400 h-fit  text-white">
-              <div id="img" className="bg-slate-300 flex-1 rounded-t-lg py-3">
+            <div className="relative rounded-md border-1 flex  bg-blue-700 flex-col cursor-pointer shadow-md hover:shadow-gray-400 h-fit  text-white">
+              <div id="img" className="bg-slate-300 flex-1 rounded-t-md py-3">
                 <img
                   src="/codebg3.jpg"
                   alt=""
                   className="h-36 sm:h-44 w-36 sm:w-44 mx-auto rounded-full"
                 />
               </div>
-              <div className="px-1 rounded-b-lg flex-1 h-48">
+              <div className="px-1 rounded-b-md flex-1 h-48 ">
                 <h1 className="text-lg sm:text-xl font-bold">{item.courseName}</h1>
                 <span className="text-xs sm:text-sm pb-3">{item.aboutCourse}</span>
               </div>
@@ -83,7 +83,7 @@ const TrendingCourses = () => {
           );
         })}
       </Slider>
-      <div className="flex justify-end mt-5 sm:mt-0"><ButtonPurple><a href="/courses">View All</a></ButtonPurple></div>
+      <div className="flex justify-end mt-5 sm:mt-2 sm:pr-2"><ButtonPurple><a href="/courses">View All</a></ButtonPurple></div>
 
       {/* <div className="h-full bg-yellow-400">
           {selectedImage && (
