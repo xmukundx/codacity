@@ -1,10 +1,15 @@
-"use client";
-import { BsFillPlayCircleFill } from "react-icons/bs";
+import Modal from "../../../components/modal";
+
+
 
 export default function About() {
   return (
     <section className=" px-5 md:px-20 h-fit pt-8  md:pt-14 text-xs sm:text-sm md:text-base bg-lime-50 ">
-      <div id="" className="flex flex-col gap-7 text-justify text-gray-800">
+      <div id="" className="flex flex-col gap-7 my-3 text-justify text-gray-800">
+        <h1 className="text-2xl font-bold text-center">About CODACITY</h1>
+        
+      <Modal/>
+      
         <p className="">
           &nbsp; &nbsp; &nbsp; Codacity is a revolutionary online learning
           platform that has taken the coding world by storm. Launched in 2023,

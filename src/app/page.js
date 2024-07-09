@@ -5,7 +5,7 @@ import Marqueediv from "../../components/Marquee";
 import Navbar from "../../components/Navbar";
 import Test from "../../components/test";
 import TestComponent from "../../components/testComponent";
-import Modal from "../../components/utilityComponents/Modal";
+import Modal from "../../components/modal";
 import Title from "../../components/utilityComponents/Title";
 
 export default function Home() {
@@ -13,10 +13,11 @@ export default function Home() {
 
   return (
     <main>
+      <Modal/>
       
     
      {/* <Test/> */}
-      
+      <div id="portal-root"></div>
       <Hero /> 
       <Achievements/>
       <Title subTitle={"Our students have gotten offers from big names"} title={"Placement Partners"} />

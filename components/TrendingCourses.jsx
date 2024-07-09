@@ -67,17 +67,17 @@ const TrendingCourses = () => {
       <Slider {...settings}>
         {data.slice(0, 4).map((item, index) => {
           return (
-            <div className="relative rounded-md border-1 flex  bg-blue-700 flex-col cursor-pointer shadow-md hover:shadow-gray-400 h-fit  text-white">
-              <div id="img" className="bg-slate-300 flex-1 rounded-t-md py-3">
+            <div className="relative rounded-md border-1 flex bg-gradient-to-tr from-purple-500 to-blue-500 flex-col cursor-pointer shadow-md hover:shadow-gray-400 h-fit  text-white">
+              <div id="img" className="bg-slate-300 rounded-t-md py-3">
                 <img
                   src="/codebg3.jpg"
                   alt=""
                   className="h-36 sm:h-44 w-36 sm:w-44 mx-auto rounded-full"
                 />
               </div>
-              <div className="px-1 rounded-b-md flex-1 h-48 ">
+              <div className="px-1 rounded-b-md  h-48 overflow-hidden">
                 <h1 className="text-lg sm:text-xl font-bold">{item.courseName}</h1>
-                <span className="text-xs sm:text-sm pb-3">{item.aboutCourse}</span>
+                <span className="text-xs sm:text-sm pb-3 ">{item.aboutCourse}</span>
               </div>
             </div>
           );

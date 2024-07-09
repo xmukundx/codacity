@@ -12,6 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={' '}>
+        {/* <div id="portal-root"> </div> */}
         <div className="h-16 ">
           <Navbar />
         </div>

@@ -25,7 +25,7 @@ const Navbar = () => {
       className="fixed top-0 z-20 bg-white text-black h-16 w-full flex py-2 px-3 justify-between border-b-2 border-black"
       id="nav-section"
     >
-      <a href="/" id="left" className="text-4xl cursor-pointer">
+      <a href="/" id="left" className=" text-3xl sm:text-4xl cursor-pointer">
         {/* framemotion? code */}
         {firtName.map((char, index) => {
           return (

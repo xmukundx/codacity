@@ -1,29 +1,35 @@
 'use client'
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSort } from "react-icons/bi";
 import { RiFilter2Fill } from "react-icons/ri";
 import data from "@/utillity/data";
 import { FaRupeeSign } from "react-icons/fa";
 import { MdOutlineWatchLater } from "react-icons/md";
 import { ButtonGray } from "../../../components/utilityComponents/Buttons";
+import Dialog from "../../../components/Dialog";
+import { createPortal } from "react-dom";
+
 
 const Test = () => {
+  const [isOpen, setIsOpen] = React.useState(false);
 
-  const [showModal, setShowModal] = useState(false);
-
-  const showModalHandler = () => {
-    setShowModal(!showModal);
-  };
-
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+  useEffect(() => {
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.dialog')) {
+        handleClose();
+      }
+    });
+  }, [isOpen]);
   return (
     <div className="grid grid-rows-1 grid-cols-5 bg-zinc-200">
       <aside className=" hidden sm:block bg-red-500flexAdjustBtn text-sm  border border-black py-1 px-3">
         <h1>All courses</h1>
-        <h1 onClick={showModalHandler} className="flexAdjustBtn  border  border-black py-1 px-3 w-fit border-r bg-white ">
+        <h1  className="flexAdjustBtn  border  border-black py-1 px-3 w-fit border-r bg-white ">
           <RiFilter2Fill />
           Filter
         </h1>
-        {showModal &&  <Dialog/>}
         <ul>
           <li>Item 1</li>
           <li>Item 2</li>
@@ -31,9 +37,22 @@ const Test = () => {
         </ul>
       </aside>
       <div className=" col-span-5 sm:col-span-4 w-full">
+      <button onClick={handleOpen}>Open Dialog</button>
+        {isOpen && (
+          createPortal(
+            <Dialog
+              title="My Dialog"
+              children={
+                <p>This is the content of the dialog.</p>
+              }
+              onClose={handleClose}
+            />,
+            document.body
+          )
+        )}
         {/* filter and sort section */}
         <div className="flex sm:hidden justify-around my-3">
-          <button onClick={showModalHandler} className="flexAdjustBtn  border bg-gray-100 border-black py-1 px-1 active:bg-purple-500 active:text-white">
+          <button  className="flexAdjustBtn  border bg-gray-100 border-black py-1 px-1 active:bg-purple-500 active:text-white">
             <RiFilter2Fill /> Filter
           </button>
           {/* <ButtonGray>  Filter</ButtonGray> */}

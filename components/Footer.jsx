@@ -4,9 +4,9 @@ const Footer = () => {
   return (
     <footer
       className=" relative bottom-0 text-white
-     z-10 w-full h-10 text-xs md:text-sm bg-gray-700 flex justify-between items-center"
+     z-10 w-full h-fit text-xs md:text-sm bg-gray-700 flex "
     >
-      <section className="w-full  md:font-semibold flex justify-evenly  md:justify-between md:px-5 px-2   ">
+      <section className="w-full  md:font-semibold flex justify-evenly items-center  md:justify-between md:px-5 px-2   ">
         <div id="left" className="">
           <p>
             <span className="inline-block md:mr-1">
@@ -15,6 +15,7 @@ const Footer = () => {
             2024 Codacity. All rights reserved.
           </p>
         </div>
+        <div className="text-3xl font-thin px-1">|</div>
         <div id="right">
           <ul className="flex gap-2 md:gap-5 ">
             <li className="hover:cursor-pointer hover:text-purple-500">FAQs</li>
@@ -22,7 +23,7 @@ const Footer = () => {
               Contact
             </li>
             <li className="hover:cursor-pointer hover:text-purple-500">
-              About us
+              About
             </li>
           </ul>
         </div>
