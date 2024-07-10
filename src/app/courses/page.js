@@ -10,23 +10,21 @@ import Dialog from "../../../components/Dialog";
 import { createPortal } from "react-dom";
 
 
-const Test = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
+const CoursesPage = () => {
+  const [courses, setCourses] = useState([]);
 
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
   useEffect(() => {
-    document.addEventListener('click', (event) => {
-      if (!event.target.closest('.dialog')) {
-        handleClose();
-      }
-    });
-  }, [isOpen]);
+    fetch('/api/courses')
+      .then(response => response.json())
+      .then(data => setCourses(data));
+  }, []);
+
+
   return (
     <div className="grid grid-rows-1 grid-cols-5 bg-zinc-200">
       <aside className=" hidden sm:block bg-red-500flexAdjustBtn text-sm  border border-black py-1 px-3">
         <h1>All courses</h1>
-        <h1  className="flexAdjustBtn  border  border-black py-1 px-3 w-fit border-r bg-white ">
+        <h1 className="flexAdjustBtn  border  border-black py-1 px-3 w-fit border-r bg-white ">
           <RiFilter2Fill />
           Filter
         </h1>
@@ -37,22 +35,10 @@ const Test = () => {
         </ul>
       </aside>
       <div className=" col-span-5 sm:col-span-4 w-full">
-      <button onClick={handleOpen}>Open Dialog</button>
-        {isOpen && (
-          createPortal(
-            <Dialog
-              title="My Dialog"
-              children={
-                <p>This is the content of the dialog.</p>
-              }
-              onClose={handleClose}
-            />,
-            document.body
-          )
-        )}
+
         {/* filter and sort section */}
         <div className="flex sm:hidden justify-around my-3">
-          <button  className="flexAdjustBtn  border bg-gray-100 border-black py-1 px-1 active:bg-purple-500 active:text-white">
+          <button className="flexAdjustBtn  border bg-gray-100 border-black py-1 px-1 active:bg-purple-500 active:text-white">
             <RiFilter2Fill /> Filter
           </button>
           {/* <ButtonGray>  Filter</ButtonGray> */}
@@ -63,9 +49,9 @@ const Test = () => {
         {/* main course content */}
         <main className="grid  m-4 w-[90%]  justify-around md:grid-cols-2 lg:grid-cols-[repeat(3,350px)] justify-items-center gap-8 sm:gap-6 p-2 sm:p-4">
 
-          {data.map((item) => (
+          {courses.map((item) => (
             <div
-            key={item.id}
+              key={item.id}
               id="section1"
               className="group shadow-lg relative overflow-hidden rounded-lg border-2 cursor-pointer group-hover:shadow-lg hover:shadow-gray-400 transform hover:scale-110 transition duration-300 ease-in-out max-w-xl"
             >
@@ -115,4 +101,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default CoursesPage;

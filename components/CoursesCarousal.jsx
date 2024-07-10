@@ -73,7 +73,7 @@ const CoursesCarousal = () => {
       <Slider {...settings}>
         {data.slice(0, 4).map((item, index) => {
           return (
-            <div className="border-1 relative flex h-fit cursor-pointer flex-col rounded-md bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-md hover:shadow-gray-400">
+            <div key={index} className="border-1 relative flex h-fit cursor-pointer flex-col rounded-md bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-md hover:shadow-gray-400">
               <div id="img" className="rounded-t-md bg-slate-300 py-3">
                 <img
                   src="/codebg3.jpg"
