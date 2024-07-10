@@ -10,7 +10,7 @@ const Hero = () => {
 
   return (
     <div
-      className="h-[82vh] relative w-full p-3 text-black bg-right sm:bg-top flex item-center justify-center flex-col"
+      className="item-center relative flex h-[82vh] w-full flex-col justify-center bg-right p-3 text-black sm:bg-top"
       id="hero-section"
       style={{
         backgroundImage: `linear-gradient(
@@ -23,14 +23,14 @@ const Hero = () => {
     >
       <div
         id="hero-content "
-        className=" text-white text-effect drop-shadow-2xl px-3 sm:px-16 md:px-28  cursor-default "
+        className="text-effect cursor-default px-3 text-white drop-shadow-2xl sm:px-16 md:px-28"
       >
-        <h1 className="inline-block text-3xl sm:text-5xl md:text-6xl font-extrabold shadow-2xl ">
+        <h1 className="inline-block text-3xl font-extrabold shadow-2xl sm:text-5xl md:text-6xl">
           Unlock Your Coding Potential!
         </h1>
 
         <div />
-        <p className="inline-block text-base mt-2 sm:mt-5 font-bold sm:text-lg md:text-2xl ">
+        <p className="mt-2 inline-block text-base font-bold sm:mt-5 sm:text-lg md:text-2xl">
           Ready to turn ideas into reality? CodaCity empowers you to learn
           coding at your own pace, with interactive lessons, fun challenges, and
           real-world projects.
@@ -41,7 +41,7 @@ const Hero = () => {
         </ButtonGray>
       </div>
 
-      <div className="h-12 w-full  absolute bottom-0 left-0 bg-gradient-to-t from-blue-600 to-transparent " />
+      <div className="absolute bottom-0 left-0 h-12 w-full bg-gradient-to-t from-blue-600 to-transparent" />
     </div>
   );
 };

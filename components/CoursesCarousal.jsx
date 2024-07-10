@@ -6,12 +6,15 @@ import data from "@/utillity/data";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { ButtonPurple } from "./utilityComponents/Buttons";
 
-const TrendingCourses = () => {
+const CoursesCarousal = () => {
   function NextArrow(props) {
     const { className, style, onClick } = props;
     return (
-      <div className={"absolute -right-6 sm:-right-12 top-1/2 z-10 cursor-pointer"} onClick={onClick}>
-        <FaArrowAltCircleRight className="active:text-purple-500 text-blue-500xl text-indigo-950 text-2xl sm:text-5xl" />
+      <div
+        className={"absolute -right-6 top-1/2 z-10 cursor-pointer sm:-right-12"}
+        onClick={onClick}
+      >
+        <FaArrowAltCircleRight className="text-blue-500xl text-2xl text-indigo-950 active:text-purple-500 sm:text-5xl" />
       </div>
     );
   }
@@ -19,8 +22,11 @@ const TrendingCourses = () => {
   function PrevArrow(props) {
     const { className, style, onClick } = props;
     return (
-      <div className={"absolute -left-6 sm:-left-12 top-1/2 z-10 cursor-pointer"} onClick={onClick}>
-        <FaArrowAltCircleLeft className="active:text-purple-500 text-blue-500xl text-indigo-950 text-2xl sm:text-5xl" />
+      <div
+        className={"absolute -left-6 top-1/2 z-10 cursor-pointer sm:-left-12"}
+        onClick={onClick}
+      >
+        <FaArrowAltCircleLeft className="text-blue-500xl text-2xl text-indigo-950 active:text-purple-500 sm:text-5xl" />
       </div>
     );
   }
@@ -63,27 +69,35 @@ const TrendingCourses = () => {
   };
 
   return (
-    <div id="slider-container" className="w-4/6 h-4/5 mx-auto ">
+    <div id="slider-container" className="mx-auto h-4/5 w-4/6">
       <Slider {...settings}>
         {data.slice(0, 4).map((item, index) => {
           return (
-            <div className="relative rounded-md border-1 flex bg-gradient-to-tr from-purple-500 to-blue-500 flex-col cursor-pointer shadow-md hover:shadow-gray-400 h-fit  text-white">
-              <div id="img" className="bg-slate-300 rounded-t-md py-3">
+            <div className="border-1 relative flex h-fit cursor-pointer flex-col rounded-md bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-md hover:shadow-gray-400">
+              <div id="img" className="rounded-t-md bg-slate-300 py-3">
                 <img
                   src="/codebg3.jpg"
                   alt=""
-                  className="h-36 sm:h-44 w-36 sm:w-44 mx-auto rounded-full"
+                  className="mx-auto h-36 w-36 rounded-full sm:h-44 sm:w-44"
                 />
               </div>
-              <div className="px-1 rounded-b-md  h-48 overflow-hidden">
-                <h1 className="text-lg sm:text-xl font-bold">{item.courseName}</h1>
-                <span className="text-xs sm:text-sm pb-3 ">{item.aboutCourse}</span>
+              <div className="h-48 overflow-hidden rounded-b-md px-1">
+                <h1 className="text-lg font-bold sm:text-xl">
+                  {item.courseName}
+                </h1>
+                <span className="pb-3 text-xs sm:text-sm">
+                  {item.aboutCourse}
+                </span>
               </div>
             </div>
           );
         })}
       </Slider>
-      <div className="flex justify-end mt-5 sm:mt-2 sm:pr-2"><ButtonPurple><a href="/courses">View All</a></ButtonPurple></div>
+      <div className="mt-5 flex justify-end sm:mt-2 sm:pr-2">
+        <ButtonPurple>
+          <a href="/courses">View All</a>
+        </ButtonPurple>
+      </div>
 
       {/* <div className="h-full bg-yellow-400">
           {selectedImage && (
@@ -109,4 +123,4 @@ const TrendingCourses = () => {
   );
 };
 
-export default TrendingCourses;
+export default CoursesCarousal;
