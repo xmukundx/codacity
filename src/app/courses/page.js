@@ -1,80 +1,60 @@
-'use client'
+"use client";
 import React, { useEffect, useState } from "react";
 import { BiSort } from "react-icons/bi";
 import { RiFilter2Fill } from "react-icons/ri";
-import data from "@/utillity/data";
 import { FaRupeeSign } from "react-icons/fa";
 import { MdOutlineWatchLater } from "react-icons/md";
-import { ButtonGray } from "../../../components/utilityComponents/Buttons";
-import Dialog from "../../../components/Dialog";
-import { createPortal } from "react-dom";
+import Loader from "../../../components/utilityComponents/Loader";
 
-
-const CoursesPage = () => {
+const Test = () => {
   const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetch('/api/courses')
-      .then(response => response.json())
-      .then(data => setCourses(data));
+    setIsLoading(true);
+    fetch("/api/courses")
+      .then((response) => response.json())
+      .then((data) => setCourses(data))
+      .finally(() => setIsLoading(false));
   }, []);
 
-
   return (
-    <div className="grid grid-rows-1 grid-cols-5 bg-zinc-200">
-      <aside className=" hidden sm:block bg-red-500flexAdjustBtn text-sm  border border-black py-1 px-3">
-        <h1>All courses</h1>
-        <h1 className="flexAdjustBtn  border  border-black py-1 px-3 w-fit border-r bg-white ">
-          <RiFilter2Fill />
-          Filter
-        </h1>
-        <ul>
-          <li>Item 1</li>
-          <li>Item 2</li>
-          <li>Item 3</li>
-        </ul>
-      </aside>
-      <div className=" col-span-5 sm:col-span-4 w-full">
-
-        {/* filter and sort section */}
-        <div className="flex sm:hidden justify-around my-3">
-          <button className="flexAdjustBtn  border bg-gray-100 border-black py-1 px-1 active:bg-purple-500 active:text-white">
-            <RiFilter2Fill /> Filter
-          </button>
-          {/* <ButtonGray>  Filter</ButtonGray> */}
-          <button className="flexAdjustBtn  border bg-gray-100 border-black py-1 px-1 active:bg-purple-500 active:text-white ">
-            <BiSort /> Sort
-          </button>
+    <div >
+      {isLoading ? (
+        <div className="item-center flex h-screen justify-center">
+          <Loader />
         </div>
-        {/* main course content */}
-        <main className="grid  m-4 w-[90%]  justify-around md:grid-cols-2 lg:grid-cols-[repeat(3,350px)] justify-items-center gap-8 sm:gap-6 p-2 sm:p-4">
-
+      ) : (
+        <main
+          main
+          className="m-4 grid w-[90%] justify-around justify-items-center gap-8 p-2 sm:gap-6 sm:p-4 md:grid-cols-2 lg:grid-cols-[repeat(3,350px)]"
+        >
           {courses.map((item) => (
             <div
               key={item.id}
               id="section1"
-              className="group shadow-lg relative overflow-hidden rounded-lg border-2 cursor-pointer group-hover:shadow-lg hover:shadow-gray-400 transform hover:scale-110 transition duration-300 ease-in-out max-w-xl"
+              className="group relative max-w-xl transform cursor-pointer overflow-hidden rounded-lg border-2 shadow-lg transition duration-300 ease-in-out hover:scale-110 hover:shadow-gray-400 group-hover:shadow-lg"
             >
-              <div className=" text-white rounded-t-lg ">
+              <div className="rounded-t-lg text-white">
                 <img
-                  className="w-full h-48 object-cover transition duration-300 ease-in-out brightness-50 group-hover:brightness-125"
+                  className="h-48 w-full object-cover brightness-50 transition duration-300 ease-in-out group-hover:brightness-125"
                   src="./codebg2.jpg"
                   alt="dkjnd"
                 />
-                <div className="absolute inset-0 px-6 py-4 bottom-0  bg-gradient-to-b from-black via-transparent to-transparent group-hover:opacity-100  place-items-">
-                  <h3 className=" text-base sm:text-lg md:text-xl font-medium leading-tight sm:leading-none">
+                <div className="place-items- absolute inset-0 bottom-0 bg-gradient-to-b from-black via-transparent to-transparent px-6 py-4 group-hover:opacity-100">
+                  <h3 className="text-base font-medium leading-tight sm:text-lg sm:leading-none md:text-xl">
                     {item.courseName.toUpperCase()}
                   </h3>
-                  <p className="pt-2 sm:pt-4 text-sm sm:text-base leading-tight sm:leading-none italic">
+                  <p className="pt-2 text-sm italic leading-tight sm:pt-4 sm:text-base sm:leading-none">
                     {item.aboutCourse}
                   </p>
                 </div>
               </div>
               <div
                 id="section2"
-                className="text-gray-700 bg-white text-sm lg:text-lg"
+                className="bg-white text-sm text-gray-700 lg:text-lg"
               >
-                <div className="flex justify-between mx-5 pt-2 h-8 border-b-2">
+                <div className="mx-5 flex h-8 justify-between border-b-2 pt-2">
                   <span className="flex items-center">
                     {" "}
                     <FaRupeeSign />
@@ -85,10 +65,10 @@ const CoursesPage = () => {
                 </div>
                 <div className="flex justify-between px-5 py-2">
                   <div className="flex items-center">
-                    <MdOutlineWatchLater className="inline-block mr-1" />
+                    <MdOutlineWatchLater className="mr-1 inline-block" />
                     {item.duration}
                   </div>
-                  <button className="text-purple-500 font-bold">
+                  <button className="font-bold text-purple-500">
                     Enroll Now
                   </button>
                 </div>
@@ -96,9 +76,9 @@ const CoursesPage = () => {
             </div>
           ))}
         </main>
-      </div>
+      )}
     </div>
   );
 };
 
-export default CoursesPage;
+export default Test;

@@ -106,7 +106,7 @@ const Navbar = () => {
             </ul>
           )}
           <li className="cursor-pointer hover:text-purple-500">ab </li>
-          <li className="cursor-pointer hover:text-purple-500">
+          <li className="cursor-pointer hover:text-purple-500 ">
             <a href="/contact">Cantact us</a>
           </li>
           <li className="cursor-pointer hover:text-purple-500">
