@@ -32,7 +32,5 @@ export async function GET() {
         return NextResponse.json({ message: 'Error connecting to database' }, { status: 500 });
     }
 
-    return NextResponse.json(data, { status: 200 })
-
 
 }
