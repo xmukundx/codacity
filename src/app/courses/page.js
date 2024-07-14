@@ -6,7 +6,7 @@ import { FaRupeeSign } from "react-icons/fa";
 import { MdOutlineWatchLater } from "react-icons/md";
 import Loader from "../../../components/utilityComponents/Loader";
 
-const Test = () => {
+const CoursePage = () => {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -81,4 +81,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default CoursePage;

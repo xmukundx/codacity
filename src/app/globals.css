@@ -35,8 +35,11 @@
   border-radius: 10px;
 }
 
-
-
+/* textured color */
+/* .grit {
+  -webkit-mask-image: url("/public/offer.webp");
+  mask-image: url("/public/offer.webp");
+} */
 
 .glass{
   background: rgba(255, 255, 255, 0.2);

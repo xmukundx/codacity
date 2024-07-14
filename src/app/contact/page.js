@@ -4,6 +4,7 @@ import { IoMail } from "react-icons/io5";
 import { FaPhoneVolume } from "react-icons/fa";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { useState } from "react";
+import { ButtonPurple } from "../../../components/utilityComponents/Buttons";
 
 const Contact = () => {
   const [result, setResult] = useState("");
@@ -31,7 +32,7 @@ const Contact = () => {
     }
   };
   return (
-    <section id="contact-section" className="flex  flex-col sm:gap-10 sm:flex-row my-10 sm:my-24 mx-7 sm:mx-7 md:mx-16 text-xs sm:text-sm md:text-base ">
+    <section id="contact-section" className="flex   flex-col sm:gap-10 sm:flex-row my-10 sm:my-24 mx-7 sm:mx-7 md:mx-16 text-xs sm:text-sm md:text-base ">
       <div id="left" className="text-gray-700  flex-1">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-black flex sm:whitespace-nowrap gap-3 items-center mb-2">
           Send us a message <IoMailOpen className="" />
@@ -65,8 +66,8 @@ const Contact = () => {
           <input className="bg-purple-100 rounded-md p-2 mb-4 " placeholder="Enter your phone number"  type="text" name="phone" id="name" />
           <label htmlFor="area">Type Your Message here</label>
           <input className="bg-purple-100 rounded-md p-2 mb-4  h-28" placeholder="Enter your message" name="area" id="area" type="area"  ></input>
-          <button type="submit" className="bg-purple-500 text-white hover:bg-white hover:border-purple-500 hover:text-purple-500 border-2 w-fit font-bold py-1 px-3 rounded">Submit</button>
-          <span>{result}</span>
+         <button type="submit" className="bg-purple-400 text-white hover:bg-white hover:border-purple-500 hover:text-purple-500 border-2 w-fit font-bold py-1 px-3 rounded">Submit</button>
+           <span>{result}</span>
         </form>
       </div>
     </section>

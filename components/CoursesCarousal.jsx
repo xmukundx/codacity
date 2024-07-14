@@ -11,10 +11,10 @@ const CoursesCarousal = () => {
     const { className, style, onClick } = props;
     return (
       <div
-        className={"absolute -right-6 top-1/2 z-10 cursor-pointer sm:-right-12"}
+        className={"absolute -right-6 top-1/2 cursor-pointer sm:-right-12"}
         onClick={onClick}
       >
-        <FaArrowAltCircleRight className="text-blue-500xl text-2xl text-indigo-950 active:text-purple-500 sm:text-5xl" />
+        <FaArrowAltCircleRight className="text-blue-500xl text-2xl text-[#0280a5] active:text-purple-500 sm:text-5xl" />
       </div>
     );
   }
@@ -23,10 +23,10 @@ const CoursesCarousal = () => {
     const { className, style, onClick } = props;
     return (
       <div
-        className={"absolute -left-6 top-1/2 z-10 cursor-pointer sm:-left-12"}
+        className={"absolute -left-6 top-1/2 cursor-pointer sm:-left-12"}
         onClick={onClick}
       >
-        <FaArrowAltCircleLeft className="text-blue-500xl text-2xl text-indigo-950 active:text-purple-500 sm:text-5xl" />
+        <FaArrowAltCircleLeft className="text-blue-500xl text-2xl text-[#0280a5] active:text-purple-500 sm:text-5xl" />
       </div>
     );
   }
@@ -69,23 +69,25 @@ const CoursesCarousal = () => {
   };
 
   return (
+    <>
+    
     <div id="slider-container" className="mx-auto h-4/5 w-4/6">
       <Slider {...settings}>
         {data.slice(0, 4).map((item, index) => {
           return (
-            <div key={index} className="border-1 relative flex h-fit cursor-pointer flex-col rounded-md bg-gradient-to-tr from-purple-500 to-blue-500 text-white shadow-md hover:shadow-gray-400">
-              <div id="img" className="rounded-t-md bg-slate-300 py-3">
+            <div key={index} className="border-1 relative flex h-fit cursor-pointer flex-col rounded-md  bg-[#0280a5] text-white shadow-md hover:shadow-gray-400">
+              <div id="img-container" className="rounded-t-md bg-[#efdd32]  py-3">
                 <img
                   src="/codebg3.jpg"
                   alt=""
                   className="mx-auto h-36 w-36 rounded-full sm:h-44 sm:w-44"
                 />
               </div>
-              <div className="h-48 overflow-hidden rounded-b-md px-1">
-                <h1 className="text-lg font-bold sm:text-xl">
+              <div className="h-48 overflow-hidden md:flex flex-col justify-center items-center md:px-8 md:text-center rounded-b-md px-1">
+                <h1 className="text-lg font-bold sm:text-xl md:text-2xl sm:pb-2 ">
                   {item.courseName}
                 </h1>
-                <span className="pb-3 text-xs sm:text-sm">
+                <span className="pb-3 text-xs sm:text-sm md:text-base ">
                   {item.aboutCourse}
                 </span>
               </div>
@@ -99,27 +101,8 @@ const CoursesCarousal = () => {
         </ButtonPurple>
       </div>
 
-      {/* <div className="h-full bg-yellow-400">
-          {selectedImage && (
-            <img width='200px'
-              src={(() => {
-                switch (selectedImage) {
-                  case "image1":
-                    return "/Brands.png";
-                  case "image2":
-                    return "/Brands.png";
-                  case "image3":
-                    return "/Brands.png";
-                  default:
-                    return null;
-                }
-              })()}
-              alt={selectedImage}
-              className="w-full h-full object-cover"
-            />
-          )}
-        </div> */}
     </div>
+    </>
   );
 };
 
