@@ -7,14 +7,14 @@ const Searchbar = ({ handleSearchChange, searchQuery }) => {
         onChange={handleSearchChange}
         value={searchQuery}
         placeholder="Search..."
-        className="w-28 rounded-xl border-2 border-transparent px-3 py-1 shadow-lg outline-none transition-all focus:border-2 focus:border-purple-400 md:w-48 md:focus:w-56"
+        className="w-28 rounded-xl border-2 border-transparent px-3 py-1 shadow-lg outline-none transition-all focus:border-2 focus:border-purple-400 md:w-36 lg:w-48 md:focus:w-40 lg:focus:w-56"
         name="search"
         type="search"
       />
       <button className={`absolute right-3 top-1 text-gray-500`}>
         {!searchQuery && (
           <svg
-            className="size-6 text-gray-500"
+            className="size-6 text-gray-500 "
             stroke="currentColor"
             strokeWidth="1.5"
             viewBox="0 0 24 24"

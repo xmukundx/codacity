@@ -40,7 +40,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 z-10 flex h-16 w-full justify-between border-b-2 border-black bg-white px-3 py-2 text-gray-800">
-      <a href="/" className="cursor-pointer text-3xl md:text-4xl">
+      <a href="/" className="cursor-pointer text-3xl md:text-3xl lg:text-4xl">
         {firtName.map((char, index) => {
           return (
             <motion.span
@@ -83,9 +83,9 @@ const Navbar = () => {
             />
 
             {searchQuery.length > 0 && (
-              <ul className="absolute right-4 sm:right-auto  md:top-14  w-fit text-nowrap  bg-white rounded-md text-gray-800">
+              <ul className="absolute right-4 md:right-auto  md:top-14  w-fit text-nowrap  bg-white rounded-md text-gray-800">
                 {filteredCourses.slice(0, 5).map((course, indx) => (
-                  <li key={indx} className="cursor-pointer my-2 md:my-0 px-1 text-xs sm:text-base md:text-lg rounded-md- border-t">
+                  <li key={indx} className="cursor-pointer my-2 md:my-0 px-1 text-xs md:text-lg rounded-md- border-t">
                     {course.courseName.slice(0, 40) + "..."}
                   </li>
                 ))}

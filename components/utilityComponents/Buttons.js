@@ -1,6 +1,6 @@
 const ButtonPurple = ({ children }) => {
   return (
-    <button className="rounded-md border-2 bg-purple-400 px-3 py-1 font-bold text-white hover:border-purple-500 hover:bg-white hover:text-purple-500 active:bg-purple-100">
+    <button className="rounded-md border-2 bg-purple-400 px-1 md:px-3 py-1 font-bold text-white text-sm md:text-base text-nowrap hover:border-purple-500 hover:bg-white hover:text-purple-500 active:bg-purple-100">
       {children}
     </button>
   );
