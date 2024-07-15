@@ -40,7 +40,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 z-10 flex h-16 w-full justify-between border-b-2 border-black bg-white px-3 py-2 text-gray-800">
-      <a href="/" className="cursor-pointer text-3xl md:text-3xl lg:text-4xl">
+      <a href="/" className="cursor-pointer text-3xl md:text-3xl lg:text-4xl h-full flex items-center">
         {firtName.map((char, index) => {
           return (
             <motion.span

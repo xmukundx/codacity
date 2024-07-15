@@ -2,9 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import Loader from '../../../../components/utilityComponents/Loader';
 
-const CourseDetailPage = ({params}) => {
-  const id = 
-  console.log(id);
+const CourseDetailPage = (req, {params}) => {
+  
+  console.log(params);
   const [course, setCourse] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
