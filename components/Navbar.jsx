@@ -99,7 +99,7 @@ const Navbar = () => {
             onMouseLeave={toggleDropdown}
           >
             <a href="/courses">Courses</a>
-            {showCourseMenu && (
+            {/* {showCourseMenu && (
               <ul className="absolute right-28 flex w-24 flex-col gap-5 rounded-l-md bg-white p-1 text-center md:right-auto md:top-12 md:bg-white">
                 {["Javascript", "Python", "Full stack"].map((course, idx) => (
                   <li
@@ -110,7 +110,7 @@ const Navbar = () => {
                   </li>
                 ))}
               </ul>
-            )}
+            )} */}
           </li>
           {["Contact", "About", "FAQs"].map((item, idx) => (
             <li key={idx} className="cursor-pointer hover:text-purple-500">

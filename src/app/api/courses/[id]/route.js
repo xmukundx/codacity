@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import Course from "../../../../../lib/models/course";
 
 export async function GET(req, {params}) {
-
+// console.log(params);
     try {
         // connecting with mongo
         if (!mongoose.connections[0].readyState) {
@@ -12,12 +12,12 @@ export async function GET(req, {params}) {
         }
         const allCourses = await Course.find({});
 
-
+        // console.log(allCourses);
         const courseId = allCourses.filter((item)=> item.id === params.id) 
         console.log(courseId);
         
         
-        return NextResponse.json(courseId.length === 0? {result:'no data', success:false}:{result:courseId, success:true}
+        return NextResponse.json(courseId.length === 0? {result:'no data', success:false}:{result:courseId[0], success:true})
 
     } catch (error) {
         console.log('Could not connect', error);

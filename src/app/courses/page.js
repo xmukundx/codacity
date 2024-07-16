@@ -39,7 +39,7 @@ const CoursePage = () => {
       ) : (
         <main className="m-4 grid w-[90%] justify-around justify-items-center gap-8 p-2 sm:gap-6 sm:p-4 md:grid-cols-2 lg:grid-cols-[repeat(3,350px)]">
           {courses.map((item) => (
-            <a href={`/course/${item.courseName}`} key={item.id}
+            <a href={`/courses/${item._id}`} key={item._id}
               
                 id="section1"
                 className="group relative max-w-xl transform cursor-pointer overflow-hidden rounded-lg border-2 shadow-lg transition duration-300 ease-in-out hover:scale-110 hover:shadow-gray-400 group-hover:shadow-lg"
