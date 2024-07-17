@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState, useEffect } from "react"; // Import for state management
 import { ButtonPurple } from "../../../../components/utilityComponents/Buttons";
 import Loader from "../../../../components/utilityComponents/Loader";
@@ -36,7 +36,12 @@ const CourseDetailPage = ({ params }) => {
 
   // Handle loading state and error gracefully
   if (isLoading) {
-    return <div className="flex justify-center items-center h-screen"> <Loader/></div>;
+    return (
+      <div className="flex items-center justify-center h-screen-minus-navbar">
+        {" "}
+        <Loader />
+      </div>
+    );
   }
 
   if (error) {
@@ -47,9 +52,20 @@ const CourseDetailPage = ({ params }) => {
     );
   }
 
-  
+  if (!course) {
+    return <div className="text-center text-red-500">Course not found</div>;
+  }
 
-  const { courseName, aboutCourse, duration, price, language, level, category, popularity } = course;
+  const {
+    courseName,
+    aboutCourse,
+    duration,
+    price,
+    language,
+    level,
+    category,
+    popularity,
+  } = course;
 
   // Assuming a purchase API or function is available
   // const handlePurchase = async () => {
@@ -73,9 +89,12 @@ const CourseDetailPage = ({ params }) => {
   // };
 
   return (
-    <div id="course-detail-page" className="container h-screen mx-auto px-4 py-8">
-      <h1 className="text-3xl md:text-4xl font-bold mb-4">{courseName}</h1>
-      <p className="text-gray-700 md:text-lg mb-4">{aboutCourse}</p>
+    <div
+      id="course-detail-page"
+      className="container mx-auto h-screen px-4 py-8"
+    >
+      <h1 className="mb-4 text-3xl font-bold md:text-4xl">{courseName}</h1>
+      <p className="mb-4 text-gray-700 md:text-lg">{aboutCourse}</p>
       {/* <div className="flex flex-wrap mb-4">
         <div className="w-full md:w-1/2 mb-2 md:mb-0">
           <span className="text-gray-700 font-medium mr-2">Duration:</span>
@@ -102,34 +121,33 @@ const CourseDetailPage = ({ params }) => {
           <span className="text-gray-500">{popularity}</span>
         </div>
       </div> */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-  <div className="flex items-center">
-    <span className="text-gray-700 font-medium mr-2">Duration:</span>
-    <span className="text-gray-500">{duration}</span>
-  </div>
-  <div className="flex items-center">
-    <span className="text-gray-700 font-medium mr-2">Price:</span>
-    <span className="text-gray-500">{price}</span>
-  </div>
-  <div className="flex items-center">
-    <span className="text-gray-700 font-medium mr-2">Language:</span>
-    <span className="text-gray-500">{language}</span>
-  </div>
-  <div className="flex items-center">
-    <span className="text-gray-700 font-medium mr-2">Level:</span>
-    <span className="text-gray-500">{level}</span>
-  </div>
-  <div className="flex items-center">
-    <span className="text-gray-700 font-medium mr-2">Category:</span>
-    <span className="text-gray-500">{category}</span>
-  </div>
-  <div className="flex items-center">
-    <span className="text-gray-700 font-medium mr-2">Popularity:</span>
-    <span className="text-gray-500">{popularity}</span>
-  </div>
-</div>
-      <ButtonPurple
-        className="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hover:bg-blue-600">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="flex items-center">
+          <span className="mr-2 font-medium text-gray-700">Duration:</span>
+          <span className="text-gray-500">{duration}</span>
+        </div>
+        <div className="flex items-center">
+          <span className="mr-2 font-medium text-gray-700">Price:</span>
+          <span className="text-gray-500">{price}</span>
+        </div>
+        <div className="flex items-center">
+          <span className="mr-2 font-medium text-gray-700">Language:</span>
+          <span className="text-gray-500">{language}</span>
+        </div>
+        <div className="flex items-center">
+          <span className="mr-2 font-medium text-gray-700">Level:</span>
+          <span className="text-gray-500">{level}</span>
+        </div>
+        <div className="flex items-center">
+          <span className="mr-2 font-medium text-gray-700">Category:</span>
+          <span className="text-gray-500">{category}</span>
+        </div>
+        <div className="flex items-center">
+          <span className="mr-2 font-medium text-gray-700">Popularity:</span>
+          <span className="text-gray-500">{popularity}</span>
+        </div>
+      </div>
+      <ButtonPurple className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
         Buy Now - ₹{price}
       </ButtonPurple>
     </div>

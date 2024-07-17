@@ -3,6 +3,7 @@ import Aim from "../../components/Aim";
 import TrendingCourses from "../../components/CoursesCarousal";
 import Hero from "../../components/Hero";
 import Marqueediv from "../../components/Marquee";
+import Test from "../../components/test";
 // import TestComponent from "../../components/testComponent";
 // import Modal from "../../components/utilityComponents/modal";
 import Title from "../../components/utilityComponents/Title";
@@ -12,8 +13,8 @@ export default function Home() {
     <main>
       {/* <Modal/> */}
 
-      {/* <Test/> */}
-      <Hero />
+      <Test/>
+      {/* <Hero />
       <Title
         subTitle={"Our students have gotten offers from big names."}
         title={"Placement Partners"}
@@ -39,7 +40,7 @@ export default function Home() {
         }
         title={"Know Our Aim"}
       />
-      <Aim />
+      <Aim /> */}
     </main>
   );
 }

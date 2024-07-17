@@ -11,7 +11,7 @@ const Hero = () => {
     <Parallax
       strength={400}
       bgImage={"./codebg1.jpg"}
-      className="item-center flex h-[82vh] w-full flex-col justify-center bg-gradient-to- p-3 text-black sm:bg-top"
+      className="item-center flex h-screen-minus-navbar w-full flex-col justify-center bg-gradient-to- p-3 text-black sm:bg-top"
       id="hero-section"
       // style={{
       //   background: `linear-gradient(

@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={' '}>
+      <body className={' bg-gradient-to-tr from-slate-300 to-slate-50'}>
         {/* <div id="portal-root"> </div> */}
         <div className="h-16 ">
           <Navbar />

@@ -1,44 +1,122 @@
+"use client";
+import { IoEyeOutline } from "react-icons/io5";
+import { ButtonPurple } from "./utilityComponents/Buttons";
+import { useState } from "react";
+import RegistrationForm from "./RegistrationForm";
+import { useForm } from "react-hook-form";
+
 export default function Test() {
+  const [isLogin, setIsLogin] = useState(true);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+  const password = watch('password', ''); //watch function provides a way to react to changes in the form field value.
+
   return (
-    <section className="flex w-full flex-col justify-center py-3 pb-16 text-gray-800 sm:flex-row">
-      <div className="w-full sm:w-[50%] md:w-[40%]">
-        <img
-          src="./study.jpg"
-          className="mx-auto h-64 w-9/12 object-cover py-2 px-5 sm:h-96 md:h-[63%]"
-          alt=""
-        />
-        {/* <img src="" className="play_icon" alt="" /> */}
-      </div>
-      <div className="w-full px-2 sm:w-[50%] md:w-[40%]">
-        <h3 className="font-semibold text-[#212ea0] md:text-lg">
-          From critical skills to technical topics,
-        </h3>
-        <h2 className="font-bold md:text-xl">
-          Codacity supports your professional development.
-        </h2>
-        <ul className="flex flex-col gap-3 pt-4 text-justify text-sm font-medium sm:gap-5 md:text-base">
-          <li>
-            {"   "}
-            We offer a comprehensive range of coding courses, designed for all
-            levels. Whether you're a complete beginner or a seasoned programmer
-            looking to refine your skills, we have the resources to propel you
-            forward.
-          </li>
-          <li>
-            If traditional learning feels like a chore, this platform transforms
-            it into an epic quest. Earn points, unlock badges, and level up as
-            you conquer coding challenges. Bite-sized lessons and engaging
-            narratives make learning fun and keep you coming back for more. It's
-            a perfect fit for those who thrive on competition and enjoy a
-            healthy dose of gamification.
-          </li>
-          <li>
-            No matter your background or learning style, Codacity is a perfect
-            coding platform waiting to unleash your potential. Take the first
-            step today and embark on your journey to becoming a coding master!
-          </li>
-        </ul>
-      </div>
-    </section>
+    <div>
+      {isLogin ? (
+        <div
+          id="form-page"
+          className="h-screen-minus-navbar px-4 py-16 sm:px-6 lg:px-8"
+        >
+          <main>
+            <div className="mx-auto max-w-lg text-center">
+              <h1 className="text-2xl font-bold sm:text-3xl">Welcome Back!</h1>
+              <p className="mt-4 text-gray-600">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
+                libero nulla eaque error neque ipsa culpa autem, at itaque
+                nostrum!
+              </p>
+            </div>
+
+            <form
+              className="mx-auto mb-0 mt-8 max-w-md space-y-4"
+              action="#"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <div>
+                <label className="sr-only" htmlFor="email">
+                  Email
+                </label>
+                <div className="">
+                  <input
+                    placeholder="Enter your email"
+                    className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
+                    id="email"
+                    type="email"
+                    {...register("email", {
+                      required: "Email is required",
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,  //Regular expressions (regex) are special text patterns used to match specific sequences of characters.
+                        message: "Enter a valid email address",
+                      },
+                    })}
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <label className="sr-only" htmlFor="password">
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    placeholder="Enter your password"
+                    className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
+                    id="password"
+                    type="password"
+                    {...register("password", {
+                      required: "Password is required",
+                      minLength: {
+                        value: 8,
+                        message: "Password must be at least 8 characters",
+                      },
+                    })}
+                  />
+                  <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
+                    <IoEyeOutline className="h-6 w-6 text-gray-400" />
+                  </span>
+                </div>
+                {errors.password && (
+                  <p className="mt-1 text-xs text-red-500">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex items-center justify-between">
+                <p className="text-sm text-gray-600">
+                  No account yet? &nbsp;
+                  <span
+                    onClick={() => setIsLogin(false)}
+                    className="font-bold underline hover:cursor-pointer hover:text-gray-800"
+                  >
+                    Create one
+                  </span>
+                </p>
+                <ButtonPurple type="submit" className="">
+                  Sign in
+                </ButtonPurple>
+              </div>
+            </form>
+          </main>
+        </div>
+      ) : (
+        <div>
+          <RegistrationForm setIsLogin={setIsLogin} />
+        </div>
+      )}
+    </div>
   );
 }
