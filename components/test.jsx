@@ -1,12 +1,26 @@
 "use client";
 import { IoEyeOutline } from "react-icons/io5";
 import { ButtonPurple } from "./utilityComponents/Buttons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RegistrationForm from "./RegistrationForm";
 import { useForm } from "react-hook-form";
 
 export default function Test() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const [students, setStudents] = useState([])
+
+
+  useEffect(() => {
+    fetch("/api/students")
+      .then((response) => response.json())
+      .then((student) => {
+
+        setStudent(student);
+      })
+      .catch((error) => {
+        console.error("Error fetching courses:", error);
+      });
+  }, []);
 
   const {
     register,
@@ -14,11 +28,18 @@ export default function Test() {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    const currentUser = students.find(
+      (student)=> students.email === data.email && students.password === data.password
+    )
+      if (currentUser){
+        
+      }
+  }
   const password = watch('password', ''); //watch function provides a way to react to changes in the form field value.
 
   return (
-    <div>
+    <div className="">
       {isLogin ? (
         <div
           id="form-page"

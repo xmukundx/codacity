@@ -4,6 +4,7 @@ import TrendingCourses from "../../components/CoursesCarousal";
 import Hero from "../../components/Hero";
 import Marqueediv from "../../components/Marquee";
 import Test from "../../components/test";
+import TestComponent from "../../components/testComponent";
 // import TestComponent from "../../components/testComponent";
 // import Modal from "../../components/utilityComponents/modal";
 import Title from "../../components/utilityComponents/Title";
@@ -11,9 +12,9 @@ import Title from "../../components/utilityComponents/Title";
 export default function Home() {
   return (
     <main>
-      {/* <Modal/> */}
 
-      <Test/>
+      <TestComponent/>
+      {/* <Test/> */}
       {/* <Hero />
       <Title
         subTitle={"Our students have gotten offers from big names."}

@@ -1,7 +1,7 @@
 import "./globals.css";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-
+import SessionWrapper from "../../components/utilityComponents/SessionProvider";
 
 export const metadata = {
   title: "Create Next App",
@@ -11,13 +11,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={' bg-gradient-to-tr from-slate-300 to-slate-50'}>
-        {/* <div id="portal-root"> </div> */}
-        <div className="h-16 ">
-          <Navbar />
-        </div>
-        {children} 
-        <Footer />
+      <body className={"bg-gradient-to-tr from-slate-300 to-slate-50"}>
+        <SessionWrapper>
+          <div className="h-16">
+            <Navbar />
+          </div>
+          {children}
+          <Footer />
+        </SessionWrapper>
       </body>
     </html>
   );

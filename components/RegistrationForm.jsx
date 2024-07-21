@@ -3,8 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { IoEyeOutline } from "react-icons/io5";
 import { ButtonPurple } from "./utilityComponents/Buttons";
-import User from "../lib/models/user";
-import mongoose from "mongoose";
+
 
 const RegistrationForm = ({ setIsLogin }) => {
   const {
@@ -17,29 +16,42 @@ const RegistrationForm = ({ setIsLogin }) => {
   const password = watch("password", ""); //watch function provides a way to react to changes in the form field value.
 
   //data post
-  const onSubmit = async (data) => {
+  const onSubmit = async (data, event) => {
+    const { firstName, lastName, email, password, ...rest } = data; // Destructure the first 4 keys
+    const slicedData = { firstName, lastName, email, password}; 
+    
     try {
-      const response = await fetch('/api/users', {
+      const response = await fetch('/api/students', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(slicedData),
       });
 
       if (response.ok) {
-        console.log('User created successfully!');
+        console.log('Student created successfully!');
       } else {
         const errorData = await response.json();
-        console.error('Error saving user:', errorData);
+        console.error('Error saving student:', errorData);
       }
     } catch (error) {
-      console.error('Error saving user:', error);
+      console.error('Error saving student:', error);
     }
+
+    event.preventDefault();
   };
 
+  // const onSubmit =(data) => {
+  //   const { firstName, lastName, email, password, ...rest } = data; // Destructure the first 4 keys
+  //   const slicedData = { firstName, lastName, email, password}; 
+  //   console.log(slicedData)
+
+
+  // };
+
   return (
-    <div id="login-form" className="px-4 py-16 sm:px-6 lg:px-8">
+    <div id="registration-form" className="px-4 py-16 sm:px-6 lg:px-8 h-fit ">
       <div className="mx-auto max-w-lg text-center">
         <h1 className="text-2xl font-bold sm:text-3xl">Create an Account!</h1>
         <p className="mt-4 text-gray-600">
