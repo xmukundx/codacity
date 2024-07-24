@@ -1,8 +1,9 @@
-
-
 import mongoose from "mongoose";
 import Student from "../../../../lib/models/students";
 import { NextResponse } from "next/server";
+import bcrypt from 'bcryptjs'
+
+
 
 export async function POST(req) {
   try {
@@ -17,11 +18,13 @@ export async function POST(req) {
 
     const { firstName, lastName, email, password } = await req.json();
 
+    const hashPassword = await bcrypt.hash(password, 10)
+
     const newStudent = new Student({
       firstName,
       lastName,
       email,
-      password,
+      password: hashPassword,
     });
 
     await newStudent.save();

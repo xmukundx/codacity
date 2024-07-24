@@ -6,21 +6,8 @@ import RegistrationForm from "./RegistrationForm";
 import { useForm } from "react-hook-form";
 
 export default function Test() {
-  const [isLogin, setIsLogin] = useState(false);
-  const [student, setStudent] = useState([])
-
-
-  useEffect(() => {
-    fetch("/api/students")
-      .then((response) => response.json())
-      .then((student) => {
-
-        setStudent(student);
-      })
-      .catch((error) => {
-        console.error("Error fetching courses:", error);
-      });
-  }, []);
+  const [isLogin, setIsLogin] = useState(true);
+  const [student, setStudent] = useState([]);
 
   const {
     register,
@@ -28,15 +15,24 @@ export default function Test() {
     watch,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    const currentUser = students.find(
-      (student)=> student.email === data.email && student.password === data.password
-    )
-      if (currentUser){
-        
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        alert("response error");
+      } else {
+        alert("Login successful");
       }
-  }
-  const password = watch('password', ''); //watch function provides a way to react to changes in the form field value.
+    } catch (error) {
+      alert("error while submitting: " + error);
+    }
+  };
+  const password = watch("password", ""); //watch function provides a way to react to changes in the form field value.
 
   return (
     <div className="">
@@ -74,7 +70,7 @@ export default function Test() {
                       required: "Email is required",
                       pattern: {
                         value:
-                          /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,  //Regular expressions (regex) are special text patterns used to match specific sequences of characters.
+                          /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, //Regular expressions (regex) are special text patterns used to match specific sequences of characters.
                         message: "Enter a valid email address",
                       },
                     })}

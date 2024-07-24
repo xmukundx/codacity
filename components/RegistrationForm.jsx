@@ -30,7 +30,7 @@ const RegistrationForm = ({ setIsLogin }) => {
       });
 
       if (response.ok) {
-        console.log('Student created successfully!');
+        alert('Student created successfully!');
       } else {
         const errorData = await response.json();
         console.error('Error saving student:', errorData);
