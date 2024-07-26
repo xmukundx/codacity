@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import data from "@/utillity/data";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
-import { ButtonPurple } from "./utilityComponents/Buttons";
+import { ButtonPurple } from "./utilityComponents/buttons";
 
 const CoursesCarousal = () => {
   function NextArrow(props) {

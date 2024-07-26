@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import { IoIosArrowDropup } from "react-icons/io";
-import Navbar from "../../../components/Navbar";
+import Navbar from "../../../components/navbar";
 
 
 

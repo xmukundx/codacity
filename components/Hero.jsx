@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Button, { ButtonGray } from "./utilityComponents/Buttons";
+import Button, { ButtonGray } from "./utilityComponents/buttons";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { Parallax } from "react-parallax";
 

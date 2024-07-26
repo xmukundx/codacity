@@ -1,15 +1,17 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { ButtonPurple } from "./utilityComponents/Buttons";
 import { motion } from "framer-motion";
 import Searchbar from "./Searchbar";
+import { ButtonPurple } from "./utilityComponents/buttons"
+import Cookies from "js-cookie";
 
 const Navbar = () => {
   const [togglemobile, setTogglemobile] = useState(false);
   const [showCourseMenu, setShowCourseMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [courses, setCourses] = useState([]);
+
 
   const firtName = "Coda".toUpperCase().split("");
   const secondName = "City".toUpperCase().split("");
@@ -40,7 +42,10 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 z-10 flex h-16 w-full justify-between border-b-2 border-black bg-white px-3 py-2 text-gray-800">
-      <a href="/" className="cursor-pointer text-3xl md:text-3xl lg:text-4xl h-full flex items-center">
+      <a
+        href="/"
+        className="flex h-full cursor-pointer items-center text-3xl md:text-3xl lg:text-4xl"
+      >
         {firtName.map((char, index) => {
           return (
             <motion.span
@@ -67,7 +72,7 @@ const Navbar = () => {
       <div className="flex flex-col">
         <GiHamburgerMenu
           onClick={handleToggle}
-          className={`z-10 text-3xl duration-500  ${
+          className={`z-10 text-3xl duration-500 ${
             togglemobile ? "rotate-180 transform text-purple-500" : ""
           } cursor-pointer md:hidden`}
         />
@@ -82,16 +87,18 @@ const Navbar = () => {
               searchQuery={searchQuery}
             />
 
-            {searchQuery.length > 0 && (
-              <ul className="absolute right-4 md:right-auto  md:top-14  w-fit text-nowrap  bg-white rounded-md text-gray-800">
+            {searchQuery.length > 0 && togglemobile && (
+              <ul className="absolute right-4 w-fit text-nowrap rounded-md bg-white text-gray-800 md:right-auto md:top-14">
                 {filteredCourses.slice(0, 5).map((course, indx) => (
-                  <li key={indx} className="cursor-pointer my-2 md:my-0 px-1 text-xs md:text-lg rounded-md- border-t">
-                    {course.courseName.slice(0, 40) + "..."}
+                  <li
+                    key={indx}
+                    className="rounded-md- my-2 cursor-pointer border-t text-xs sm:text-base md:my-0 md:text-lg"
+                  >
+                    {course.courseName.slice(0, 35) + "..."}
                   </li>
                 ))}
               </ul>
             )}
-            
           </li>
           <li
             className="hover:text-purple-500"
@@ -117,7 +124,14 @@ const Navbar = () => {
               <a href={`/${item.toLowerCase()}`}>{item}</a>
             </li>
           ))}
-          <ButtonPurple>Sign In</ButtonPurple>
+          {Cookies.get("username") ?
+            (
+                <div>hello!</div>
+            ):(
+
+              <ButtonPurple ><a href="/signin">Sign In</a></ButtonPurple>
+            )
+          }
         </ul>
       </div>
     </nav>

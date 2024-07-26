@@ -1,13 +1,32 @@
 "use client";
 import { IoEyeOutline } from "react-icons/io5";
-import { ButtonPurple } from "./utilityComponents/Buttons";
-import { useEffect, useState } from "react";
+import { ButtonPurple } from "./utilityComponents/buttons";
+import { useState } from "react";
 import RegistrationForm from "./RegistrationForm";
 import { useForm } from "react-hook-form";
+import Mymodal from "./utilityComponents/modal";
 
 export default function Test() {
   const [isLogin, setIsLogin] = useState(true);
   const [student, setStudent] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [seePassword, setSeePassword] = useState(false)
+
+  //modal code starts
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+    
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  //modal code ends
+
+//see password
+const seeYourPassword = () => setSeePassword(!seePassword)
+
 
   const {
     register,
@@ -36,6 +55,8 @@ export default function Test() {
 
   return (
     <div className="">
+      <button onClick={handleOpenModal}>Open Modal</button>
+      {/* <Mymodal className='h-screen overflow-hidden ' isOpen={isModalOpen} onClose={handleCloseModal} /> */}
       {isLogin ? (
         <div
           id="form-page"
@@ -92,7 +113,7 @@ export default function Test() {
                     placeholder="Enter your password"
                     className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
                     id="password"
-                    type="password"
+                    type={`${seePassword ? 'text': 'password'}`}
                     {...register("password", {
                       required: "Password is required",
                       minLength: {
@@ -101,8 +122,8 @@ export default function Test() {
                       },
                     })}
                   />
-                  <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                    <IoEyeOutline className="h-6 w-6 text-gray-400" />
+                  <span onClick={seeYourPassword} className="absolute inset-y-0 end-0 grid place-content-center px-4">
+                    <IoEyeOutline className={`h-6 w-6 hover:cursor-pointer ${seePassword ? 'text-purple-400':'text-gray-400'}`} />
                   </span>
                 </div>
                 {errors.password && (
@@ -131,7 +152,7 @@ export default function Test() {
         </div>
       ) : (
         <div>
-          <RegistrationForm setIsLogin={setIsLogin} />
+          <RegistrationForm setIsLogin={setIsLogin} seePassword={seePassword} setSeePassword={setSeePassword} seeYourPassword={seeYourPassword} />
         </div>
       )}
     </div>

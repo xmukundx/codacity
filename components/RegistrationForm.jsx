@@ -1,11 +1,18 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoEyeOutline } from "react-icons/io5";
-import { ButtonPurple } from "./utilityComponents/Buttons";
+import { ButtonPurple } from "./utilityComponents/buttons";
 
+const RegistrationForm = ({
+  setIsLogin,
+  seePassword,
+  setSeePassword,
+  seeYourPassword,
+}) => {
 
-const RegistrationForm = ({ setIsLogin }) => {
+  const [seeConfirmPassword, setSeeConfirmPassword] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -18,40 +25,32 @@ const RegistrationForm = ({ setIsLogin }) => {
   //data post
   const onSubmit = async (data, event) => {
     const { firstName, lastName, email, password, ...rest } = data; // Destructure the first 4 keys
-    const slicedData = { firstName, lastName, email, password}; 
-    
+    const slicedData = { firstName, lastName, email, password };
+
     try {
-      const response = await fetch('/api/students', {
-        method: 'POST',
+      const response = await fetch("/api/students", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(slicedData),
       });
 
       if (response.ok) {
-        alert('Student created successfully!');
+        alert("Registration successful!");
       } else {
         const errorData = await response.json();
-        console.error('Error saving student:', errorData);
+        console.error("Error saving student:", errorData);
       }
     } catch (error) {
-      console.error('Error saving student:', error);
+      console.error("Error saving student:", error);
     }
 
     event.preventDefault();
   };
 
-  // const onSubmit =(data) => {
-  //   const { firstName, lastName, email, password, ...rest } = data; // Destructure the first 4 keys
-  //   const slicedData = { firstName, lastName, email, password}; 
-  //   console.log(slicedData)
-
-
-  // };
-
   return (
-    <div id="registration-form" className="px-4 py-16 sm:px-6 lg:px-8 h-fit ">
+    <div id="registration-form" className="h-fit px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg text-center">
         <h1 className="text-2xl font-bold sm:text-3xl">Create an Account!</h1>
         <p className="mt-4 text-gray-600">
@@ -130,7 +129,7 @@ const RegistrationForm = ({ setIsLogin }) => {
               placeholder="Enter your password"
               className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
               id="password"
-              type="password"
+              type={`${seePassword ? 'text': 'password'}`}
               {...register("password", {
                 required: "Password is required",
                 minLength: {
@@ -139,8 +138,13 @@ const RegistrationForm = ({ setIsLogin }) => {
                 },
               })}
             />
-            <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <IoEyeOutline className="h-6 w-6 text-gray-400" />
+            <span
+              onClick={seeYourPassword}
+              className="absolute inset-y-0 end-0 grid place-content-center px-4"
+            >
+              <IoEyeOutline
+                className={`h-6 w-6 hover:cursor-pointer ${seePassword ? "text-purple-400" : "text-gray-400"}`}
+              />
             </span>
           </div>
           {errors.password && (
@@ -159,15 +163,20 @@ const RegistrationForm = ({ setIsLogin }) => {
               placeholder="Confirm your password"
               className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
               id="confirmPassword"
-              type="password"
+              type={`${seeConfirmPassword ? 'text': 'password'}`}
               {...register("confirmPassword", {
                 required: "Please confirm your password",
                 validate: (value) =>
                   value === password || "Passwords do not match",
               })}
             />
-            <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-              <IoEyeOutline className="h-6 w-6 text-gray-400" />
+            <span
+              onClick={()=> setSeeConfirmPassword(!seeConfirmPassword)}
+              className="absolute inset-y-0 end-0 grid place-content-center px-4"
+            >
+              <IoEyeOutline
+                className={`h-6 w-6 hover:cursor-pointer ${seeConfirmPassword ? "text-purple-400" : "text-gray-400"}`}
+              />
             </span>
           </div>
           {errors.confirmPassword && (

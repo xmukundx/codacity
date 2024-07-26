@@ -12,7 +12,9 @@
     text-shadow: gray 5px 0 10px;
     color: inherit;
   }
+  .purpleBtn {
 
+  }
 }
 
 * {
@@ -25,14 +27,6 @@
 /* react slick  */
 .slick-slide > div{
  margin: 0 10px;
-}
-.flexAdjustBtn{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  width: 96px;
-  border-radius: 10px;
 }
 
 /* textured color */
