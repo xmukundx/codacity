@@ -1,16 +1,27 @@
 "use client";
 import { IoEyeOutline } from "react-icons/io5";
-import { ButtonPurple} from "../../../components/utilityComponents/buttons"
+import { ButtonPurple } from "../../../components/utilityComponents/buttons";
 import RegistrationForm from "../../../components/sign-upForm";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 export default function SignIn() {
   const [isLogin, setIsLogin] = useState(true);
-  const [seePassword,setSeePassword] = useState(false)
+  const [seePassword, setSeePassword] = useState(false);
+
+  const seeYourPassword = () => setSeePassword(!seePassword);
 
 
-  const seeYourPassword = () => setSeePassword(!seePassword)
+  useEffect(() => {
+    const username = Cookies.get("username");
+    if (username) {
+      alert('You are already Signed in')
+      window.location.href = "/";
+    }
+  }, []);
+
+
   const {
     register,
     handleSubmit,
@@ -22,18 +33,30 @@ export default function SignIn() {
     try {
       const response = await fetch("/api/sign-in", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(data),
       });
-      if (!response.ok) {
-        alert("response error");
+
+      if (response.ok) {
+        alert("Signin Successful");
+        const responseData = await response.json();
+        console.log(responseData);
+        Cookies.set("username", responseData.firstName, {
+          path: "/",
+          expires: 1 / 24 });
+          window.location.href = "/";
+
       } else {
-        alert("Login successful");
+        const errorData = await response.json();
+        alert("Sign in failed", errorData);
       }
     } catch (error) {
-      alert("error while submitting: " + error);
+      console.error('error while submitting'+error);
     }
   };
+
   const password = watch("password", ""); //watch function provides a way to react to changes in the form field value.
 
   return (
@@ -94,7 +117,7 @@ export default function SignIn() {
                     placeholder="Enter your password"
                     className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
                     id="password"
-                    type={`${seePassword ? 'text' : 'password'}`}
+                    type={`${seePassword ? "text" : "password"}`}
                     {...register("password", {
                       required: "Password is required",
                       minLength: {
@@ -103,8 +126,13 @@ export default function SignIn() {
                       },
                     })}
                   />
-                  <span onClick={seeYourPassword} className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                    <IoEyeOutline className={`h-6 w-6 hover:cursor-pointer ${seePassword ? "text-purple-400" : "text-gray-400"}`} />
+                  <span
+                    onClick={seeYourPassword}
+                    className="absolute inset-y-0 end-0 grid place-content-center px-4"
+                  >
+                    <IoEyeOutline
+                      className={`h-6 w-6 hover:cursor-pointer ${seePassword ? "text-purple-400" : "text-gray-400"}`}
+                    />
                   </span>
                 </div>
                 {errors.password && (
@@ -133,7 +161,12 @@ export default function SignIn() {
         </div>
       ) : (
         <div>
-          <RegistrationForm setIsLogin={setIsLogin} seeYourPassword={seeYourPassword} seePassword={seePassword} setSeePassword={setSeePassword} />
+          <RegistrationForm
+            setIsLogin={setIsLogin}
+            seeYourPassword={seeYourPassword}
+            seePassword={seePassword}
+            setSeePassword={setSeePassword}
+          />
         </div>
       )}
     </div>

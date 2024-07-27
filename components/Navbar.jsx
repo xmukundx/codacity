@@ -2,8 +2,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { motion } from "framer-motion";
-import Searchbar from "./Searchbar";
-import { ButtonPurple } from "./utilityComponents/buttons"
+import Searchbar from "./searchbar";
+import { ButtonPurple } from "./utilityComponents/buttons";
 import Cookies from "js-cookie";
 
 const Navbar = () => {
@@ -11,18 +11,13 @@ const Navbar = () => {
   const [showCourseMenu, setShowCourseMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [courses, setCourses] = useState([]);
-
+  const username = Cookies.get("username");
 
   const firtName = "Coda".toUpperCase().split("");
   const secondName = "City".toUpperCase().split("");
 
-  const handleToggle = () => setTogglemobile(!togglemobile);
-  const toggleDropdown = () => setShowCourseMenu(!showCourseMenu);
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
-  };
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,6 +31,12 @@ const Navbar = () => {
     fetchData();
   }, []);
 
+  const handleToggle = () => setTogglemobile(!togglemobile);
+  const toggleDropdown = () => setShowCourseMenu(!showCourseMenu);
+
+  const handleSearchChange = (event) => setSearchQuery(event.target.value);
+
+  //search func
   const filteredCourses = courses.filter((course) =>
     course.courseName.toLowerCase().includes(searchQuery.toLowerCase()),
   );
@@ -106,32 +107,19 @@ const Navbar = () => {
             onMouseLeave={toggleDropdown}
           >
             <a href="/courses">Courses</a>
-            {/* {showCourseMenu && (
-              <ul className="absolute right-28 flex w-24 flex-col gap-5 rounded-l-md bg-white p-1 text-center md:right-auto md:top-12 md:bg-white">
-                {["Javascript", "Python", "Full stack"].map((course, idx) => (
-                  <li
-                    key={idx}
-                    className="cursor-pointer border-b border-black hover:text-purple-500"
-                  >
-                    {course}
-                  </li>
-                ))}
-              </ul>
-            )} */}
           </li>
           {["Contact", "About", "FAQs"].map((item, idx) => (
             <li key={idx} className="cursor-pointer hover:text-purple-500">
               <a href={`/${item.toLowerCase()}`}>{item}</a>
             </li>
           ))}
-          {Cookies.get("username") ?
-            (
-                <div>hello!</div>
-            ):(
-
-              <ButtonPurple ><a href="/sign-in">Sign In</a></ButtonPurple>
-            )
-          }
+          {username ? (
+            <div className="text-sm font-normal hover:text-purple-500" onClick={()=> Cookies.remove('username', {path: '/'})}>jnkkj</div>
+          ) : (
+            <ButtonPurple>
+              <a href="/sign-in">Sign In</a>
+            </ButtonPurple>
+          )}
         </ul>
       </div>
     </nav>

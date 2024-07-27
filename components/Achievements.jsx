@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Marquee from "./Marquee";
+import Marquee from "./marquee";
 
 const Achievements = () => {
   return (

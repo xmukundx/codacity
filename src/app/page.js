@@ -1,8 +1,8 @@
-import Achievements from "../../components/Achievements";
-import Aim from "../../components/Aim";
+import Achievements from "../../components/achievements";
+import Aim from "../../components/aim";
 import TrendingCourses from "../../components/CoursesCarousal";
-import Hero from "../../components/Hero";
-import Marqueediv from "../../components/Marquee";
+import Hero from "../../components/hero";
+import Marqueediv from "../../components/marquee";
 import Test from "../../components/test";
 import TestComponent from "../../components/testComponent";
 // import TestComponent from "../../components/testComponent";
