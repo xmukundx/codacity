@@ -28,7 +28,7 @@ const RegistrationForm = ({
     const slicedData = { firstName, lastName, email, password };
 
     try {
-      const response = await fetch("/api/students", {
+      const response = await fetch("/api/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

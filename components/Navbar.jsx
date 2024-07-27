@@ -129,7 +129,7 @@ const Navbar = () => {
                 <div>hello!</div>
             ):(
 
-              <ButtonPurple ><a href="/signin">Sign In</a></ButtonPurple>
+              <ButtonPurple ><a href="/sign-in">Sign In</a></ButtonPurple>
             )
           }
         </ul>

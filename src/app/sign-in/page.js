@@ -1,33 +1,16 @@
 "use client";
 import { IoEyeOutline } from "react-icons/io5";
-import { ButtonPurple } from "./utilityComponents/buttons";
-import { useState } from "react";
-import RegistrationForm from "./sign-upForm";
+import { ButtonPurple} from "../../../components/utilityComponents/buttons"
+import RegistrationForm from "../../../components/sign-upForm";
 import { useForm } from "react-hook-form";
-import Mymodal from "./utilityComponents/modal";
+import { useState } from "react";
 
-export default function Test() {
+export default function SignIn() {
   const [isLogin, setIsLogin] = useState(true);
-  const [student, setStudent] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [seePassword, setSeePassword] = useState(false)
-
-  //modal code starts
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-    
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  //modal code ends
-
-//see password
-const seeYourPassword = () => setSeePassword(!seePassword)
+  const [seePassword,setSeePassword] = useState(false)
 
 
+  const seeYourPassword = () => setSeePassword(!seePassword)
   const {
     register,
     handleSubmit,
@@ -37,7 +20,7 @@ const seeYourPassword = () => setSeePassword(!seePassword)
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("/api/login", {
+      const response = await fetch("/api/sign-in", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -55,8 +38,6 @@ const seeYourPassword = () => setSeePassword(!seePassword)
 
   return (
     <div className="">
-      <button onClick={handleOpenModal}>Open Modal</button>
-      {/* <Mymodal className='h-screen overflow-hidden ' isOpen={isModalOpen} onClose={handleCloseModal} /> */}
       {isLogin ? (
         <div
           id="form-page"
@@ -113,7 +94,7 @@ const seeYourPassword = () => setSeePassword(!seePassword)
                     placeholder="Enter your password"
                     className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
                     id="password"
-                    type={`${seePassword ? 'text': 'password'}`}
+                    type={`${seePassword ? 'text' : 'password'}`}
                     {...register("password", {
                       required: "Password is required",
                       minLength: {
@@ -123,7 +104,7 @@ const seeYourPassword = () => setSeePassword(!seePassword)
                     })}
                   />
                   <span onClick={seeYourPassword} className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                    <IoEyeOutline className={`h-6 w-6 hover:cursor-pointer ${seePassword ? 'text-purple-400':'text-gray-400'}`} />
+                    <IoEyeOutline className={`h-6 w-6 hover:cursor-pointer ${seePassword ? "text-purple-400" : "text-gray-400"}`} />
                   </span>
                 </div>
                 {errors.password && (
@@ -152,7 +133,7 @@ const seeYourPassword = () => setSeePassword(!seePassword)
         </div>
       ) : (
         <div>
-          <RegistrationForm setIsLogin={setIsLogin} seePassword={seePassword} setSeePassword={setSeePassword} seeYourPassword={seeYourPassword} />
+          <RegistrationForm setIsLogin={setIsLogin} seeYourPassword={seeYourPassword} seePassword={seePassword} setSeePassword={setSeePassword} />
         </div>
       )}
     </div>

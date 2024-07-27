@@ -1,3 +1,5 @@
+import React from "react";
+
 const ButtonPurple = ({ children }) => {
   return (
     <button className="rounded-lg border-2 bg-purple-600 px-1 md:px-5 py-1 md:py-2 text-white text-sm font-medium text-nowrap hover:border-purple-500 hover:bg-white hover:text-purple-600 active:bg-purple-100">
