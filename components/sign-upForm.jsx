@@ -4,14 +4,17 @@ import { useForm } from "react-hook-form";
 import { IoEyeOutline } from "react-icons/io5";
 import { ButtonPurple } from "./utilityComponents/buttons";
 
+
+
 const RegistrationForm = ({
+  isDisable,
+  setIsDisable,
   setIsLogin,
   seePassword,
   setSeePassword,
   seeYourPassword,
 }) => {
-
-  const [seeConfirmPassword, setSeeConfirmPassword] = useState(false)
+  const [seeConfirmPassword, setSeeConfirmPassword] = useState(false);
 
   const {
     register,
@@ -28,6 +31,8 @@ const RegistrationForm = ({
     const slicedData = { firstName, lastName, email, password };
 
     try {
+      setIsDisabled(true)
+  
       const response = await fetch("/api/sign-up", {
         method: "POST",
         headers: {
@@ -38,17 +43,21 @@ const RegistrationForm = ({
 
       if (response.ok) {
         alert("Registration successful!");
+        setIsLogin(true);
+        console.log(setIsLogin);
       } else {
         const errorData = await response.json();
-        console.error("Error saving student:", errorData);
+        if (response.status === 409) {
+          alert(errorData.message);
+        }
       }
     } catch (error) {
       console.error("Error saving student:", error);
     }
 
     event.preventDefault();
+    setIsDisabled(false);
   };
-
   return (
     <div id="registration-form" className="h-fit px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg text-center">
@@ -129,7 +138,7 @@ const RegistrationForm = ({
               placeholder="Enter your password"
               className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
               id="password"
-              type={`${seePassword ? 'text': 'password'}`}
+              type={`${seePassword ? "text" : "password"}`}
               {...register("password", {
                 required: "Password is required",
                 minLength: {
@@ -163,7 +172,7 @@ const RegistrationForm = ({
               placeholder="Confirm your password"
               className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
               id="confirmPassword"
-              type={`${seeConfirmPassword ? 'text': 'password'}`}
+              type={`${seeConfirmPassword ? "text" : "password"}`}
               {...register("confirmPassword", {
                 required: "Please confirm your password",
                 validate: (value) =>
@@ -171,7 +180,7 @@ const RegistrationForm = ({
               })}
             />
             <span
-              onClick={()=> setSeeConfirmPassword(!seeConfirmPassword)}
+              onClick={() => setSeeConfirmPassword(!seeConfirmPassword)}
               className="absolute inset-y-0 end-0 grid place-content-center px-4"
             >
               <IoEyeOutline
@@ -196,7 +205,7 @@ const RegistrationForm = ({
               Sign in
             </span>
           </p>
-          <ButtonPurple type="submit" className="ml-4">
+          <ButtonPurple disabled={isDisable} type="submit" className={`ml-4 ${isDisable? 'bg-gray-400':''}`}>
             Register
           </ButtonPurple>
         </div>

@@ -1,6 +1,6 @@
 export default function Aim() {
     return (
-      <section className="flex w-full flex-col justify-center py-3 pb-16 text-gray-800 sm:flex-row">
+      <section className="flex w-full flex-col justify-center py-3 text-gray-800 sm:flex-row">
         <div className="w-full sm:w-[50%] md:w-[40%]">
           <img
             src="./study.jpg"

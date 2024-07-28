@@ -1,2 +1,2 @@
-THINGS TO WORK ON 
-add no result on search bar 
+next commit mgs
+condition applied during signup if email already exist alert will be triggered

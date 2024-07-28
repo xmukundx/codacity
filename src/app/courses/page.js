@@ -5,7 +5,7 @@ import { BiSort } from "react-icons/bi";
 import { RiFilter2Fill } from "react-icons/ri";
 import { FaRupeeSign } from "react-icons/fa";
 import { MdOutlineWatchLater } from "react-icons/md";
-import Loader from "../../../components/utilityComponents/Loader";
+import Loader from "../../../components/utilityComponents/loader";
 import { slugify } from "@/utillity/slugify";
 
 const CoursePage = () => {

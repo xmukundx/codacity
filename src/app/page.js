@@ -1,6 +1,6 @@
 import Achievements from "../../components/achievements";
 import Aim from "../../components/aim";
-import TrendingCourses from "../../components/CoursesCarousal";
+import TrendingCourses from "../../components/coursesCarousal";
 import Hero from "../../components/hero";
 import Marqueediv from "../../components/marquee";
 import Test from "../../components/test";

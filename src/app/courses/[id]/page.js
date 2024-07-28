@@ -1,9 +1,12 @@
 "use client";
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import { ButtonPurple } from "../../../../components/utilityComponents/buttons";
-import Loader from "../../../../components/utilityComponents/Loader";
+import Loader from "../../../../components/utilityComponents/loader";
+import Cookies from "js-cookie";
 
 async function GetCourses(id) {
+  const username = Cookies.get("username");
+
   const response = await fetch(`/api/courses/${id}`);
   if (!response.ok) {
     throw new Error(`Failed to fetch courses: ${response.statusText}`);
@@ -35,7 +38,7 @@ const CourseDetailPage = ({ params }) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen-minus-navbar">
+      <div className="flex h-screen-minus-navbar items-center justify-center">
         <Loader />
       </div>
     );
@@ -50,7 +53,9 @@ const CourseDetailPage = ({ params }) => {
   }
 
   if (!course) {
-    return <div className="text-center text-red-500 h-screen-minus-navbar"></div>;
+    return (
+      <div className="h-screen-minus-navbar text-center text-red-500"></div>
+    );
   }
 
   const {
@@ -64,14 +69,22 @@ const CourseDetailPage = ({ params }) => {
     popularity,
   } = course;
 
+
+  const buyCourseFunc = ()=> {
+    if (username){
+
+    }
+  }
   return (
     <div
       id="course-detail-page"
-      className="container mx-auto h-screen px-4 py-8"
+      className="container h-screen px-4 py-8 "
     >
-      <h1 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">{courseName}</h1>
+      <h1 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
+        {courseName}
+      </h1>
       <p className="mb-6 text-gray-700 md:text-lg">{aboutCourse}</p>
-      
+
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="flex items-center">
           <span className="mr-2 font-medium text-gray-700">Duration:</span>
@@ -98,9 +111,9 @@ const CourseDetailPage = ({ params }) => {
           <span className="text-gray-500">{popularity}</span>
         </div>
       </div>
-      
+
       <div className="mt-8 flex justify-center">
-        <ButtonPurple className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+        <ButtonPurple onclick={buyCourseFunc} className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
           Buy Now - ₹{price}
         </ButtonPurple>
       </div>

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { motion } from "framer-motion";
 import Searchbar from "./searchbar";
@@ -8,16 +8,28 @@ import Cookies from "js-cookie";
 
 const Navbar = () => {
   const [togglemobile, setTogglemobile] = useState(false);
-  const [showCourseMenu, setShowCourseMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [courses, setCourses] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
   const username = Cookies.get("username");
+  const dropdownRef = useRef(null);
 
   const firtName = "Coda".toUpperCase().split("");
   const secondName = "City".toUpperCase().split("");
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
-  
+  //fetching data for searchbar through useEffect
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,9 +42,6 @@ const Navbar = () => {
     };
     fetchData();
   }, []);
-
-  const handleToggle = () => setTogglemobile(!togglemobile);
-  const toggleDropdown = () => setShowCourseMenu(!showCourseMenu);
 
   const handleSearchChange = (event) => setSearchQuery(event.target.value);
 
@@ -72,7 +81,7 @@ const Navbar = () => {
       </a>
       <div className="flex flex-col">
         <GiHamburgerMenu
-          onClick={handleToggle}
+          onClick={() => setTogglemobile((prev) => !prev)}
           className={`z-10 text-3xl duration-500 ${
             togglemobile ? "rotate-180 transform text-purple-500" : ""
           } cursor-pointer md:hidden`}
@@ -101,11 +110,7 @@ const Navbar = () => {
               </ul>
             )}
           </li>
-          <li
-            className="hover:text-purple-500"
-            onMouseEnter={toggleDropdown}
-            onMouseLeave={toggleDropdown}
-          >
+          <li className="hover:text-purple-500">
             <a href="/courses">Courses</a>
           </li>
           {["Contact", "About", "FAQs"].map((item, idx) => (
@@ -113,13 +118,42 @@ const Navbar = () => {
               <a href={`/${item.toLowerCase()}`}>{item}</a>
             </li>
           ))}
-          {username ? (
-            <div className="text-sm font-normal hover:text-purple-500" onClick={()=> Cookies.remove('username', {path: '/'})}>jnkkj</div>
-          ) : (
-            <ButtonPurple>
-              <a href="/sign-in">Sign In</a>
-            </ButtonPurple>
-          )}
+          <li className="">
+            {username ? (
+              <span
+                className="cursor-pointer font-bold text-purple-500 hover:text-purple-700"
+                onClick={() => setShowDropdown((prev) => !prev)}
+              >
+                {username}
+              </span>
+            ) : (
+              <span>
+
+              <ButtonPurple>
+                <a href="/sign-in">Sign In</a>
+              </ButtonPurple>
+              </span>
+            )}
+          </li>
+          
+          {showDropdown && (
+              <span>
+                <ul
+                  id="dropdown"
+                  className="absolute right-6 top-10 bg-white"
+                  // ref={dropdownRef}
+                >
+                  <li
+                    onClick={() => Cookies.remove("username", { path: "/" })}
+                    className="p-2"
+                  >
+                    Logout
+                  </li>
+                  {/* <li>ncsnd</li>
+                  <li>ssjjs</li> */}
+                </ul>
+              </span>
+            )}
         </ul>
       </div>
     </nav>

@@ -8,8 +8,10 @@ import Cookies from "js-cookie";
 
 export default function SignIn() {
   const [isLogin, setIsLogin] = useState(true);
+  const [isDisable, setIsDisable] = useState(false);
   const [seePassword, setSeePassword] = useState(false);
 
+  
   const seeYourPassword = () => setSeePassword(!seePassword);
 
 
@@ -31,6 +33,7 @@ export default function SignIn() {
 
   const onSubmit = async (data) => {
     try {
+      setIsDisable(true); 
       const response = await fetch("/api/sign-in", {
         method: "POST",
         headers: {
@@ -46,12 +49,14 @@ export default function SignIn() {
         Cookies.set("username", responseData.firstName, {
           path: "/",
           expires: 1 / 24 });
+
           window.location.href = "/";
 
       } else {
         const errorData = await response.json();
         alert("Sign in failed", errorData);
       }
+      setIsDisable(false);
     } catch (error) {
       console.error('error while submitting'+error);
     }
@@ -64,16 +69,13 @@ export default function SignIn() {
       {isLogin ? (
         <div
           id="form-page"
-          className="h-screen-minus-navbar px-4 py-16 sm:px-6 lg:px-8"
+          className="h-screen-minus-navbar px-4 py-16 sm:px-6 lg:px-8 overflow-scroll"
         >
           <main>
             <div className="mx-auto max-w-lg text-center">
               <h1 className="text-2xl font-bold sm:text-3xl">Welcome Back!</h1>
               <p className="mt-4 text-gray-600">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et
-                libero nulla eaque error neque ipsa culpa autem, at itaque
-                nostrum!
-              </p>
+              Sign in to access your account and enjoy the full range of features our platform offers. Please enter your credentials below.</p>
             </div>
 
             <form
@@ -152,7 +154,8 @@ export default function SignIn() {
                     Create one
                   </span>
                 </p>
-                <ButtonPurple type="submit" className="">
+                <button></button>
+                <ButtonPurple disable={isDisable} type="submit" className={`${isDisable? 'bg-black':''}`}>
                   Sign in
                 </ButtonPurple>
               </div>
@@ -161,11 +164,14 @@ export default function SignIn() {
         </div>
       ) : (
         <div>
-          <RegistrationForm
+          <RegistrationForm 
+          isDisabled={isDisable}
+          setIsDisable={setIsDisable}
             setIsLogin={setIsLogin}
             seeYourPassword={seeYourPassword}
             seePassword={seePassword}
             setSeePassword={setSeePassword}
+
           />
         </div>
       )}
