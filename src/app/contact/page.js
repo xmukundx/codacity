@@ -86,7 +86,6 @@ const Contact = () => {
           {errors.name && (
             <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>
           )}
-
           <label className="font-medium" htmlFor="phone">
             Phone Number
           </label>
@@ -107,7 +106,6 @@ const Contact = () => {
           {errors.phone && (
             <p className="mt-1 text-xs text-red-500">{errors.phone.message}</p>
           )}
-
           <label className="font-medium" htmlFor="message">
             Your Message
           </label>
@@ -118,7 +116,7 @@ const Contact = () => {
             id="message"
             rows="4"
             {...register("message", { required: "Message is required" })}
-          ></textarea>
+          ></textarea>     
           {errors.message && (
             <p className="mt-1 text-xs text-red-500">
               {errors.message.message}
@@ -132,6 +130,7 @@ const Contact = () => {
           <span className="mt-2">{result}</span>
         </form>
       </div>
+      
     </section>
   );
 };

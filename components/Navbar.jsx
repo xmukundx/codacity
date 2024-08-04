@@ -11,7 +11,8 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [courses, setCourses] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
-  const username = Cookies.get("username");
+  const [username, setUsername] = useState(null); // State to hold username
+  const [userEmail, setUserEmail] = useState(null); // State to hold user email
   const dropdownRef = useRef(null);
 
   const firtName = "Coda".toUpperCase().split("");
@@ -22,14 +23,29 @@ const Navbar = () => {
       setShowDropdown(false);
     }
   };
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
 
-  //fetching data for searchbar through useEffect
+  useEffect(() => {
+    const email = Cookies.get("username"); // Get the email from the cookie
+    const fetchUserDetails = async (email) => {
+      try {
+        const response = await fetch(`/api/sign-in/${email}`);
+        if (response.ok) {
+          const user = await response.json();
+          setUsername(user.firstName);
+        } else {
+          console.error("Error fetching user details");
+        }
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+
+    if (email) {
+      setUserEmail(email);
+      fetchUserDetails(email);
+    }
+  }, [userEmail]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,13 +61,23 @@ const Navbar = () => {
 
   const handleSearchChange = (event) => setSearchQuery(event.target.value);
 
-  //search func
+  const handleLogout = () => {
+    Cookies.remove("username", { path: "/" });
+    setUsername(null);
+    setUserEmail(null);
+    showDropdown(false)
+    alert("You are logged out");
+  };
+
   const filteredCourses = courses.filter((course) =>
     course.courseName.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   return (
-    <nav className="fixed top-0 z-10 flex h-16 w-full justify-between border-b-2 border-black bg-white px-3 py-2 text-gray-800">
+    <nav
+      onClick={handleClickOutside}
+      className="fixed top-0 z-10 flex h-16 w-full justify-between border-b-2 border-black bg-white px-3 py-2 text-gray-800"
+    >
       <a
         href="/"
         className="flex h-full cursor-pointer items-center text-3xl md:text-3xl lg:text-4xl"
@@ -118,42 +144,38 @@ const Navbar = () => {
               <a href={`/${item.toLowerCase()}`}>{item}</a>
             </li>
           ))}
-          <li className="">
+          <li className="relative">
             {username ? (
               <span
                 className="cursor-pointer font-bold text-purple-500 hover:text-purple-700"
-                onClick={() => setShowDropdown((prev) => !prev)}
+                onClick={() => setShowDropdown(!showDropdown)}
               >
                 {username}
               </span>
             ) : (
               <span>
-
-              <ButtonPurple>
-                <a href="/sign-in">Sign In</a>
-              </ButtonPurple>
+                <ButtonPurple>
+                  <a href="/sign-in">Sign In</a>
+                </ButtonPurple>
               </span>
             )}
-          </li>
-          
-          {showDropdown && (
+            {showDropdown && (
               <span>
                 <ul
                   id="dropdown"
-                  className="absolute right-6 top-10 bg-white"
-                  // ref={dropdownRef}
+                  className="absolute top-8 md:top-10 bg-white"
+                  ref={dropdownRef}
                 >
-                  <li
-                    onClick={() => Cookies.remove("username", { path: "/" })}
-                    className="p-2"
-                  >
+                  <li className="cursor-pointer p-1">
+                    <a href="/profile">Profile</a>
+                  </li>
+                  <li onClick={handleLogout} className="cursor-pointer p-1">
                     Logout
                   </li>
-                  {/* <li>ncsnd</li>
-                  <li>ssjjs</li> */}
                 </ul>
               </span>
             )}
+          </li>
         </ul>
       </div>
     </nav>

@@ -46,7 +46,7 @@ export default function SignIn() {
         alert("Signin Successful");
         const responseData = await response.json();
         console.log(responseData);
-        Cookies.set("username", responseData.firstName, {
+        Cookies.set("username", responseData.email, {
           path: "/",
           expires: 1 / 24 });
 

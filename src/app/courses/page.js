@@ -33,7 +33,7 @@ const CoursePage = () => {
 
   if (isLoading) {  // during fetch loader will be shown
     return (
-      <div className="item-center flex h-screen-minus-navbar justify-center">
+      <div className="grid place-item-center h-screen-minus-navbar">
         <Loader />
       </div>
     );

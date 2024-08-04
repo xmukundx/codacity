@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import Course from "../../../../../lib/models/course";
 
 export async function GET(req, {params}) {
-// console.log(params);
+
     try {
         // connecting with mongo
         if (!mongoose.connections[0].readyState) {
@@ -12,7 +12,7 @@ export async function GET(req, {params}) {
         }
         const allCourses = await Course.find({});
 
-        // console.log(allCourses);
+        // filtering to get the selected course
         const courseId = allCourses.filter((item)=> item.id === params.id) 
         console.log(courseId);
         

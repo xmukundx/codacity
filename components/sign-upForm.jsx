@@ -7,8 +7,7 @@ import { ButtonPurple } from "./utilityComponents/buttons";
 
 
 const RegistrationForm = ({
-  isDisable,
-  setIsDisable,
+
   setIsLogin,
   seePassword,
   setSeePassword,
@@ -25,15 +24,13 @@ const RegistrationForm = ({
 
   const password = watch("password", ""); //watch function provides a way to react to changes in the form field value.
 
-  //data post
   const onSubmit = async (data, event) => {
     const { firstName, lastName, email, password, ...rest } = data; // Destructure the first 4 keys
     const slicedData = { firstName, lastName, email, password };
 
     try {
-      setIsDisabled(true)
   
-      const response = await fetch("/api/sign-up", {
+      const response = await fetch("/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -52,11 +49,10 @@ const RegistrationForm = ({
         }
       }
     } catch (error) {
-      console.error("Error saving student:", error);
+      console.error("Error saving user:", error);
     }
 
     event.preventDefault();
-    setIsDisabled(false);
   };
   return (
     <div id="registration-form" className="h-fit px-4 py-16 sm:px-6 lg:px-8">
@@ -205,7 +201,7 @@ const RegistrationForm = ({
               Sign in
             </span>
           </p>
-          <ButtonPurple disabled={isDisable} type="submit" className={`ml-4 ${isDisable? 'bg-gray-400':''}`}>
+          <ButtonPurple type="submit" className={`ml-4 `}>
             Register
           </ButtonPurple>
         </div>
