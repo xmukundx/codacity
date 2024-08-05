@@ -25,7 +25,7 @@ export default function ProfilePage() {
       }
     };
 
-    const email = Cookies.get("username");
+    const email = Cookies.get("email");
     if (email) {
       fetchUserDetails(email);
     } else {
@@ -62,6 +62,7 @@ export default function ProfilePage() {
               <p className="flex justify-between pb-3">
                 <span>Date of join:</span>
                 <span>{user.updatedAt.slice(0,10)}</span>
+                {/* <span>{user.purchasedCourses.map((i)=> <p>{i}</p>)}</span> */}
               </p>
             </div>
           </div>

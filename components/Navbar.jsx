@@ -25,7 +25,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const email = Cookies.get("username"); // Get the email from the cookie
+    const email = Cookies.get("email"); // Get the email from the cookie
     const fetchUserDetails = async (email) => {
       try {
         const response = await fetch(`/api/sign-in/${email}`);
@@ -136,10 +136,8 @@ const Navbar = () => {
               </ul>
             )}
           </li>
-          <li className="hover:text-purple-500">
-            <a href="/courses">Courses</a>
-          </li>
-          {["Contact", "About", "FAQs"].map((item, idx) => (
+          {/* creating navigation with li & map */}
+          {["Courses", "Contact", "About", "FAQs"].map((item, idx) => (
             <li key={idx} className="cursor-pointer hover:text-purple-500">
               <a href={`/${item.toLowerCase()}`}>{item}</a>
             </li>

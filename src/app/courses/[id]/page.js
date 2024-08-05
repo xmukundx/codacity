@@ -61,23 +61,23 @@ const CourseDetailPage = ({ params }) => {
   }
 
   const buyCourseFunc = async () => {
-    const username = Cookies.get("username");
-    if (!username) {
+    const email = Cookies.get("email"); // Assuming you set a userId cookie on login
+    const _id = params.id;
+    if (!email) {
       alert("You need to log in to purchase this course.");
       window.location.href = "/sign-in";
     }
-
     try {
-      const userId = Cookies.get("username"); // Assuming you set a userId cookie on login
-      const id = params.id
-      // console.log(userId, id);
-      const response = await fetch("/api/courses/purchase", {
+      const response = await fetch("/api/purchase", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId, id }),
+        body: JSON.stringify({ email, _id }),
       });
+
+      console.log("Request sent", { email, _id });
+
       if (response.ok) {
         alert("Course purchased successfully!");
       } else {
@@ -89,10 +89,6 @@ const CourseDetailPage = ({ params }) => {
     }
   };
 
-  
-
-
-  
   if (course) {
     const {
       courseName,
@@ -105,17 +101,17 @@ const CourseDetailPage = ({ params }) => {
       popularity,
     } = course;
     return (
-      <div id="course-detail-page" className=" md:h-screen-minus-navbar pb-8">
-        <div className="flex h-[40%]  md:h-[30%] w-full flex-col items-center justify-center bg-gradient-to-r from-pink-500 to-orange-400 ">
-          <h2 className="p-1 font-bold md:outline text-3xl lg:text-5xl">
+      <div id="course-detail-page" className="pb-8 h-fit md:h-screen-minus-navbar">
+        <div className="flex h-[40%] w-full flex-col items-center justify-center bg-gradient-to-r from-pink-500 to-orange-400 md:h-[30%]">
+          <h2 className="p-1 text-3xl font-bold md:outline lg:text-5xl">
             {courseName}
           </h2>
         </div>
         <div className="font-semibold">
-          <p className="mb-6 pt-8 text-gray-700 md:px-16 sm:px-3 md:w-8/12 md:text-2xl px-1">
+          <p className="mb-6 px-1 pt-8 text-gray-700 sm:px-3 md:w-8/12 md:px-16 md:text-2xl">
             {aboutCourse}
           </p>
-          <div className="grid w-full grid-cols-1 gap-4 md:px-16 sm:grid-cols-2 px-1 sm:px-3 md:gap-8">
+          <div className="grid w-full grid-cols-1 gap-4 px-1 sm:grid-cols-2 sm:px-3 md:gap-8 md:px-16">
             <div>
               <span className="font-medium text-gray-700">Duration:</span>
               <span className="text-gray-500">{duration}</span>
@@ -167,11 +163,10 @@ const CourseDetailPage = ({ params }) => {
                 <div className="flex justify-between">
                   <span>Course Duration: </span> <span>{duration}</span>
                 </div>
-                <span className="flex justify-end mt-10">
+                <span className="mt-10 flex justify-end">
                   <ButtonPurple onClick={buyCourseFunc}>
                     Total Amount: ₹{price}
                   </ButtonPurple>
-                  
                 </span>
               </div>
             </div>
@@ -180,5 +175,5 @@ const CourseDetailPage = ({ params }) => {
       </div>
     );
   }
-}
+};
 export default CourseDetailPage;

@@ -16,8 +16,8 @@ export default function SignIn() {
 
 
   useEffect(() => {
-    const username = Cookies.get("username");
-    if (username) {
+    const email = Cookies.get("email");
+    if (email) {
       alert('You are already Signed in')
       window.location.href = "/";
     }
@@ -46,7 +46,7 @@ export default function SignIn() {
         alert("Signin Successful");
         const responseData = await response.json();
         console.log(responseData);
-        Cookies.set("username", responseData.email, {
+        Cookies.set("email", responseData.email, {
           path: "/",
           expires: 1 / 24 });
 

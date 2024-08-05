@@ -14,7 +14,7 @@ export async function GET(req, {params}) {
 
         // filtering to get the selected course
         const courseId = allCourses.filter((item)=> item.id === params.id) 
-        console.log(courseId);
+       
         
         
         return NextResponse.json(courseId.length === 0? {result:'no data', success:false}:{result:courseId[0], success:true})
