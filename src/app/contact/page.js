@@ -70,13 +70,13 @@ const Contact = () => {
       <div id="right" className="my-5 w-full flex-1 sm:my-0 lg:ml-10">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex w-[90%] flex-col text-base sm:w-[90%] sm:gap-1 sm:text-base md:gap-2 lg:w-4/6 lg:w-[80%]"
+          className="flex w-[90%] flex-col text-base sm:w-[90%] sm:gap-1 sm:text-base md:gap-2 lg:w-4/6 "
         >
           <label className="font-medium" htmlFor="name">
             Your Name
           </label>
           <input
-            className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-md focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
             placeholder="Enter your name"
             type="text"
             name="name"
@@ -90,7 +90,7 @@ const Contact = () => {
             Phone Number
           </label>
           <input
-            className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-md focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
             placeholder="Enter your phone number"
             type="text"
             name="phone"
@@ -110,7 +110,7 @@ const Contact = () => {
             Your Message
           </label>
           <textarea
-            className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
+            className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-md focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
             placeholder="Enter your message"
             name="message"
             id="message"
@@ -122,8 +122,8 @@ const Contact = () => {
               {errors.message.message}
             </p>
           )}
-          <span>
-            <ButtonPurple type="submit" className="mt-4">
+          <span className="pt-4">
+            <ButtonPurple type="submit" className="">
               Submit
             </ButtonPurple>
           </span>

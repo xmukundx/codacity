@@ -1,10 +1,10 @@
 export default function Aim() {
     return (
-      <section className="flex w-full flex-col justify-center py-3 text-gray-800 sm:flex-row">
+      <section className="flex w-full flex-col justify-center h-fit pt-3 pb-16 text-gray-800 sm:flex-row">
         <div className="w-full  sm:w-[50%] md:w-[40%]">
           <img
             src="./study.jpg"
-            className="mx-auto h-64 w-9/12 object-cover py-2 px-5 sm:h-96 md:h-[63%]"
+            className="mx-auto w-9/12 object-cover py-2 px-5 sm:h-96 "
             alt=""
           />
           {/* <img src="" className="play_icon" alt="" /> */}

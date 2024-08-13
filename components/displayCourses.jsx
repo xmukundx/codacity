@@ -1,61 +1,10 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import Loader from "./utilityComponents/loader";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchCourses } from "../lib/redux/coursesSlice";
-import Pagination from "./pagination";
-import DisplayCourses from "./displayCourses";
-import Filter from "./filter";
+import React from "react";
 import { FaRupeeSign } from "react-icons/fa";
 import { MdOutlineWatchLater } from "react-icons/md";
 
-
-const Test = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, setPostPerPage] = useState(6);
-  const [courses, setCourses] = useState([]); 
-
-  const lastPostIndex = currentPage * postPerPage;
-  const firstPostIndex = lastPostIndex - postPerPage;
-
-  const { loading, error } = useSelector((state) => state.courses);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const fetchedCourses = await dispatch(fetchCourses()); // Dispatch action
-        setCourses(fetchedCourses); // Update local state
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-      }
-    };
-
-    fetchData();
-  }, [dispatch]);
-
-  const coursePerPage = courses.slice(firstPostIndex, lastPostIndex);
-
-  if (loading) {
-    // during fetch loader will be shown
-    return (
-      <div className="place-item-center grid h-screen-minus-navbar">
-        <Loader />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="grid h-screen-minus-navbar place-items-center">
-        {error.message}
-      </div>
-    );
-  }
+const DisplayCourses = ({ coursePerPage }) => {
   return (
-    <main className="">
-      <Filter/>
-      {/* <DisplayCourses coursePerPage={coursePerPage} /> */}
-      <div className="grid w-full justify-around justify-items-center gap-8 p-2 sm:gap-6 sm:p-4 md:grid-cols-2 lg:grid-cols-[repeat(3,350px)]">
+    <div className="grid w-full justify-around justify-items-center gap-8 p-2 sm:gap-6 sm:p-4 md:grid-cols-2 lg:grid-cols-[repeat(3,350px)]">
       {coursePerPage.map((item) => (
         <a
           href={`/courses/${item._id}`}
@@ -101,16 +50,7 @@ const Test = () => {
         </a>
       ))}
     </div>
-      <div className="flex-grow justify-end">
-        <Pagination
-          totalPosts={courses.length}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          postPerPage={postPerPage}
-        />
-      </div>
-    </main>
   );
 };
 
-export default Test;
+export default DisplayCourses;

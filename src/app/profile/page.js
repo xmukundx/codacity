@@ -2,11 +2,17 @@
 import { useState, useEffect } from "react";
 import Loader from "../../../components/utilityComponents/loader";
 import Cookies from "js-cookie";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCourses } from "../../../lib/redux/coursesSlice";
+
+
+
 
 export default function ProfilePage() {
   const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
+  // const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch()
+  const {courses} = useSelector((state)=> state.courses)
   useEffect(() => {
     const fetchUserDetails = async (email) => {
       try {
@@ -24,6 +30,12 @@ export default function ProfilePage() {
         setIsLoading(false);
       }
     };
+  useEffect(()=>{ 
+    dispatch(fetchCourses())
+
+  },[])
+
+
 
     const email = Cookies.get("email");
     if (email) {

@@ -4,11 +4,6 @@ import TrendingCourses from "../../components/coursesCarousal";
 import Hero from "../../components/hero";
 import Marqueediv from "../../components/marquee";
 import Test from "../../components/test";
-import TestComponent from "../../components/testComponent";
-// import TestComponent from "../../components/testComponent";
-import Modal from '../../components/utilityComponents/modal'
-import Mymodal from "../../components/utilityComponents/modal";
-
 import Title from "../../components/utilityComponents/title";
 
 export default function Home() {

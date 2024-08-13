@@ -1,26 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
-import Button, { ButtonGray } from "./utilityComponents/buttons";
-import { FaLongArrowAltRight } from "react-icons/fa";
 import { Parallax } from "react-parallax";
 
 const Hero = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
-
   return (
     <Parallax
       strength={400}
       bgImage={"./codebg1.jpg"}
       className="item-center flex h-screen-minus-navbar w-full flex-col justify-center bg-gradient-to- p-3 text-black sm:bg-top"
       id="hero-section"
-      // style={{
-      //   background: `linear-gradient(
-      //   to bottom,
-      //   rgb(25 5 0 / 50%),
-      //   rgb(40 0 255 / 50%)
-      // ),url(./codebg1.jpg)`,
-      //   backgroundSize: "cover",
-      // }}
+    
     >
       <div className="backdrop-saturate-180 bg-opacity-75 text-gray-200 backdrop-blur-md">
         <div

@@ -5,18 +5,29 @@ import { motion } from "framer-motion";
 import Searchbar from "./searchbar";
 import { ButtonPurple } from "./utilityComponents/buttons";
 import Cookies from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCourses } from "../lib/redux/coursesSlice";
 
 const Navbar = () => {
   const [togglemobile, setTogglemobile] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [courses, setCourses] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [username, setUsername] = useState(null); // State to hold username
-  const [userEmail, setUserEmail] = useState(null); // State to hold user email
   const dropdownRef = useRef(null);
+  const hasFetchedUserDetails = useRef(false); 
 
   const firtName = "Coda".toUpperCase().split("");
   const secondName = "City".toUpperCase().split("");
+
+
+
+  const { courses, loading, error } = useSelector((state) => state.courses);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCourses());
+  }, [dispatch]);
+  
+  
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -25,53 +36,41 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const email = Cookies.get("email"); // Get the email from the cookie
-    const fetchUserDetails = async (email) => {
-      try {
-        const response = await fetch(`/api/sign-in/${email}`);
-        if (response.ok) {
-          const user = await response.json();
-          setUsername(user.firstName);
-        } else {
-          console.error("Error fetching user details");
+    const email = Cookies.get("email");
+
+    if (email && !hasFetchedUserDetails.current) {
+      const fetchUserDetails = async (email) => {
+        try {
+          const response = await fetch(`/api/sign-in/${email}`);
+          if (response.ok) {
+            const user = await response.json();
+            setUsername(user.firstName);
+          } else {
+            console.error("Error fetching user details");
+          }
+        } catch (error) {
+          console.error("Error fetching user details:", error);
+        } finally {
+          hasFetchedUserDetails.current = true; // Mark as fetched
         }
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-      }
-    };
-
-    if (email) {
-      setUserEmail(email);
+      };
       fetchUserDetails(email);
-    }
-  }, [userEmail]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/courses");
-        const data = await response.json();
-        setCourses(data);
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-      }
-    };
-    fetchData();
+    } 
   }, []);
 
   const handleSearchChange = (event) => setSearchQuery(event.target.value);
-
+  
   const handleLogout = () => {
-    Cookies.remove("username", { path: "/" });
+    Cookies.remove("email", { path: "/" });
+    sessionStorage.removeItem("userDetails"); // Clear cached user details
     setUsername(null);
-    setUserEmail(null);
-    showDropdown(false)
+    setShowDropdown(false);
     alert("You are logged out");
   };
-
+  
   const filteredCourses = courses.filter((course) =>
     course.courseName.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+);
 
   return (
     <nav
@@ -124,7 +123,7 @@ const Navbar = () => {
             />
 
             {searchQuery.length > 0 && togglemobile && (
-              <ul className="absolute right-4 w-fit text-nowrap rounded-md bg-white text-gray-800 md:right-auto md:top-14">
+              <ul className="absolute right-4 w-fit text-nowrap rounded-md z-50 bg-black text-gray-800 md:right-auto md:top-14">
                 {filteredCourses.slice(0, 5).map((course, indx) => (
                   <li
                     key={indx}
@@ -133,12 +132,13 @@ const Navbar = () => {
                     {course.courseName.slice(0, 35) + "..."}
                   </li>
                 ))}
+                <div>hello</div>
               </ul>
             )}
           </li>
           {/* creating navigation with li & map */}
           {["Courses", "Contact", "About", "FAQs"].map((item, idx) => (
-            <li key={idx} className="cursor-pointer hover:text-purple-500">
+            <li key={idx} className="cursor-pointer hover:text-purple-500 active:scale-[0.98] duration-300">
               <a href={`/${item.toLowerCase()}`}>{item}</a>
             </li>
           ))}

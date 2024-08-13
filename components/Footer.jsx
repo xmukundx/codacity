@@ -25,8 +25,8 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="relative bottom-0 flex h-fit w-full bg-gray-700 text-xs text-white md:text-sm">
-      <section className="flex w-full items-center justify-evenly px-2 py-3 md:justify-between md:px-5 md:font-semibold">
+    <footer className="relative bottom-0 flex h-24 w-full bg-gray-700 text-xs text-white sm:text-sm">
+      <section className="flex flex-col sm:flex-row w-full items-center justify-evenly px-2 py-3 md:justify-between md:px-5 md:font-semibold">
         <div id="left">
           <p>
             <span className="inline-block md:mr-1" aria-label="Copyright">
@@ -35,7 +35,7 @@ const Footer = () => {
             2024 Codacity. All rights reserved.
           </p>
         </div>
-        <div className="hidden px-1 text-3xl font-thin md:block">|</div>
+        {/* <div className="hidden px-1 text-3xl font-thin md:block">|</div> */}
         <div id="right">
           <ul className="flex gap-2 md:gap-5">
             <li>

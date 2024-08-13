@@ -154,8 +154,7 @@ export default function SignIn() {
                     Create one
                   </span>
                 </p>
-                <button></button>
-                <ButtonPurple disable={isDisable} type="submit" className={`${isDisable? 'bg-black':''}`}>
+                <ButtonPurple disable={isDisable} >
                   Sign in
                 </ButtonPurple>
               </div>

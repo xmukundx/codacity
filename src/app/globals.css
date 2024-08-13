@@ -15,6 +15,9 @@
   .purpleBtn {
 
   }
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgb(173, 4, 173);
+  }
 }
 
 * {
