@@ -49,10 +49,10 @@ const CoursePage = () => {
   }
   return (
     <>
-      <div className="h-screen-minus-navbar">
+      <div className="h-fit  lg:h-screen-minus-navbar">
         <DisplayCourses coursePerPage={coursePerPage} />
       </div>
-      <div className="grid place-items-center relative -top-16">
+      <div className="grid place-items-center relative -top-12">
           <Pagination
             totalPosts={courses.length}
             currentPage={currentPage}
