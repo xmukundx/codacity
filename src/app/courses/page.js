@@ -10,7 +10,6 @@ import Filter from "../../../components/filter";
 const CoursePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(6);
-  // const [courses, setCourses] = useState([]);
 
   const lastPostIndex = currentPage * postPerPage;
   const firstPostIndex = lastPostIndex - postPerPage;
