@@ -1,4 +1,4 @@
-const data = [
+const CourseData = [
   {
     id: 1,
     courseName: "Mastering Python for Beginners",
@@ -170,4 +170,4 @@ const data = [
   },
 ];
 
-export default data;
+export default CourseData;

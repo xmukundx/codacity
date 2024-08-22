@@ -1,45 +1,80 @@
 "use client";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useReducer, useMemo } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { motion } from "framer-motion";
 import Searchbar from "./searchbar";
 import { ButtonPurple } from "./utilityComponents/buttons";
 import Cookies from "js-cookie";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCourses } from "../lib/redux/coursesSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  LoadingTrue,
+  LoadingFalse,
+  fetchCourses,
+} from "../lib/redux/coursesSlice";
 
 const Navbar = () => {
-  const [togglemobile, setTogglemobile] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showDropdown, setShowDropdown] = useState(false);
+  const { courses, loading, error } = useSelector((state) => state.courses); // redux code
+  const reduxDispatch = useDispatch();
   const [username, setUsername] = useState(null); // State to hold username
   const dropdownRef = useRef(null);
-  const hasFetchedUserDetails = useRef(false); 
+
+  //useReducer code starts
+  const initialState = {
+    toggleMobile: false,
+    searchQuery: "",
+    showDropdown: false,
+    username: "",
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "TOGGLE_MOBILE":
+        return { ...state, toggleMobile: !state.toggleMobile };
+      case "UPDATE_SEARCH_QUERY":
+        return { ...state, searchQuery: action.payload };
+      case "TOGGLE_DROPDOWN":
+        return { ...state, showDropdown: !state.showDropdown };
+        case "False_DROPDOWN":
+          return { ...state, showDropdown: false };
+  
+      default:
+        return state;
+    }
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
+  //useReducer code ends
 
   const firtName = "Coda".toUpperCase().split("");
   const secondName = "City".toUpperCase().split("");
 
-
-
-  const { courses, loading, error } = useSelector((state) => state.courses);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchCourses());
-  }, [dispatch]);
-  
-  
-
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setShowDropdown(false);
+      dispatch({type: "False_DROPDOWN"})
     }
   };
 
   useEffect(() => {
-    const email = Cookies.get("email");
+    const fetchData = async () => {
+      try {
+        reduxDispatch(fetchCourses()); // Dispatch action
+      } catch (error) {
+        console.error("Error fetching courses:", error);
+      }
+    };
 
-    if (email && !hasFetchedUserDetails.current) {
+    fetchData();
+    console.log("useeffect fetchData");
+  }, [reduxDispatch, fetchCourses]);
+
+  const email = Cookies.get("email");
+
+  if (email) {
+    useEffect(() => {
+      console.log("from email useEffect");
       const fetchUserDetails = async (email) => {
+        reduxDispatch(LoadingTrue());
+        // console.log(loading);
+
         try {
           const response = await fetch(`/api/sign-in/${email}`);
           if (response.ok) {
@@ -50,27 +85,31 @@ const Navbar = () => {
           }
         } catch (error) {
           console.error("Error fetching user details:", error);
-        } finally {
-          hasFetchedUserDetails.current = true; // Mark as fetched
         }
+        reduxDispatch(LoadingFalse());
       };
       fetchUserDetails(email);
-    } 
-  }, []);
+    }, [email]);
+  }
 
-  const handleSearchChange = (event) => setSearchQuery(event.target.value);
-  
+  const handleSearchChange = (event) => {
+    dispatch({ type: "UPDATE_SEARCH_QUERY", payload: event.target.value });
+  };
+
   const handleLogout = () => {
     Cookies.remove("email", { path: "/" });
-    sessionStorage.removeItem("userDetails"); // Clear cached user details
     setUsername(null);
-    setShowDropdown(false);
+    dispatch({ type: "TOGGLE_DROPDOWN" });
     alert("You are logged out");
+    console.log("from logout");
   };
-  
-  const filteredCourses = courses.filter((course) =>
-    course.courseName.toLowerCase().includes(searchQuery.toLowerCase()),
-);
+
+  const filteredCourses = useMemo(() => {
+    return courses.filter((course) =>
+      course.courseName.toLowerCase().includes(state.searchQuery.toLowerCase())
+    );
+  }, [courses, state.searchQuery]);
+// console.log(state.toggleMobile);
 
   return (
     <nav
@@ -106,47 +145,53 @@ const Navbar = () => {
       </a>
       <div className="flex flex-col">
         <GiHamburgerMenu
-          onClick={() => setTogglemobile((prev) => !prev)}
+          onClick={() => dispatch({ type: "TOGGLE_MOBILE" })}
           className={`z-10 text-3xl duration-500 ${
-            togglemobile ? "rotate-180 transform text-purple-500" : ""
+            state.toggleMobile ? "rotate-180 transform" : ""
           } cursor-pointer md:hidden`}
         />
         <ul
           className={`fixed h-screen font-bold text-slate-700 md:static md:h-16 ${
-            togglemobile ? "translate-x-0" : "translate-x-full md:translate-x-0"
+            state.toggleMobile
+              ? "translate-x-0"
+              : "translate-x-full md:translate-x-0"
           } bottom-0 right-0 top-0 flex w-36 flex-col items-center gap-5 border-l-2 bg-white px-2 pt-16 duration-500 md:w-full md:flex-row md:justify-normal md:border-0 md:bg-white md:pt-1`}
         >
-          <li className="text-sm font-normal hover:text-purple-500">
+          <li className="relative text-sm font-normal hover:text-purple-500">
             <Searchbar
               handleSearchChange={handleSearchChange}
-              searchQuery={searchQuery}
+              searchQuery={state.searchQuery}
             />
 
-            {searchQuery.length > 0 && togglemobile && (
-              <ul className="absolute right-4 w-fit text-nowrap rounded-md z-50 bg-black text-gray-800 md:right-auto md:top-14">
+            {state.searchQuery.length > 0 && (
+              <ul className="absolute right-4 z-20 w-fit bg-white text-nowrap rounded-md text-gray-800 md:right-auto md:top-11 shadow-lg  ">
                 {filteredCourses.slice(0, 5).map((course, indx) => (
                   <li
                     key={indx}
-                    className="rounded-md- my-2 cursor-pointer border-t text-xs sm:text-base md:my-0 md:text-lg"
+                    className="rounded-md hover:bg-gray-100 my-2 md:my-0 cursor-pointer border-t text-xs sm:text-base md:pt-3 md:px-2 "
                   >
-                    {course.courseName.slice(0, 35) + "..."}
+                    { state.toggleMobile ? (course.courseName.slice(0, 35) + "...") : (course.courseName.slice(0, 50) + "...")}
                   </li>
                 ))}
-                <div>hello</div>
               </ul>
             )}
           </li>
           {/* creating navigation with li & map */}
           {["Courses", "Contact", "About", "FAQs"].map((item, idx) => (
-            <li key={idx} className="cursor-pointer hover:text-purple-500 active:scale-[0.98] duration-300">
+            <li
+              key={idx}
+              className="cursor-pointer duration-300 hover:text-purple-500 active:scale-[0.98]"
+            >
               <a href={`/${item.toLowerCase()}`}>{item}</a>
             </li>
           ))}
           <li className="relative">
-            {username ? (
+            {loading ? (
+              <span className="font-semibold">Loading...</span>
+            ) : username ? (
               <span
                 className="cursor-pointer font-bold text-purple-500 hover:text-purple-700"
-                onClick={() => setShowDropdown(!showDropdown)}
+                onClick={() => dispatch({ type: "TOGGLE_DROPDOWN" })}
               >
                 {username}
               </span>
@@ -157,11 +202,11 @@ const Navbar = () => {
                 </ButtonPurple>
               </span>
             )}
-            {showDropdown && (
+            {state.showDropdown && (
               <span>
                 <ul
                   id="dropdown"
-                  className="absolute top-8 md:top-10 bg-white"
+                  className="absolute top-8 bg-white md:top-10"
                   ref={dropdownRef}
                 >
                   <li className="cursor-pointer p-1">

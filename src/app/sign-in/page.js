@@ -52,7 +52,19 @@ export default function SignIn() {
 
           window.location.href = "/";
 
-      } else {
+      } 
+      // if (response.ok) {
+      //   alert("Signin Successful");
+      //   const responseData = await response.json();
+      //   console.log(responseData);
+      
+      //   // Save email in local storage
+      //   localStorage.setItem('userEmail', responseData.email);
+      
+      //   // Redirect to the root URL without reloading
+      //   window.location.href = "/";
+      // }
+      else {
         const errorData = await response.json();
         alert("Sign in failed", errorData);
       }
@@ -154,7 +166,7 @@ export default function SignIn() {
                     Create one
                   </span>
                 </p>
-                <ButtonPurple disable={isDisable} >
+                <ButtonPurple>
                   Sign in
                 </ButtonPurple>
               </div>

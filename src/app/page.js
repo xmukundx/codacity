@@ -3,18 +3,14 @@ import Aim from "../../components/aim";
 import TrendingCourses from "../../components/coursesCarousal";
 import Hero from "../../components/hero";
 import Marqueediv from "../../components/marquee";
-import Test from "../../components/test";
 import Title from "../../components/utilityComponents/title";
 
-export default function Home() {
 
- 
+export default function Home() {
+  console.log('from main page');
+  
   return (
     <main className="bg-white">
-
-    
-      
-      {/* <Test/> */}
       <Hero />
       <Title
         subTitle={"Our students have gotten offers from big names."}
@@ -26,12 +22,9 @@ export default function Home() {
         subTitle={"Choose the most demanding courses in the market."}
         title={"Most Demanding Courses"}
       />
-      <div id="offer" className="relative mb-7 hidden sm:block">
-        <img src="/offer.webp" alt="" />
-        <p className="absolute right-24 top-5 h-20 w-80 bg-[#0280a5] text-2xl text-white">
-          {" "}
-          On your 1st purchase via UPI payment!{" "}
-        </p>
+      <div id="offer" className="mb-7 hidden sm:block">
+        <img src="/offer.png" alt="" />
+        
       </div>
 
       <TrendingCourses />
@@ -45,3 +38,5 @@ export default function Home() {
     </main>
   );
 }
+
+
