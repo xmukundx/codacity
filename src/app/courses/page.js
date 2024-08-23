@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Loader from "../../../components/utilityComponents/loader";
+//import Loader from "../../../components/utilityComponents/loader";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCourses } from "../../../lib/redux/coursesSlice";
 import Pagination from "../../../components/pagination";
 import DisplayCourses from "../../../components/displayCourses";
-import Filter from "../../../components/filter";
+//import Filter from "../../../components/filter";
 
 const CoursePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
