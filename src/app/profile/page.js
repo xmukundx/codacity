@@ -10,7 +10,7 @@ import { fetchCourses } from "../../../lib/redux/coursesSlice";
 
 export default function ProfilePage() {
   const [user, setUser] = useState(null);
-  // const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch()
   const {courses} = useSelector((state)=> state.courses)
   useEffect(() => {
