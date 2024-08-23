@@ -7,7 +7,6 @@ export default function Aim() {
             className="mx-auto w-9/12 object-cover py-2 px-5 sm:h-96 "
             alt=""
           />
-          {/* <img src="" className="play_icon" alt="" /> */}
         </div>
         <div className="w-full px-2 sm:w-[50%] md:w-[40%]">
           <h3 className="font-semibold text-[#212ea0] md:text-lg">
@@ -18,7 +17,6 @@ export default function Aim() {
           </h2>
           <ul className="flex flex-col gap-3 pt-4 text-justify text-sm font-medium sm:gap-5 md:text-base">
             <li>
-              {"   "}
               We offer a comprehensive range of coding courses, designed for all
               levels. Whether you're a complete beginner or a seasoned programmer
               looking to refine your skills, we have the resources to propel you

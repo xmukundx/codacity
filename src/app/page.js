@@ -1,6 +1,6 @@
 import Achievements from "../../components/achievements";
 import Aim from "../../components/aim";
-import TrendingCourses from "../../components/coursesCarousal";
+import CoursesCarousal from "../../components/coursesCarousal";
 import Hero from "../../components/hero";
 import Marqueediv from "../../components/marquee";
 import Title from "../../components/utilityComponents/title";
@@ -27,7 +27,7 @@ export default function Home() {
         
       </div>
 
-      <TrendingCourses />
+      <CoursesCarousal />
       <Title
         subTitle={
           "We offer a comprehensive range of coding courses, designed for all levels."
