@@ -2,7 +2,6 @@
 
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 
 const Modal = ({ openModal, handleModal, children }) => {

@@ -6,14 +6,11 @@ import Searchbar from "./searchbar";
 import { ButtonPurple } from "./utilityComponents/buttons";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  LoadingTrue,
-  LoadingFalse,
-  fetchCourses,
+import {  fetchCourses,
 } from "../lib/redux/coursesSlice";
 
 const Navbar = () => {
-  const { courses, loading, error } = useSelector((state) => state.courses); // redux code
+  const { courses} = useSelector((state) => state.courses); // redux code
   const reduxDispatch = useDispatch();
   const [username, setUsername] = useState(null); // State to hold username
   const dropdownRef = useRef(null);
@@ -21,6 +18,7 @@ const Navbar = () => {
   //useReducer code starts
   const initialState = {
     toggleMobile: false,
+    userLoad: false,
     searchQuery: "",
     showDropdown: false,
     username: "",
@@ -30,13 +28,15 @@ const Navbar = () => {
     switch (action.type) {
       case "TOGGLE_MOBILE":
         return { ...state, toggleMobile: !state.toggleMobile };
+        case "toggleUserLoad":
+        return {...state, userLoad: !state.userLoad };
       case "UPDATE_SEARCH_QUERY":
         return { ...state, searchQuery: action.payload };
       case "TOGGLE_DROPDOWN":
         return { ...state, showDropdown: !state.showDropdown };
-        case "False_DROPDOWN":
-          return { ...state, showDropdown: false };
-  
+      case "False_DROPDOWN":
+        return { ...state, showDropdown: false };
+
       default:
         return state;
     }
@@ -49,7 +49,7 @@ const Navbar = () => {
 
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      dispatch({type: "False_DROPDOWN"})
+      dispatch({ type: "False_DROPDOWN" });
     }
   };
 
@@ -72,21 +72,23 @@ const Navbar = () => {
     useEffect(() => {
       console.log("from email useEffect");
       const fetchUserDetails = async (email) => {
-        reduxDispatch(LoadingTrue());
-        // console.log(loading);
+        dispatch(toggleUserLoad());
+        console.log(userLoad);
+        
 
         try {
           const response = await fetch(`/api/sign-in/${email}`);
           if (response.ok) {
             const user = await response.json();
             setUsername(user.firstName);
+
           } else {
             console.error("Error fetching user details");
           }
         } catch (error) {
           console.error("Error fetching user details:", error);
         }
-        reduxDispatch(LoadingFalse());
+        dispatch(toggleUserLoad());
       };
       fetchUserDetails(email);
     }, [email]);
@@ -106,10 +108,10 @@ const Navbar = () => {
 
   const filteredCourses = useMemo(() => {
     return courses.filter((course) =>
-      course.courseName.toLowerCase().includes(state.searchQuery.toLowerCase())
+      course.courseName.toLowerCase().includes(state.searchQuery.toLowerCase()),
     );
   }, [courses, state.searchQuery]);
-// console.log(state.toggleMobile);
+  // console.log(state.toggleMobile);
 
   return (
     <nav
@@ -164,13 +166,15 @@ const Navbar = () => {
             />
 
             {state.searchQuery.length > 0 && (
-              <ul className="absolute right-4 z-20 w-fit bg-white text-nowrap rounded-md text-gray-800 md:right-auto md:top-11 shadow-lg  ">
+              <ul className="absolute right-4 z-20 w-fit text-nowrap rounded-md bg-white text-gray-800 shadow-lg md:right-auto md:top-11">
                 {filteredCourses.slice(0, 5).map((course, indx) => (
                   <li
                     key={indx}
-                    className="rounded-md hover:bg-gray-100 my-2 md:my-0 cursor-pointer border-t text-xs sm:text-base md:pt-3 md:px-2 "
+                    className="my-2 cursor-pointer rounded-md border-t text-xs hover:bg-gray-100 sm:text-base md:my-0 md:px-2 md:pt-3"
                   >
-                    { state.toggleMobile ? (course.courseName.slice(0, 35) + "...") : (course.courseName.slice(0, 50) + "...")}
+                    {state.toggleMobile
+                      ? course.courseName.slice(0, 35) + "..."
+                      : course.courseName.slice(0, 50) + "..."}
                   </li>
                 ))}
               </ul>
@@ -186,7 +190,7 @@ const Navbar = () => {
             </li>
           ))}
           <li className="relative">
-            {loading ? (
+            {state.userLoad ? (
               <span className="font-semibold">Loading...</span>
             ) : username ? (
               <span

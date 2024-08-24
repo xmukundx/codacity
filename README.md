@@ -1,2 +1,2 @@
 next commit mgs
-toggle/course slice updated, created modalSlice, updated depreciated packages, useReducer implemented in navbar replaced useState hooks
+loading state from redux removed from navbar userLoad created in useReducer for better approach

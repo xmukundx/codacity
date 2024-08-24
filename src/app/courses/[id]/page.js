@@ -20,6 +20,7 @@ const CourseDetailPage = ({ params }) => {
   const [course, setCourse] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+
   const { openModal } = useSelector((state) => state.openModal);
   const reduxDispatch = useDispatch();
 
@@ -34,6 +35,7 @@ const CourseDetailPage = ({ params }) => {
       try {
         const fetchedCourse = await GetCourses(params.id);
         setCourse(fetchedCourse);
+        document.title = fetchedCourse.courseName;
       } catch (error) {
         setError(error);
       } finally {
@@ -54,7 +56,7 @@ const CourseDetailPage = ({ params }) => {
 
   if (error) {
     return (
-      <div className="text-center text-red-500">
+      <div className="flex h-screen-minus-navbar items-center justify-center text-red-500">
         Error fetching course: {error.message}
       </div>
     );

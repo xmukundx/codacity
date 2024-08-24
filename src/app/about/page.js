@@ -1,3 +1,9 @@
+export const metadata = {
+  title: 'About Us - CODACITY',
+  description: 'Codacity is a revolutionary online learning platform dedicated to empowering individuals to master the art of coding. With a comprehensive curriculum, interactive learning tools, and a supportive community, Codacity provides the resources and guidance needed to succeed in the dynamic world of technology.',
+};
+
+
 export default function About() {
   return (
     <section className="h-fit px-5 pt-8 text-xs sm:text-sm md:px-20 md:pt-14 md:text-base">
@@ -81,3 +87,5 @@ export default function About() {
     </section>
   );
 }
+
+
