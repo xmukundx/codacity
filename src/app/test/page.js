@@ -1,6 +1,6 @@
 'use client'
 import { useSelector, useDispatch } from 'react-redux';
-import { toggle, setToggleTrue, setToggleFalse } from "../../../lib/redux/toggleSlice"
+import { toggle} from "../../../lib/redux/toggleSlice"
 
 const MyComponent = () => {
   const dispatch = useDispatch();

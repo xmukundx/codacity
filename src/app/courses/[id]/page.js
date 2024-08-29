@@ -5,7 +5,6 @@ import Loader from "../../../../components/utilityComponents/loader";
 import Cookies from "js-cookie";
 import Modal from "../../../../components/utilityComponents/modal";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleModal } from "../../../../lib/redux/modalSlice";
 import { toggle } from "../../../../lib/redux/toggleSlice";
 
 async function GetCourses(id) {
