@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import Modal from "../../../../components/utilityComponents/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleModal } from "../../../../lib/redux/modalSlice";
+import { toggle } from "../../../../lib/redux/toggleSlice";
 
 async function GetCourses(id) {
   const response = await fetch(`/api/courses/${id}`);
@@ -18,20 +19,24 @@ async function GetCourses(id) {
 
 const CourseDetailPage = ({ params }) => {
   const [course, setCourse] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const { openModal } = useSelector((state) => state.openModal);
+  const openModal = useSelector(
+    (state) => state.toggle?.["openModal"] || false,
+  );
+  const isLoading = useSelector(
+    (state) => state.toggle?.["isLoading"] || false,
+  );
   const reduxDispatch = useDispatch();
 
   const handleModal = () => {
-    reduxDispatch(toggleModal());
-    console.log(openModal);
+    reduxDispatch(toggle("openModal"));
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
+      reduxDispatch(toggle("isLoading"));
+
       try {
         const fetchedCourse = await GetCourses(params.id);
         setCourse(fetchedCourse);
@@ -39,7 +44,7 @@ const CourseDetailPage = ({ params }) => {
       } catch (error) {
         setError(error);
       } finally {
-        setIsLoading(false);
+        reduxDispatch(toggle("isLoading"));
       }
     };
 
@@ -63,7 +68,7 @@ const CourseDetailPage = ({ params }) => {
   }
 
   const buyCourseFunc = async () => {
-    const email = Cookies.get("email"); // Assuming you set a userId cookie on login
+    const email = Cookies.get("email");
     const _id = params.id;
     if (!email) {
       alert("You need to log in to purchase this course.");
@@ -84,7 +89,7 @@ const CourseDetailPage = ({ params }) => {
         alert("Course purchased successfully!");
       } else {
         const errorData = await response.json();
-        alert(`Error purchasing course: ${errorData.message}`);
+        console.log(`Error purchasing course: ${errorData.message}`);
       }
     } catch (error) {
       alert(`Error purchasing course: ${error.message}`);

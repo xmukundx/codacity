@@ -30,8 +30,9 @@ export async function POST(req) {
       isPasswordMatch = await bcrypt.compare(password, user.password);
     }
 
-    const response = NextResponse.json(user, { status: 200 });
-    return response;
+    // const response = NextResponse.json(user, { status: 200 });
+    // return response;
+    return NextResponse.json(user, { status: 200 });
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
     return NextResponse.json(

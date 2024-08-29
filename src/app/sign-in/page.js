@@ -5,35 +5,39 @@ import RegistrationForm from "../../../components/sign-upForm";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { toggle } from "../../../lib/redux/toggleSlice";
 
 export default function SignIn() {
   const [isLogin, setIsLogin] = useState(true);
-  const [isDisable, setIsDisable] = useState(false);
   const [seePassword, setSeePassword] = useState(false);
 
-  
+  const isDisable = useSelector(
+    (state) => state.toggle?.["isDisable"] || false,
+  );
+
+  const reduxDispatch = useDispatch();
+
   const seeYourPassword = () => setSeePassword(!seePassword);
 
+  const email = Cookies.get("email");
 
   useEffect(() => {
-    const email = Cookies.get("email");
     if (email) {
-      alert('You are already Signed in')
+      alert("You are already Signed in");
       window.location.href = "/";
     }
   }, []);
 
-
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
+    reduxDispatch(toggle("isDisable"));
     try {
-      setIsDisable(true); 
       const response = await fetch("/api/sign-in", {
         method: "POST",
         headers: {
@@ -48,46 +52,35 @@ export default function SignIn() {
         console.log(responseData);
         Cookies.set("email", responseData.email, {
           path: "/",
-          expires: 1 / 24 });
+          expires: 1 / 24,
+        });
 
-          window.location.href = "/";
-
-      } 
-      // if (response.ok) {
-      //   alert("Signin Successful");
-      //   const responseData = await response.json();
-      //   console.log(responseData);
-      
-      //   // Save email in local storage
-      //   localStorage.setItem('userEmail', responseData.email);
-      
-      //   // Redirect to the root URL without reloading
-      //   window.location.href = "/";
-      // }
-      else {
+        window.location.href = "/";
+      } else {
         const errorData = await response.json();
         alert("Sign in failed", errorData);
       }
-      setIsDisable(false);
+      reduxDispatch(toggle("isDisable"));
     } catch (error) {
-      console.error('error while submitting'+error);
+      console.error("error while submitting" + error);
     }
   };
-
-  const password = watch("password", ""); //watch function provides a way to react to changes in the form field value.
 
   return (
     <div className="">
       {isLogin ? (
         <div
           id="form-page"
-          className="h-screen-minus-navbar px-4 py-16 sm:px-6 lg:px-8 overflow-scroll"
+          className="h-screen-minus-navbar overflow-scroll px-4 py-16 sm:px-6 lg:px-8"
         >
           <main>
             <div className="mx-auto max-w-lg text-center">
               <h1 className="text-2xl font-bold sm:text-3xl">Welcome Back!</h1>
               <p className="mt-4 text-gray-600">
-              Sign in to access your account and enjoy the full range of features our platform offers. Please enter your credentials below.</p>
+                Sign in to access your account and enjoy the full range of
+                features our platform offers. Please enter your credentials
+                below.
+              </p>
             </div>
 
             <form
@@ -166,23 +159,20 @@ export default function SignIn() {
                     Create one
                   </span>
                 </p>
-                <ButtonPurple>
-                  Sign in
-                </ButtonPurple>
+                <ButtonPurple disabled={isDisable}>Sign in</ButtonPurple>
               </div>
             </form>
           </main>
         </div>
       ) : (
         <div>
-          <RegistrationForm 
-          isDisabled={isDisable}
-          setIsDisable={setIsDisable}
+          <RegistrationForm
+            isDisable={isDisable}
+            toggle={toggle}
             setIsLogin={setIsLogin}
             seeYourPassword={seeYourPassword}
             seePassword={seePassword}
             setSeePassword={setSeePassword}
-
           />
         </div>
       )}

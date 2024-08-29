@@ -10,8 +10,8 @@ export default function About() {
       <div id="" className="pt-2 pb-10">
         <h1 className="text-center mb-8 text-2xl font-bold">About CODACITY</h1>
 
-        <div className="font-medium flex flex-col gap-7  text-gray-600 text-justify">
-          <p className="">
+        <ul className="font-medium flex flex-col gap-7  text-gray-600 text-justify">
+          <li className="">
             &nbsp; &nbsp; &nbsp; Codacity is a revolutionary online learning
             platform that has taken the coding world by storm. Launched in 2023,
             this cutting-edge platform has been designed to provide users with a
@@ -22,8 +22,8 @@ export default function About() {
             programming or develop advanced skills, Codacity's user-friendly
             interface and engaging content make it the perfect destination for
             anyone interested in coding.
-          </p>
-          <p>
+          </li>
+          <li>
             &nbsp; &nbsp; &nbsp; One of the key features that sets Codacity
             apart from other coding platforms is its comprehensive curriculum.
             The platform covers a wide range of topics, from web development to
@@ -34,8 +34,8 @@ export default function About() {
             platform's interactive nature also makes it easy for users to engage
             with the material, with features such as quizzes, puzzles, and games
             that make learning fun and engaging.
-          </p>
-          <p>
+          </li>
+          <li>
             &nbsp; &nbsp; &nbsp; Another unique aspect of Codacity is its
             commitment to community building. The platform has a thriving
             community of coders, with forums and discussion groups where users
@@ -43,8 +43,8 @@ export default function About() {
             projects. This sense of community is essential for anyone looking to
             learn coding, as it provides a sense of accountability and
             motivation to continue learning.
-          </p>
-          <p>
+          </li>
+          <li>
             &nbsp; &nbsp; &nbsp; Headquartered in New Delhi, India, Codacity is
             a team of passionate coding enthusiasts who are dedicated to making
             learning accessible to everyone. With a strong focus on quality and
@@ -54,8 +54,8 @@ export default function About() {
             development, Codacity's extensive range of courses covers it all.
             Whether you're looking to switch careers or simply enhance your
             existing skills, Codacity has something for everyone.
-          </p>
-          <p>
+          </li>
+          <li>
             &nbsp; &nbsp; &nbsp; One of the most impressive aspects of Codacity
             is its ease of use. The platform's intuitive interface makes it easy
             for users to navigate and find what they're looking for. With
@@ -63,8 +63,8 @@ export default function About() {
             users can easily monitor their progress and stay on track with their
             goals. The platform also offers a range of tools and resources, from
             code editors and IDEs to virtual machines and simulation software.
-          </p>
-          <p>
+          </li>
+          <li>
             &nbsp; &nbsp; &nbsp; In conclusion, Codacity is a game-changing
             online learning platform that offers a comprehensive range of
             courses and resources for coders of all levels. With its commitment
@@ -72,8 +72,8 @@ export default function About() {
             Codacity is an invaluable resource for anyone looking to learn
             coding. Whether you're just starting out or looking to upskill in a
             specific area, Codacity has something for everyone.
-          </p>
-          <p>
+          </li>
+          <li>
             &nbsp; &nbsp; &nbsp; At Codacity, we value feedback and would love
             to hear from you! If you have any questions, suggestions, or
             concerns, please don't hesitate to reach out to us. You can contact
@@ -81,8 +81,8 @@ export default function About() {
             email to support@codacity.com, or by giving us a shout on social
             media at @CodacityOfficial. Our team is always here to help and look
             forward to connecting with you!
-          </p>
-        </div>
+          </li>
+        </ul>
       </div>
     </section>
   );

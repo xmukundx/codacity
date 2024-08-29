@@ -1,15 +1,24 @@
 "use client";
 import { useEffect, useState } from "react";
 import { FaRegCopyright, FaArrowUp } from "react-icons/fa6";
+import { useDispatch, useSelector } from "react-redux";
+import { setToggleFalse, setToggleTrue } from "../lib/redux/toggleSlice";
 
 const Footer = () => {
-  const [showButton, setShowButton] = useState(false);
-
+  // const [showButton, setShowButton] = useState(false);
+  const showBtn = useSelector((state)=> state.toggle?.["showButton"] || false)
+  const reduxDispatch = useDispatch();
+  
   const handleScroll = () => {
-    if (window.scrollY > 400) {
-      setShowButton(true);
+    if (window.scrollY > 400) {      
+      // setShowButton(true);
+      reduxDispatch(setToggleTrue('showButton'))
+      
+      
     } else {
-      setShowButton(false);
+      // setShowButton(false);
+      reduxDispatch(setToggleFalse('showButton'))
+      
     }
   };
 
@@ -23,6 +32,10 @@ const Footer = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  
+  useEffect(() => {
+    console.log('showBtn updated:', showBtn); // Logs the updated state after render
+  }, [showBtn]);
 
   return (
     <footer className="relative bottom-0 flex h-24 w-full bg-gray-700 text-xs text-white sm:text-sm">
@@ -64,7 +77,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        {showButton && (
+        {showBtn && (
           <button
             onClick={scrollToTop}
             className="fixed bottom-16 right-5 rounded-full bg-purple-500 p-3 text-white shadow-lg hover:bg-purple-700"

@@ -3,18 +3,17 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoEyeOutline } from "react-icons/io5";
 import { ButtonPurple } from "./utilityComponents/buttons";
-
-
+import { useDispatch } from "react-redux";
 
 const RegistrationForm = ({
-
+  toggle,
+  isDisable,
   setIsLogin,
   seePassword,
-  setSeePassword,
   seeYourPassword,
 }) => {
   const [seeConfirmPassword, setSeeConfirmPassword] = useState(false);
-
+  const reduxDispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -29,8 +28,8 @@ const RegistrationForm = ({
     const slicedData = { firstName, lastName, email, password };
 
     try {
-  
-      const response = await fetch("/api/users", {
+      reduxDispatch(toggle("isDisable"));
+      const response = await fetch("/api/sign-up", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,6 +49,8 @@ const RegistrationForm = ({
       }
     } catch (error) {
       console.error("Error saving user:", error);
+    } finally {
+      reduxDispatch(toggle("isDisable"));
     }
 
     event.preventDefault();
@@ -201,8 +202,8 @@ const RegistrationForm = ({
               Sign in
             </span>
           </p>
-          <ButtonPurple type="submit" className={`ml-4 `}>
-            Register
+          <ButtonPurple disabled={isDisable} type="submit">
+            Sign Up
           </ButtonPurple>
         </div>
       </form>

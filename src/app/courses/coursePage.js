@@ -13,6 +13,8 @@ const CoursePage = () => {
   const firstPostIndex = lastPostIndex - postPerPage;
 
   const { courses, loading, error } = useSelector((state) => state.courses);
+  
+  
   const coursePerPage = courses.slice(firstPostIndex, lastPostIndex);
 
   if (loading) {

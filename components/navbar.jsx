@@ -6,14 +6,13 @@ import Searchbar from "./searchbar";
 import { ButtonPurple } from "./utilityComponents/buttons";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
-import {  fetchCourses,
-} from "../lib/redux/coursesSlice";
+import { fetchCourses } from "../lib/redux/coursesSlice";
 
 const Navbar = () => {
-  const { courses} = useSelector((state) => state.courses); // redux code
+  const { courses } = useSelector((state) => state.courses); // redux code
   const reduxDispatch = useDispatch();
-  const [username, setUsername] = useState(null); // State to hold username
   const dropdownRef = useRef(null);
+  const navbarRef = useRef(null); 
 
   //useReducer code starts
   const initialState = {
@@ -28,14 +27,16 @@ const Navbar = () => {
     switch (action.type) {
       case "TOGGLE_MOBILE":
         return { ...state, toggleMobile: !state.toggleMobile };
-        case "toggleUserLoad":
-        return {...state, userLoad: !state.userLoad };
+      case "TOGGLE_USER_LOAD":
+        return { ...state, userLoad: !state.userLoad };
       case "UPDATE_SEARCH_QUERY":
         return { ...state, searchQuery: action.payload };
       case "TOGGLE_DROPDOWN":
         return { ...state, showDropdown: !state.showDropdown };
       case "False_DROPDOWN":
         return { ...state, showDropdown: false };
+      case "SET_USERNAME":
+        return { ...state, username: action.payload };
 
       default:
         return state;
@@ -47,12 +48,28 @@ const Navbar = () => {
   const firtName = "Coda".toUpperCase().split("");
   const secondName = "City".toUpperCase().split("");
 
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      dispatch({ type: "False_DROPDOWN" });
-    }
-  };
+  
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      console.log("Document clicked"); // Log when the document is clicked
+      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+        console.log("Clicked outside navbar"); // Log when the click is outside the navbar
+        if (state.toggleMobile) {
+          console.log("Closing mobile menu"); // Log when the menu should close
+          dispatch({ type: "TOGGLE_MOBILE" });
+          dispatch({ type: "False_DROPDOWN" });
+        }
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [state.toggleMobile]);
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -63,36 +80,33 @@ const Navbar = () => {
     };
 
     fetchData();
-    console.log("useeffect fetchData");
   }, [reduxDispatch, fetchCourses]);
 
   const email = Cookies.get("email");
 
-  if (email) {
-    useEffect(() => {
-      console.log("from email useEffect");
-      const fetchUserDetails = async (email) => {
-        dispatch(toggleUserLoad());
-        console.log(userLoad);
-        
+  useEffect(() => {
+    if (email) {
+      const fetchUserDetails = async () => {
+        dispatch({ type: "TOGGLE_USER_LOAD"});
 
         try {
           const response = await fetch(`/api/sign-in/${email}`);
           if (response.ok) {
             const user = await response.json();
-            setUsername(user.firstName);
-
+            dispatch({ type: "SET_USERNAME", payload: user.firstName });
           } else {
             console.error("Error fetching user details");
           }
         } catch (error) {
           console.error("Error fetching user details:", error);
+        } finally {
+          dispatch({ type: "TOGGLE_USER_LOAD" });
         }
-        dispatch(toggleUserLoad());
       };
-      fetchUserDetails(email);
-    }, [email]);
-  }
+
+      fetchUserDetails();
+    }
+  }, [email]);
 
   const handleSearchChange = (event) => {
     dispatch({ type: "UPDATE_SEARCH_QUERY", payload: event.target.value });
@@ -100,7 +114,8 @@ const Navbar = () => {
 
   const handleLogout = () => {
     Cookies.remove("email", { path: "/" });
-    setUsername(null);
+    dispatch({ type: "SET_USERNAME", action: null });
+
     dispatch({ type: "TOGGLE_DROPDOWN" });
     alert("You are logged out");
     console.log("from logout");
@@ -111,11 +126,17 @@ const Navbar = () => {
       course.courseName.toLowerCase().includes(state.searchQuery.toLowerCase()),
     );
   }, [courses, state.searchQuery]);
-  // console.log(state.toggleMobile);
+
+  // const filteredCourses = () => {
+  //   return courses.filter((course) =>
+  //     course.courseName.toLowerCase().includes(state.searchQuery.toLowerCase()),
+  //   );
+  // }
+  console.log(state.searchQuery);
 
   return (
     <nav
-      onClick={handleClickOutside}
+    ref={navbarRef}  
       className="fixed top-0 z-10 flex h-16 w-full justify-between border-b-2 border-black bg-white px-3 py-2 text-gray-800"
     >
       <a
@@ -165,7 +186,7 @@ const Navbar = () => {
               searchQuery={state.searchQuery}
             />
 
-            {state.searchQuery.length > 0 && (
+            {(state.toggleMobile || window.innerWidth >= 768)  && state.searchQuery.length > 0 &&  (
               <ul className="absolute right-4 z-20 w-fit text-nowrap rounded-md bg-white text-gray-800 shadow-lg md:right-auto md:top-11">
                 {filteredCourses.slice(0, 5).map((course, indx) => (
                   <li
@@ -192,12 +213,12 @@ const Navbar = () => {
           <li className="relative">
             {state.userLoad ? (
               <span className="font-semibold">Loading...</span>
-            ) : username ? (
+            ) : state.username ? (
               <span
                 className="cursor-pointer font-bold text-purple-500 hover:text-purple-700"
                 onClick={() => dispatch({ type: "TOGGLE_DROPDOWN" })}
               >
-                {username}
+                {state.username}
               </span>
             ) : (
               <span>
@@ -210,13 +231,14 @@ const Navbar = () => {
               <span>
                 <ul
                   id="dropdown"
-                  className="absolute top-8 bg-white md:top-10"
+                  className="absolute top-8 bg-white md:top-10 px-3 py-2 gap-2 flex flex-col "
                   ref={dropdownRef}
                 >
-                  <li className="cursor-pointer p-1">
+                  <li className="cursor-pointer ">
                     <a href="/profile">Profile</a>
                   </li>
-                  <li onClick={handleLogout} className="cursor-pointer p-1">
+                  <hr/>
+                  <li onClick={handleLogout} className="cursor-pointer">
                     Logout
                   </li>
                 </ul>
