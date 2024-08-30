@@ -13,7 +13,7 @@ const Navbar = () => {
   const reduxDispatch = useDispatch();
   const dropdownRef = useRef(null);
   const navbarRef = useRef(null); 
-
+  const [isMobile, setIsMobile] = useState(false);
   //useReducer code starts
   const initialState = {
     toggleMobile: false,
@@ -22,6 +22,23 @@ const Navbar = () => {
     showDropdown: false,
     username: "",
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Initial check
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -186,7 +203,7 @@ const Navbar = () => {
               searchQuery={state.searchQuery}
             />
 
-            {(state.toggleMobile || window.innerWidth >= 768)  && state.searchQuery.length > 0 &&  (
+            {(state.toggleMobile || !isMobile)  && state.searchQuery.length > 0 &&  (
               <ul className="absolute right-4 z-20 w-fit text-nowrap rounded-md bg-white text-gray-800 shadow-lg md:right-auto md:top-11">
                 {filteredCourses.slice(0, 5).map((course, indx) => (
                   <li
