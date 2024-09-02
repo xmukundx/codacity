@@ -12,7 +12,7 @@ const Page = () => {
   return (
     <section
       id="contact-section"
-      className="flex h-fit  flex-col px-7 py-5 text-xs sm:mx-7 sm:flex-row sm:gap-10 sm:pt-24 sm:text-sm md:text-base lg:mx-16 lg:h-screen-minus-navbar"
+      className="flex min-h-screen-minus-navbar  flex-col px-7 py-5 text-xs sm:mx-7 sm:flex-row sm:gap-10 sm:pt-24 sm:text-sm md:text-base lg:mx-16 lg:h-screen-minus-navbar"
     >
       <div id="left" className="flex-1 text-gray-600">
         <h2 className="mb-2 flex items-center gap-3 text-xl font-bold text-black sm:whitespace-nowrap sm:text-2xl md:text-3xl">

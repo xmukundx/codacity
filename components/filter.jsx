@@ -6,20 +6,20 @@ import { toggle } from "../lib/redux/toggleSlice";
 import CourseData from "@/utillity/data";
 
 const Filter = () => {
-  const { isToggled } = useSelector((state) => state.isToggled);
-  const dispatch = useDispatch();
+  
+  const reduxDispatch = useDispatch();
 
   const getUniqueData = (data, property) => {
     let newValue = data.map((i) => i[property]);
     return (newValue = ["All", ...new Set(newValue)]);
   };
   const getLanguageData = getUniqueData(CourseData, "language");
-  console.log(getLanguageData);
+  
   const getPopularityData = getUniqueData(CourseData, "popularity");
   return (
     <aside className="rounded bg-white p-4">
       <div
-        onClick={() => dispatch(toggle())}
+        onClick={() => reduxDispatch(toggle())}
         className="mb-4 flex items-center p-3 text-2xl font-bold text-gray-600"
       >
         <RiFilter2Fill className="inline-block" /> Filter

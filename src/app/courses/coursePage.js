@@ -19,7 +19,7 @@ const CoursePage = () => {
 
   if (loading) {
     return (
-      <div className="place-item-center grid h-screen-minus-navbar">
+      <div className="place-item-center min-h-screen-minus-navbar grid h-screen-minus-navbar">
         <Loader />
       </div>
     );
@@ -27,17 +27,17 @@ const CoursePage = () => {
 
   if (error) {
     return (
-      <div className="grid h-screen-minus-navbar place-items-center">
+      <div className="grid min-h-screen-minus-navbar place-items-center">
         {error.message}
       </div>
     );
   }
   return (
     <>
-      <div className="h-fit lg:h-screen-minus-navbar">
+      <div className=" min-h-[calc(100vh-6rem)]">
         <DisplayCourses coursePerPage={coursePerPage} />
       </div>
-      <div className="relative -top-12 grid place-items-center">
+      <div className="relative -top-7  grid place-items-center">
         <Pagination
           totalPosts={courses.length}
           currentPage={currentPage}

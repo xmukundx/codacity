@@ -40,8 +40,7 @@ const RegistrationForm = ({
       if (response.ok) {
         alert("Registration successful!");
         setIsLogin(true);
-        console.log(setIsLogin);
-      } else {
+              } else {
         const errorData = await response.json();
         if (response.status === 409) {
           alert(errorData.message);

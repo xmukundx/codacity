@@ -33,9 +33,6 @@ const Footer = () => {
     };
   }, []);
   
-  useEffect(() => {
-    console.log('showBtn updated:', showBtn); // Logs the updated state after render
-  }, [showBtn]);
 
   return (
     <footer className="relative bottom-0 flex h-24 w-full bg-gray-700 text-xs text-white sm:text-sm">

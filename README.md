@@ -1,2 +1,2 @@
 next commit mgs
-shadows removed from contactForm inputs
+min-height set for better responsiveness, user was able to sign-in with wrong password issue fixed, redesigned profile page added enrolled courses.  

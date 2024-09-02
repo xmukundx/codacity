@@ -8,9 +8,12 @@ module.exports = {
   ],
   theme: {
     extend: {
-      height: {
+      minHeight: {
         'screen-minus-navbar': 'calc(100vh - 4rem)',
       },
+      // minHeight: {
+      //   'min-screen-minus-navbar': 'calc(100vh - 4rem)',
+      // },
     },
   },
   plugins: [],

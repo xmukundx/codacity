@@ -16,28 +16,23 @@ export async function POST(req) {
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 401 });
     }
-    let isPasswordMatch = false;
-    // Check if the password matches as a plain text password
-    if (user.password === password) {
-      isPasswordMatch = true;
-      // Hash the plain text password and update the user document
-      const hashedPassword = await bcrypt.hash(password, 10);
-      user.password = hashedPassword;
-      await user.save();
-      console.log("Password was plain text and is now hashed");
-    } else {
-      // If the password is not plain text, compare it using bcrypt
-      isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    // comparing password with bcrypt
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+      return NextResponse.json(
+        { message: "Invalid credentials" },
+        { status: 401 }
+      );
     }
 
-    // const response = NextResponse.json(user, { status: 200 });
-    // return response;
     return NextResponse.json(user, { status: 200 });
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
     return NextResponse.json(
       { message: "Error connecting to MongoDB", error },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

@@ -12,7 +12,7 @@ const Navbar = () => {
   const { courses } = useSelector((state) => state.courses); // redux code
   const reduxDispatch = useDispatch();
   const dropdownRef = useRef(null);
-  const navbarRef = useRef(null); 
+  const navbarRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   //useReducer code starts
   const initialState = {
@@ -32,11 +32,11 @@ const Navbar = () => {
     handleResize();
 
     // Add event listener for window resize
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // Clean up the event listener
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -65,12 +65,13 @@ const Navbar = () => {
   const firtName = "Coda".toUpperCase().split("");
   const secondName = "City".toUpperCase().split("");
 
-  
-
   useEffect(() => {
     const handleClickOutside = (event) => {
-      console.log("Document clicked"); // Log when the document is clicked
-      if (navbarRef.current && !navbarRef.current.contains(event.target)) {
+      if (
+        state.toggleMobile &&
+        navbarRef.current &&
+        !navbarRef.current.contains(event.target)
+      ) {
         console.log("Clicked outside navbar"); // Log when the click is outside the navbar
         if (state.toggleMobile) {
           console.log("Closing mobile menu"); // Log when the menu should close
@@ -86,7 +87,7 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [state.toggleMobile]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -104,7 +105,7 @@ const Navbar = () => {
   useEffect(() => {
     if (email) {
       const fetchUserDetails = async () => {
-        dispatch({ type: "TOGGLE_USER_LOAD"});
+        dispatch({ type: "TOGGLE_USER_LOAD" });
 
         try {
           const response = await fetch(`/api/sign-in/${email}`);
@@ -135,7 +136,7 @@ const Navbar = () => {
 
     dispatch({ type: "TOGGLE_DROPDOWN" });
     alert("You are logged out");
-    console.log("from logout");
+    
   };
 
   const filteredCourses = useMemo(() => {
@@ -149,11 +150,10 @@ const Navbar = () => {
   //     course.courseName.toLowerCase().includes(state.searchQuery.toLowerCase()),
   //   );
   // }
-  console.log(state.searchQuery);
 
   return (
     <nav
-    ref={navbarRef}  
+      ref={navbarRef}
       className="fixed top-0 z-10 flex h-16 w-full justify-between border-b-2 border-black bg-white px-3 py-2 text-gray-800"
     >
       <a
@@ -203,20 +203,21 @@ const Navbar = () => {
               searchQuery={state.searchQuery}
             />
 
-            {(state.toggleMobile || !isMobile)  && state.searchQuery.length > 0 &&  (
-              <ul className="absolute right-4 z-20 w-fit text-nowrap rounded-md bg-white text-gray-800 shadow-lg md:right-auto md:top-11">
-                {filteredCourses.slice(0, 5).map((course, indx) => (
-                  <li
-                    key={indx}
-                    className="my-2 cursor-pointer rounded-md border-t text-xs hover:bg-gray-100 sm:text-base md:my-0 md:px-2 md:pt-3"
-                  >
-                    {state.toggleMobile
-                      ? course.courseName.slice(0, 35) + "..."
-                      : course.courseName.slice(0, 50) + "..."}
-                  </li>
-                ))}
-              </ul>
-            )}
+            {(state.toggleMobile || !isMobile) &&
+              state.searchQuery.length > 0 && (
+                <ul className="absolute right-4 z-20 w-fit text-nowrap rounded-md bg-white text-gray-800 shadow-lg md:right-auto md:top-11">
+                  {filteredCourses.slice(0, 5).map((course, indx) => (
+                    <li
+                      key={indx}
+                      className="my-2 cursor-pointer rounded-md border-t text-xs hover:bg-gray-100 sm:text-base md:my-0 md:px-2 md:pt-3"
+                    >
+                      {state.toggleMobile
+                        ? course.courseName.slice(0, 35) + "..."
+                        : course.courseName.slice(0, 50) + "..."}
+                    </li>
+                  ))}
+                </ul>
+              )}
           </li>
           {/* creating navigation with li & map */}
           {["Courses", "Contact", "About", "FAQs"].map((item, idx) => (
@@ -248,13 +249,13 @@ const Navbar = () => {
               <span>
                 <ul
                   id="dropdown"
-                  className="absolute top-8 bg-white md:top-10 px-3 py-2 gap-2 flex flex-col "
+                  className="absolute top-8 flex flex-col gap-2 bg-white px-3 py-2 md:top-10"
                   ref={dropdownRef}
                 >
-                  <li className="cursor-pointer ">
+                  <li className="cursor-pointer">
                     <a href="/profile">Profile</a>
                   </li>
-                  <hr/>
+                  <hr />
                   <li onClick={handleLogout} className="cursor-pointer">
                     Logout
                   </li>

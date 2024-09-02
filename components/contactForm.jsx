@@ -90,9 +90,9 @@ export default function ContactForm() {
         <p className="mt-1 text-xs text-red-500">{errors.message.message}</p>
       )}
       <span className="pt-4">
-        <ButtonPurple type="submit" className="">
+        <ButtonPurple >
           Submit
-        </ButtonPurple>
+        </ButtonPurple >
       </span>
       <span className="mt-2">{result}</span>
     </form>

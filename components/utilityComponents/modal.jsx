@@ -37,7 +37,7 @@ const Modal = ({ openModal, handleModal, children }) => {
         onClick={handleClose}
         className="glass fixed place-items-center grid inset-0 z-20"
       >
-      <div className="z-30 absolute bg-white">{children}</div>
+      <div className="z-30 absolute bg-white m-2 md:m-0 shadow-lg text-left">{children}</div>
 
       </div>
     </div>

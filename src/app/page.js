@@ -7,7 +7,7 @@ import Title from "../../components/utilityComponents/title";
 
 
 export default function Home() {
-  console.log('from main page');
+  
   
   return (
     <main className="bg-white">

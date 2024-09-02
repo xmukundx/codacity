@@ -49,7 +49,7 @@ export default function SignIn() {
       if (response.ok) {
         alert("Signin Successful");
         const responseData = await response.json();
-        console.log(responseData);
+        
         Cookies.set("email", responseData.email, {
           path: "/",
           expires: 1 / 24,
@@ -60,10 +60,10 @@ export default function SignIn() {
         const errorData = await response.json();
         alert("Sign in failed", errorData);
       }
-      reduxDispatch(toggle("isDisable"));
     } catch (error) {
       console.error("error while submitting" + error);
     }
+    reduxDispatch(toggle("isDisable"));
   };
 
   return (
@@ -71,7 +71,7 @@ export default function SignIn() {
       {isLogin ? (
         <div
           id="form-page"
-          className="h-screen-minus-navbar overflow-scroll px-4 py-16 sm:px-6 lg:px-8"
+          className="min-h-screen-minus-navbar overflow-scroll px-4 py-16 sm:px-6 lg:px-8"
         >
           <main>
             <div className="mx-auto max-w-lg text-center">

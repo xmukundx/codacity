@@ -2,13 +2,16 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import data from "@/utillity/data";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { ButtonPurple } from "./utilityComponents/buttons";
+import { useSelector } from "react-redux";
 
 const CoursesCarousal = () => {
+  const {courses} = useSelector((state)=> state.courses);
+  
+  
   function NextArrow(props) {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
       <div
         className={"absolute -right-6 top-1/2 cursor-pointer sm:-right-12"}
@@ -20,7 +23,7 @@ const CoursesCarousal = () => {
   }
 
   function PrevArrow(props) {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
       <div
         className={"absolute -left-6 top-1/2 cursor-pointer sm:-left-12"}
@@ -73,7 +76,7 @@ const CoursesCarousal = () => {
     
     <div id="slider-container" className="mx-auto h-4/5 w-4/6">
       <Slider {...settings}>
-        {data.slice(0, 4).map((item, index) => {
+        {courses.slice(0, 4).map((item, index) => {
           return (
             <div key={index} className="border-1 relative flex h-fit cursor-pointer flex-col rounded-md  bg-[#0280a5] text-white shadow-md hover:shadow-gray-400">
               <div id="img-container" className="rounded-t-md bg-[#efdd32]  py-3">
