@@ -7,11 +7,11 @@ import { ButtonPurple } from "./utilityComponents/buttons";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCourses } from "../lib/redux/coursesSlice";
+import UserSection from "./navbar/userSection";
 
 const Navbar = () => {
   const { courses } = useSelector((state) => state.courses); // redux code
   const reduxDispatch = useDispatch();
-  const dropdownRef = useRef(null);
   const navbarRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   //useReducer code starts
@@ -136,7 +136,6 @@ const Navbar = () => {
 
     dispatch({ type: "TOGGLE_DROPDOWN" });
     alert("You are logged out");
-    
   };
 
   const filteredCourses = useMemo(() => {
@@ -228,7 +227,14 @@ const Navbar = () => {
               <a href={`/${item.toLowerCase()}`}>{item}</a>
             </li>
           ))}
-          <li className="relative">
+          <UserSection
+            state={state}
+            dispatch={dispatch}
+            navbarRef={navbarRef}
+            handleLogout={handleLogout}
+          />
+
+          {/* <li className="relative">
             {state.userLoad ? (
               <span className="font-semibold">Loading...</span>
             ) : state.username ? (
@@ -262,7 +268,7 @@ const Navbar = () => {
                 </ul>
               </span>
             )}
-          </li>
+          </li> */}
         </ul>
       </div>
     </nav>

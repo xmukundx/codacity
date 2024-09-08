@@ -4,7 +4,7 @@ import { MdOutlineWatchLater } from "react-icons/md";
 
 const DisplayCourses = ({ coursePerPage }) => {
   return (
-    <div className="grid w-full justify-around justify-items-center gap-8 p-2 mb-16 sm:gap-6 sm:p-4 md:grid-cols-2 lg:grid-cols-[repeat(3,350px)]">
+    <div className="grid w-full justify-around justify-items-center gap-8 p-2 mb-16 sm:gap-6 sm:p-4 md:grid-cols-2 lg:grid-cols-[repeat(3,350px)] ">
       {coursePerPage.map((item) => (
         <a
           href={`/courses/${item._id}`}
