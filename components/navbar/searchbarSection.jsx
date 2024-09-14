@@ -1,19 +1,20 @@
 
 
-const SearchbarSection = ({ handleSearchChange, searchQuery }) => {
+const SearchbarSection = ({state, handleSearchChange, filteredCourses }) => {
+
   return (
-    <div className="relative text-sm font-normal hover:text-purple-500">
+    <li className="relative text-sm font-normal hover:text-purple-500">
       <div className="relative">
         <input
           onChange={handleSearchChange}
-          value={searchQuery}
+          value={state.searchQuery}
           placeholder="Search..."
           className="w-28 rounded-xl border-2 border-transparent px-3 py-1 shadow-lg outline-none transition-all focus:border-2 focus:border-purple-400 md:w-36 md:focus:w-40 lg:w-48 lg:focus:w-56"
           name="search"
           type="search"
         />
         <button className={`absolute right-3 top-1 text-gray-500`}>
-          {!searchQuery && (
+          {!state.searchQuery && (
             <svg
               className="size-6 text-gray-500"
               stroke="currentColor"
@@ -33,7 +34,7 @@ const SearchbarSection = ({ handleSearchChange, searchQuery }) => {
         .
       </div>
 
-      {(state.toggleMobile || !isMobile) && state.searchQuery.length > 0 && (
+      {(state.toggleMobile || !state.isMobile) && state.searchQuery.length > 0 && (
         <ul className="absolute right-4 z-20 w-fit text-nowrap rounded-md bg-white text-gray-800 shadow-lg md:right-auto md:top-11">
           {filteredCourses.slice(0, 5).map((course, indx) => (
             <li
@@ -47,7 +48,7 @@ const SearchbarSection = ({ handleSearchChange, searchQuery }) => {
           ))}
         </ul>
       )}
-    </div>
+    </li>
   );
 };
 

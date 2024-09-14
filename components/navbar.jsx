@@ -1,19 +1,18 @@
 "use client";
-import { useEffect, useState, useRef, useReducer, useMemo } from "react";
+import { useEffect, useRef, useReducer, useMemo } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { motion } from "framer-motion";
-import Searchbar from "./searchbar";
-import { ButtonPurple } from "./utilityComponents/buttons";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCourses } from "../lib/redux/coursesSlice";
 import UserSection from "./navbar/userSection";
+import SearchbarSection from "./navbar/searchbarSection";
 
 const Navbar = () => {
   const { courses } = useSelector((state) => state.courses); // redux code
   const reduxDispatch = useDispatch();
   const navbarRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
   //useReducer code starts
   const initialState = {
     toggleMobile: false,
@@ -21,25 +20,10 @@ const Navbar = () => {
     searchQuery: "",
     showDropdown: false,
     username: "",
+    isMobile: false
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    // Initial check
-    handleResize();
-
-    // Add event listener for window resize
-    window.addEventListener("resize", handleResize);
-
-    // Clean up the event listener
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
+ 
   const reducer = (state, action) => {
     switch (action.type) {
       case "TOGGLE_MOBILE":
@@ -54,6 +38,8 @@ const Navbar = () => {
         return { ...state, showDropdown: false };
       case "SET_USERNAME":
         return { ...state, username: action.payload };
+        case "SET_iSMOBILE": 
+        return {...state, isMobile: action.payload}
 
       default:
         return state;
@@ -61,6 +47,26 @@ const Navbar = () => {
   };
   const [state, dispatch] = useReducer(reducer, initialState);
   //useReducer code ends
+
+  useEffect(() => {
+    const handleResize = () => {
+      // setIsMobile(window.innerWidth < 768);
+      dispatch({type:"SET_iSMOBILE", payload:(window.innerWidth < 768)})
+    };
+
+    // Initial check
+    handleResize();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+
 
   const firtName = "Coda".toUpperCase().split("");
   const secondName = "City".toUpperCase().split("");
@@ -73,11 +79,16 @@ const Navbar = () => {
         !navbarRef.current.contains(event.target)
       ) {
         console.log("Clicked outside navbar"); // Log when the click is outside the navbar
+        
         if (state.toggleMobile) {
           console.log("Closing mobile menu"); // Log when the menu should close
           dispatch({ type: "TOGGLE_MOBILE" });
           dispatch({ type: "False_DROPDOWN" });
         }
+      }
+      if(!navbarRef.current.contains(event.target)){
+
+        dispatch({ type: "UPDATE_SEARCH_QUERY", payload: "" });
       }
     };
 
@@ -184,7 +195,10 @@ const Navbar = () => {
       </a>
       <div className="flex flex-col">
         <GiHamburgerMenu
-          onClick={() => dispatch({ type: "TOGGLE_MOBILE" })}
+           onClick={() => {
+            dispatch({ type: "TOGGLE_MOBILE" });
+            dispatch({ type: "UPDATE_SEARCH_QUERY", payload: "" }); // Reset search query
+          }}
           className={`z-10 text-3xl duration-500 ${
             state.toggleMobile ? "rotate-180 transform" : ""
           } cursor-pointer md:hidden`}
@@ -196,7 +210,7 @@ const Navbar = () => {
               : "translate-x-full md:translate-x-0"
           } bottom-0 right-0 top-0 flex w-36 flex-col items-center gap-5 border-l-2 bg-white px-2 pt-16 duration-500 md:w-full md:flex-row md:justify-normal md:border-0 md:bg-white md:pt-1`}
         >
-          <li className="relative text-sm font-normal hover:text-purple-500">
+          {/* <li className="relative text-sm font-normal hover:text-purple-500">
             <Searchbar
               handleSearchChange={handleSearchChange}
               searchQuery={state.searchQuery}
@@ -217,7 +231,8 @@ const Navbar = () => {
                   ))}
                 </ul>
               )}
-          </li>
+          </li> */}
+          <SearchbarSection state={state} handleSearchChange={handleSearchChange} filteredCourses={filteredCourses}/>
           {/* creating navigation with li & map */}
           {["Courses", "Contact", "About", "FAQs"].map((item, idx) => (
             <li
