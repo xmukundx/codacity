@@ -12,7 +12,6 @@ const Navbar = () => {
   const { courses } = useSelector((state) => state.courses); // redux code
   const reduxDispatch = useDispatch();
   const navbarRef = useRef(null);
-  // const [isMobile, setIsMobile] = useState(false);
   //useReducer code starts
   const initialState = {
     toggleMobile: false,
@@ -150,9 +149,12 @@ const Navbar = () => {
   };
 
   const filteredCourses = useMemo(() => {
-    return courses.filter((course) =>
-      course.courseName.toLowerCase().includes(state.searchQuery.toLowerCase()),
-    );
+    if(courses.length > 0){
+      return courses.filter((course) =>
+        course.courseName.toLowerCase().includes(state.searchQuery.toLowerCase()),
+      );
+    }
+    
   }, [courses, state.searchQuery]);
 
   // const filteredCourses = () => {
@@ -210,28 +212,6 @@ const Navbar = () => {
               : "translate-x-full md:translate-x-0"
           } bottom-0 right-0 top-0 flex w-36 flex-col items-center gap-5 border-l-2 bg-white px-2 pt-16 duration-500 md:w-full md:flex-row md:justify-normal md:border-0 md:bg-white md:pt-1`}
         >
-          {/* <li className="relative text-sm font-normal hover:text-purple-500">
-            <Searchbar
-              handleSearchChange={handleSearchChange}
-              searchQuery={state.searchQuery}
-            />
-
-            {(state.toggleMobile || !isMobile) &&
-              state.searchQuery.length > 0 && (
-                <ul className="absolute right-4 z-20 w-fit text-nowrap rounded-md bg-white text-gray-800 shadow-lg md:right-auto md:top-11">
-                  {filteredCourses.slice(0, 5).map((course, indx) => (
-                    <li
-                      key={indx}
-                      className="my-2 cursor-pointer rounded-md border-t text-xs hover:bg-gray-100 sm:text-base md:my-0 md:px-2 md:pt-3"
-                    >
-                      {state.toggleMobile
-                        ? course.courseName.slice(0, 35) + "..."
-                        : course.courseName.slice(0, 50) + "..."}
-                    </li>
-                  ))}
-                </ul>
-              )}
-          </li> */}
           <SearchbarSection state={state} handleSearchChange={handleSearchChange} filteredCourses={filteredCourses}/>
           {/* creating navigation with li & map */}
           {["Courses", "Contact", "About", "FAQs"].map((item, idx) => (
@@ -249,41 +229,6 @@ const Navbar = () => {
             handleLogout={handleLogout}
           />
 
-          {/* <li className="relative">
-            {state.userLoad ? (
-              <span className="font-semibold">Loading...</span>
-            ) : state.username ? (
-              <span
-                className="cursor-pointer font-bold text-purple-500 hover:text-purple-700"
-                onClick={() => dispatch({ type: "TOGGLE_DROPDOWN" })}
-              >
-                {state.username}
-              </span>
-            ) : (
-              <span>
-                <ButtonPurple>
-                  <a href="/sign-in">Sign In</a>
-                </ButtonPurple>
-              </span>
-            )}
-            {state.showDropdown && (
-              <span>
-                <ul
-                  id="dropdown"
-                  className="absolute top-8 flex flex-col gap-2 bg-white px-3 py-2 md:top-10"
-                  ref={dropdownRef}
-                >
-                  <li className="cursor-pointer">
-                    <a href="/profile">Profile</a>
-                  </li>
-                  <hr />
-                  <li onClick={handleLogout} className="cursor-pointer">
-                    Logout
-                  </li>
-                </ul>
-              </span>
-            )}
-          </li> */}
         </ul>
       </div>
     </nav>
