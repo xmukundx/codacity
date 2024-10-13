@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaRegCopyright, FaArrowUp } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { setToggleFalse, setToggleTrue } from "../lib/redux/toggleSlice";
-
+import Link from "next/link";
 const Footer = () => {
   // const [showButton, setShowButton] = useState(false);
   const showBtn = useSelector((state)=> state.toggle?.["showButton"] || false)
@@ -49,28 +49,28 @@ const Footer = () => {
         <div id="right">
           <ul className="flex gap-2 md:gap-5">
             <li>
-              <a
+              <Link
                 href="/faqs"
                 className="hover:cursor-pointer hover:text-purple-500"
               >
                 FAQs
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="/contact"
                 className="hover:cursor-pointer hover:text-purple-500"
               >
                 Contact
-              </a>
+              </Link>
             </li>
             <li>
-              <a
+              <Link
                 href="/about"
                 className="hover:cursor-pointer hover:text-purple-500"
               >
                 About
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

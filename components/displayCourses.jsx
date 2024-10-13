@@ -1,12 +1,13 @@
 import React from "react";
 import { FaRupeeSign } from "react-icons/fa";
 import { MdOutlineWatchLater } from "react-icons/md";
+import Link from "next/link";
 
 const DisplayCourses = ({ coursePerPage }) => {
   return (
     <div className="grid w-full justify-around justify-items-center gap-8 p-2 mb-16 sm:gap-6 sm:p-4 md:grid-cols-2 lg:grid-cols-[repeat(3,350px)] ">
       {coursePerPage.map((item) => (
-        <a
+        <Link
           href={`/courses/${item._id}`}
           key={item._id}
           id="section1"
@@ -47,7 +48,7 @@ const DisplayCourses = ({ coursePerPage }) => {
               <button className="font-bold text-purple-500">Enroll Now</button>
             </div>
           </div>
-        </a>
+        </Link>
       ))}
     </div>
   );

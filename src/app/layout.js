@@ -1,5 +1,5 @@
 import "./globals.css";
-import Navbar from "../../components/navbar";
+import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/footer";
 import AppWrapper from "../../lib/redux/provider";
 
@@ -13,8 +13,7 @@ export const metadata = {
   ogTitle: "CODACITY - Learn to Code Online",
   ogDescription:
     "Codacity is your one-stop platform for learning to code. Master programming with our comprehensive courses and expert guidance.",
-  ogImage: "/c-logo.jpg",
-};
+  };
 
 export default function RootLayout({ children }) {
   return (

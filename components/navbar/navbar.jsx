@@ -4,9 +4,10 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCourses } from "../lib/redux/coursesSlice";
-import UserSection from "./navbar/userSection";
-import SearchbarSection from "./navbar/searchbarSection";
+import { fetchCourses } from "../../lib/redux/coursesSlice";
+import UserSection from "./userSection";
+import SearchbarSection from "./searchbarSection";
+import Link from "next/link";
 
 const Navbar = () => {
   const { courses } = useSelector((state) => state.courses); // redux code
@@ -19,10 +20,9 @@ const Navbar = () => {
     searchQuery: "",
     showDropdown: false,
     username: "",
-    isMobile: false
+    isMobile: false,
   };
 
- 
   const reducer = (state, action) => {
     switch (action.type) {
       case "TOGGLE_MOBILE":
@@ -37,8 +37,8 @@ const Navbar = () => {
         return { ...state, showDropdown: false };
       case "SET_USERNAME":
         return { ...state, username: action.payload };
-        case "SET_iSMOBILE": 
-        return {...state, isMobile: action.payload}
+      case "SET_iSMOBILE":
+        return { ...state, isMobile: action.payload };
 
       default:
         return state;
@@ -50,7 +50,7 @@ const Navbar = () => {
   useEffect(() => {
     const handleResize = () => {
       // setIsMobile(window.innerWidth < 768);
-      dispatch({type:"SET_iSMOBILE", payload:(window.innerWidth < 768)})
+      dispatch({ type: "SET_iSMOBILE", payload: window.innerWidth < 768 });
     };
 
     // Initial check
@@ -65,8 +65,6 @@ const Navbar = () => {
     };
   }, []);
 
-
-
   const firtName = "Coda".toUpperCase().split("");
   const secondName = "City".toUpperCase().split("");
 
@@ -78,15 +76,14 @@ const Navbar = () => {
         !navbarRef.current.contains(event.target)
       ) {
         console.log("Clicked outside navbar"); // Log when the click is outside the navbar
-        
+
         if (state.toggleMobile) {
           console.log("Closing mobile menu"); // Log when the menu should close
           dispatch({ type: "TOGGLE_MOBILE" });
           dispatch({ type: "False_DROPDOWN" });
         }
       }
-      if(!navbarRef.current.contains(event.target)){
-
+      if (!navbarRef.current.contains(event.target)) {
         dispatch({ type: "UPDATE_SEARCH_QUERY", payload: "" });
       }
     };
@@ -149,12 +146,13 @@ const Navbar = () => {
   };
 
   const filteredCourses = useMemo(() => {
-    if(courses.length > 0){
+    if (courses.length > 0) {
       return courses.filter((course) =>
-        course.courseName.toLowerCase().includes(state.searchQuery.toLowerCase()),
+        course.courseName
+          .toLowerCase()
+          .includes(state.searchQuery.toLowerCase()),
       );
     }
-    
   }, [courses, state.searchQuery]);
 
   // const filteredCourses = () => {
@@ -168,7 +166,7 @@ const Navbar = () => {
       ref={navbarRef}
       className="fixed top-0 z-10 flex h-16 w-full justify-between border-b-2 border-black bg-white px-3 py-2 text-gray-800"
     >
-      <a
+      <Link
         href="/"
         className="flex h-full cursor-pointer items-center text-3xl md:text-3xl lg:text-4xl"
       >
@@ -194,10 +192,10 @@ const Navbar = () => {
             </motion.span>
           );
         })}
-      </a>
+      </Link>
       <div className="flex flex-col">
         <GiHamburgerMenu
-           onClick={() => {
+          onClick={() => {
             dispatch({ type: "TOGGLE_MOBILE" });
             dispatch({ type: "UPDATE_SEARCH_QUERY", payload: "" }); // Reset search query
           }}
@@ -212,14 +210,18 @@ const Navbar = () => {
               : "translate-x-full md:translate-x-0"
           } bottom-0 right-0 top-0 flex w-36 flex-col items-center gap-5 border-l-2 bg-white px-2 pt-16 duration-500 md:w-full md:flex-row md:justify-normal md:border-0 md:bg-white md:pt-1`}
         >
-          <SearchbarSection state={state} handleSearchChange={handleSearchChange} filteredCourses={filteredCourses}/>
-          {/* creating navigation with li & map */}
+          <SearchbarSection
+            state={state}
+            handleSearchChange={handleSearchChange}
+            filteredCourses={filteredCourses}
+          />
+          {/* navigation array & map */}
           {["Courses", "Contact", "About", "FAQs"].map((item, idx) => (
             <li
               key={idx}
               className="cursor-pointer duration-300 hover:text-purple-500 active:scale-[0.98]"
             >
-              <a href={`/${item.toLowerCase()}`}>{item}</a>
+              <Link href={`/${item.toLowerCase()}`}>{item}</Link>
             </li>
           ))}
           <UserSection
@@ -228,7 +230,6 @@ const Navbar = () => {
             navbarRef={navbarRef}
             handleLogout={handleLogout}
           />
-
         </ul>
       </div>
     </nav>

@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 import { ButtonPurple } from "./utilityComponents/buttons";
 import { useSelector } from "react-redux";
+import Link from 'next/link'
 
 const CoursesCarousal = () => {
   const {courses} = useSelector((state)=> state.courses);
@@ -100,7 +101,7 @@ const CoursesCarousal = () => {
       </Slider>
       <div className="mt-5 flex justify-end sm:mt-2 sm:pr-2">
         <ButtonPurple>
-          <a href="/courses">View All</a>
+          <Link href="/courses">View All</Link>
         </ButtonPurple>
       </div>
 

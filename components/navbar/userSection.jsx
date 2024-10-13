@@ -1,5 +1,6 @@
 import React from "react";
 import { ButtonPurple } from "../utilityComponents/buttons";
+import Link from "next/link";
 
 const UserSection = ({ state, dispatch, handleLogout }) => {
   return (
@@ -16,7 +17,7 @@ const UserSection = ({ state, dispatch, handleLogout }) => {
       ) : (
         <span>
           <ButtonPurple>
-            <a href="/sign-in">Sign In</a>
+            <Link href="/sign-in">Sign In</Link>
           </ButtonPurple>
         </span>
       )}
@@ -27,7 +28,7 @@ const UserSection = ({ state, dispatch, handleLogout }) => {
             className="absolute top-8 flex flex-col gap-2 bg-white px-3 py-2 md:top-10"
           >
             <li className="cursor-pointer">
-              <a href="/profile">Profile</a>
+              <Link href="/profile">Profile</Link>
             </li>
             <hr />
             <li onClick={handleLogout} className="cursor-pointer">
