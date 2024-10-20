@@ -6,7 +6,6 @@ import Cookies from "js-cookie";
 import Modal from "../../../../components/utilityComponents/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "../../../../lib/redux/toggleSlice";
-import { BiFontSize } from "react-icons/bi";
 
 async function GetCourses(id) {
   const response = await fetch(`/api/courses/${id}`);
@@ -112,7 +111,7 @@ const CourseDetailPage = ({ params }) => {
         id="course-detail-page"
         className="h-fit min-h-screen-minus-navbar pb-8"
       >
-        <div className="flex min-h-52 w-full flex-col items-center justify-center bg-gradient-to-r from-pink-500 to-orange-400 md:h-[30%]">
+        <div className="flex min-h-52 w-full flex-col items-center justify-center bg-gradient-to-r  from-purple-500 to-violet-300 md:h-[30%]">
           <h2 className="p-1 text-3xl font-bold md:outline lg:text-5xl">
             {courseName}
           </h2>
@@ -159,7 +158,7 @@ const CourseDetailPage = ({ params }) => {
         {openModal && (
           <Modal openModal={openModal} handleModal={handleModal}>
             <div className="h-full w-fit p-2 md:p-5">
-              <h2 className="mt-3 text-lg font-bold text-purple-500 md:text-3xl">
+              <h2 className="mt-3 text-lg font-bold primary-color md:text-3xl">
                 Please confirm before buying the course
               </h2>
               <p className="mb-8 text-sm md:text-base">

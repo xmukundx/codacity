@@ -12,7 +12,7 @@ const Page = () => {
     <div className="flex flex-col min-h-screen-minus-navbar   items-center justify-center pt-[5%] sm:justify-start ">
       <div className="my-10 flex w-full justify-center px-5 md:w-2/5">
         <h1 className="text-2xl sm:text-nowrap sm:text-3xl md:text-4xl">
-          <span className="font-extrabold text-purple-500">Got Questions?</span>
+          <span className="font-extrabold primary-color">Got Questions?</span>
           <span className="">&nbsp; We've Got Answers!</span>
         </h1>
       </div>

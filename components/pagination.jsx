@@ -16,7 +16,7 @@ const Pagination = ({
         return (
           <button
             key={indx}
-            className={`bg-transparent text-2xl rounded-md h-fit hover:bg-gray-200 font-bold w-10 sm:w-20 ${page == currentPage ? "text-purple-500" : "text-gray-800"} `}
+            className={`bg-transparent text-2xl rounded-md h-fit hover:bg-gray-200 font-bold w-10 sm:w-20 ${page == currentPage ? "primary-color" : "text-gray-800"} `}
             onClick={() => setCurrentPage(page)}
           >
             {page}

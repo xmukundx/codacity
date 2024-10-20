@@ -3,7 +3,7 @@
 const SearchbarSection = ({state, handleSearchChange, filteredCourses }) => {
 
   return (
-    <li className="relative text-sm font-normal hover:text-purple-500">
+    <li className="relative text-sm font-normal hover:primary-color">
       <div className="relative">
         <input
           onChange={handleSearchChange}

@@ -57,10 +57,10 @@ export const Accordion = ({ Question, Answer, isOpen, onToggle }) => {
         className="flex w-full items-center justify-between text-left"
         onClick={onToggle}
       >
-        <span className={`font-bold ${isOpen ? "text-purple-500" : ""}`}>
+        <span className={`font-bold ${isOpen ? "primary-color" : ""}`}>
           {Question}
         </span>
-        <span>{isOpen ? <FiMinus className="text-purple-500" /> : <FiPlus />}</span>
+        <span>{isOpen ? <FiMinus className="primary-color" /> : <FiPlus />}</span>
       </button>
       <div
         className={`grid text-justify text-slate-800 transition-all duration-300 ${

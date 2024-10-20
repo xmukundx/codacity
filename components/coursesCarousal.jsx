@@ -18,7 +18,7 @@ const CoursesCarousal = () => {
         className={"absolute -right-6 top-1/2 cursor-pointer sm:-right-12"}
         onClick={onClick}
       >
-        <FaArrowAltCircleRight className="text-blue-500xl text-2xl text-[#0280a5] active:text-purple-500 sm:text-5xl" />
+        <FaArrowAltCircleRight className="text-blue-500xl text-2xl text-[#0280a5] active:primary-color sm:text-5xl" />
       </div>
     );
   }
@@ -30,7 +30,7 @@ const CoursesCarousal = () => {
         className={"absolute -left-6 top-1/2 cursor-pointer sm:-left-12"}
         onClick={onClick}
       >
-        <FaArrowAltCircleLeft className="text-blue-500xl text-2xl text-[#0280a5] active:text-purple-500 sm:text-5xl" />
+        <FaArrowAltCircleLeft className="text-blue-500xl text-2xl text-[#0280a5] active:primary-color sm:text-5xl" />
       </div>
     );
   }
@@ -79,7 +79,7 @@ const CoursesCarousal = () => {
       <Slider {...settings}>
         {courses.slice(0, 4).map((item, index) => {
           return (
-            <div key={index} className="border-1 relative flex h-fit cursor-pointer flex-col rounded-md  bg-[#0280a5] text-white shadow-md hover:shadow-gray-400">
+            <Link key={index} href={`/courses/${item._id}`} className="border-1 relative flex h-fit cursor-pointer flex-col rounded-md  bg-[#0280a5] text-white shadow-md hover:shadow-gray-400">
               <div id="img-container" className="rounded-t-md bg-[#efdd32]  py-3">
                 <img
                   src="/codebg3.jpg"
@@ -95,7 +95,7 @@ const CoursesCarousal = () => {
                   {item.aboutCourse}
                 </span>
               </div>
-            </div>
+            </Link>
           );
         })}
       </Slider>

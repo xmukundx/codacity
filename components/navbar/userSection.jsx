@@ -9,7 +9,7 @@ const UserSection = ({ state, dispatch, handleLogout }) => {
         <span className="font-semibold">Loading...</span>
       ) : state.username ? (
         <span
-          className="cursor-pointer font-bold text-purple-500 hover:text-purple-700"
+          className="cursor-pointer font-bold primary-color hover:text-purple-700"
           onClick={() => dispatch({ type: "TOGGLE_DROPDOWN" })}
         >
           {state.username}

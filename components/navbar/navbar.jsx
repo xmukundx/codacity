@@ -174,7 +174,7 @@ const Navbar = () => {
           return (
             <motion.span
               key={index}
-              className="inline-block font-extrabold text-purple-500"
+              className="inline-block font-extrabold primary-color"
               whileHover={{ scale: 1.2 }}
             >
               {char}
@@ -219,7 +219,7 @@ const Navbar = () => {
           {["Courses", "Contact", "About", "FAQs"].map((item, idx) => (
             <li
               key={idx}
-              className="cursor-pointer duration-300 hover:text-purple-500 active:scale-[0.98]"
+              className="cursor-pointer duration-300 hover:primary-color active:scale-[0.98]"
             >
               <Link href={`/${item.toLowerCase()}`}>{item}</Link>
             </li>

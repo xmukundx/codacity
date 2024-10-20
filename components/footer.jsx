@@ -51,7 +51,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/faqs"
-                className="hover:cursor-pointer hover:text-purple-500"
+                className="hover:cursor-pointer hover:primary-color"
               >
                 FAQs
               </Link>
@@ -59,7 +59,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/contact"
-                className="hover:cursor-pointer hover:text-purple-500"
+                className="hover:cursor-pointer hover:primary-color"
               >
                 Contact
               </Link>
@@ -67,7 +67,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/about"
-                className="hover:cursor-pointer hover:text-purple-500"
+                className="hover:cursor-pointer hover:primary-color"
               >
                 About
               </Link>

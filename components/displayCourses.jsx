@@ -45,7 +45,7 @@ const DisplayCourses = ({ coursePerPage }) => {
                 <MdOutlineWatchLater className="mr-1 inline-block" />
                 {item.duration}
               </div>
-              <button className="font-bold text-purple-500">Enroll Now</button>
+              <button className="font-bold primary-color">Enroll Now</button>
             </div>
           </div>
         </Link>
