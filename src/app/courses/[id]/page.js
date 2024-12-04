@@ -7,6 +7,7 @@ import Modal from "../../../../components/utilityComponents/modal";
 import { useDispatch, useSelector } from "react-redux";
 import { toggle } from "../../../../lib/redux/toggleSlice";
 
+// func for getting course details
 async function GetCourses(id) {
   const response = await fetch(`/api/courses/${id}`);
   if (!response.ok) {
@@ -15,7 +16,7 @@ async function GetCourses(id) {
   const data = await response.json();
   return data.result;
 }
-
+// main component
 const CourseDetailPage = ({ params }) => {
   const [course, setCourse] = useState(null);
   const [error, setError] = useState(null);
@@ -31,7 +32,7 @@ const CourseDetailPage = ({ params }) => {
   const handleModal = () => {
     reduxDispatch(toggle("openModal"));
   };
-
+//fetchin course through params
   useEffect(() => {
     const fetchData = async () => {
       reduxDispatch(toggle("isLoading"));
@@ -65,13 +66,14 @@ const CourseDetailPage = ({ params }) => {
       </div>
     );
   }
-
+  // when user buys the course
   const buyCourseFunc = async () => {
     const email = Cookies.get("email");
     const _id = params.id;
     if (!email) {
       alert("You need to log in to purchase this course.");
-      window.location.href = "/sign-in";
+      window.location.replace("/sign-in");
+      return;
     }
     try {
       const response = await fetch("/api/purchase", {
@@ -86,15 +88,12 @@ const CourseDetailPage = ({ params }) => {
 
       if (response.ok) {
         alert("Course purchased successfully!");
-      } else {
-        const errorData = await response.json();
-        console.log(`Error purchasing course: ${errorData.message}`);
       }
     } catch (error) {
       alert(`Error purchasing course: ${error.message}`);
     }
   };
-
+ // destructuring from courseSlice
   if (course) {
     const {
       courseName,

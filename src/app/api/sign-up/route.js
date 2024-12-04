@@ -13,7 +13,7 @@ export async function POST(req) {
       console.log("Successfully connected to MongoDB");
     }
 
-    const { firstName, lastName, email, password } = await req.json();
+    const { firstName, lastName, email, password } = await req.json(); //destructuring data
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json({ message: "User already exists" });
