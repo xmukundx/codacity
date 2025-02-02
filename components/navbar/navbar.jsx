@@ -193,7 +193,7 @@ const Navbar = () => {
           );
         })}
       </Link>
-      <div className="flex flex-col">
+      <div className="flex flex-col justify-center">
         <GiHamburgerMenu
           onClick={() => {
             dispatch({ type: "TOGGLE_MOBILE" });

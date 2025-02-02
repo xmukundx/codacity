@@ -2,8 +2,7 @@
 import { useState } from "react";
 import { FiPlus, FiMinus } from "react-icons/fi";
 
-
-const AccordionContainer = () => {
+const Accordion = () => {
   const [openAccordionIndex, setOpenAccordionIndex] = useState(null);
 
   const FAQ_DATA = [
@@ -25,7 +24,6 @@ const AccordionContainer = () => {
     },
     {
       Question: "Are you accredited or licensed by educational organizations?",
-
       Answer:
         "There isn’t always a need for licensing or accreditation for online courses. However, some programs do require it. Either way, people will usually ask what type of training or background you have, as well as any licensing that’s available if that’s relevant.",
     },
@@ -38,38 +36,30 @@ const AccordionContainer = () => {
   return (
     <div>
       {FAQ_DATA.map((item, index) => (
-        <Accordion
-          key={index}
-          Question={item.Question}
-          Answer={item.Answer}
-          isOpen={openAccordionIndex === index}
-          onToggle={() => handleToggle(index)}
-        />
+        <div key={index} className="py-2 text-sm sm:text-lg">
+          <button
+            className="flex w-full items-center justify-between text-left"
+            onClick={() => handleToggle(index)}
+          >
+            <span className={`font-medium ${openAccordionIndex === index ? "primary-color" : ""}`}>
+              {index+1}. {item.Question}
+            </span>
+            <span>{openAccordionIndex === index ? <FiMinus className="primary-color" /> : <FiPlus />}</span>
+          </button>
+          <div
+            className={`grid text-justify text-slate-800 transition-all duration-300 ${
+              openAccordionIndex === index ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+            }`}
+          >
+            <div className="overflow-hidden">
+              
+              {item.Answer}
+            </div>
+          </div>
+        </div>
       ))}
     </div>
   );
 };
 
-export const Accordion = ({ Question, Answer, isOpen, onToggle }) => {
-  return (
-    <div className="py-2 text-sm sm:text-lg">
-      <button
-        className="flex w-full items-center justify-between text-left"
-        onClick={onToggle}
-      >
-        <span className={`font-bold ${isOpen ? "primary-color" : ""}`}>
-          {Question}
-        </span>
-        <span>{isOpen ? <FiMinus className="primary-color" /> : <FiPlus />}</span>
-      </button>
-      <div
-        className={`grid text-justify text-slate-800 transition-all duration-300 ${
-          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-        }`}
-      >
-        <div className="overflow-hidden">{Answer}</div>
-      </div>
-    </div>
-  );
-};
-export default AccordionContainer;
+export default Accordion;

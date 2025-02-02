@@ -41,6 +41,8 @@ const CoursesCarousal = () => {
     speed: 500,
     slidesToShow: 2,
     slidesToScroll: 1,
+    autoplay: true, 
+    autoplaySpeed: 2500,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     responsive: [
@@ -56,7 +58,7 @@ const CoursesCarousal = () => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
           initialSlide: 1,
         },
@@ -80,14 +82,16 @@ const CoursesCarousal = () => {
         {courses.slice(0, 4).map((item, index) => {
           return (
             <Link key={index} href={`/courses/${item._id}`} className="border-1 relative flex h-fit cursor-pointer flex-col rounded-md  bg-[#0280a5] text-white shadow-md hover:shadow-gray-400">
-              <div id="img-container" className="rounded-t-md bg-[#efdd32]  py-3">
+              <div id="img-container" className="rounded-t-md
+ bg-slate-500
+                py-3">
                 <img
                   src="/codebg3.jpg"
                   alt=""
                   className="mx-auto h-36 w-36 rounded-full sm:h-44 sm:w-44"
                 />
               </div>
-              <div className="h-48 overflow-hidden md:flex flex-col justify-center items-center md:px-8 md:text-center rounded-b-md px-1">
+              <div className="h-48 overflow-hidden md:flex flex-col justify-center items-center md:px-8 md:text-center rounded-b-md px-1 ">
                 <h1 className="text-lg font-bold sm:text-xl md:text-2xl sm:pb-2 ">
                   {item.courseName}
                 </h1>

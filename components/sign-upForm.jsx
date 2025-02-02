@@ -5,7 +5,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { ButtonPurple } from "./utilityComponents/buttons";
 import { useDispatch } from "react-redux";
 
-const RegistrationForm = ({
+const SignUp = ({
   toggle,
   isDisable,
   setIsLogin,
@@ -210,4 +210,4 @@ const RegistrationForm = ({
   );
 };
 
-export default RegistrationForm;
+export default SignUp;

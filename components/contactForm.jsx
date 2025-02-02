@@ -2,9 +2,18 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ButtonPurple } from "./utilityComponents/buttons";
+import { useDispatch, useSelector } from "react-redux";
+import { toggle } from "../lib/redux/toggleSlice"
 
 export default function ContactForm() {
+
   const [result, setResult] = useState("");
+
+  const reduxDispatch = useDispatch();
+
+  const isDisable = useSelector(
+    (state) => state.toggle?.["isDisable"] || false,
+  );
   const {
     register,
     handleSubmit,
@@ -12,6 +21,7 @@ export default function ContactForm() {
   } = useForm();
 
   const onSubmit = async (data, event) => {
+    reduxDispatch(toggle("isDisable"));
     setResult("Sending...");
     const formData = new FormData();
     formData.append("access_key", "470ba6f2-bb8f-4bab-8f8f-1a4cd7594827");
@@ -34,6 +44,7 @@ export default function ContactForm() {
       console.log("Error", result);
       setResult(result.message);
     }
+    reduxDispatch(toggle("isDisable"));
   };
 
   return (
@@ -41,9 +52,6 @@ export default function ContactForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="flex w-[90%] flex-col text-base sm:w-[90%] sm:gap-1 sm:text-base md:gap-2 lg:w-4/6"
     >
-      <label className="font-medium" htmlFor="name">
-        Your Name
-      </label>
       <input
         className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
         placeholder="Enter your name"
@@ -55,9 +63,7 @@ export default function ContactForm() {
       {errors.name && (
         <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>
       )}
-      <label className="font-medium" htmlFor="phone">
-        Phone Number
-      </label>
+    
       <input
         className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
         placeholder="Enter your phone number"
@@ -75,9 +81,7 @@ export default function ContactForm() {
       {errors.phone && (
         <p className="mt-1 text-xs text-red-500">{errors.phone.message}</p>
       )}
-      <label className="font-medium" htmlFor="message">
-        Your Message
-      </label>
+   
       <textarea
         className="w-full rounded-lg border-gray-300 p-4 pe-12 text-sm shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-400"
         placeholder="Enter your message"
@@ -90,7 +94,7 @@ export default function ContactForm() {
         <p className="mt-1 text-xs text-red-500">{errors.message.message}</p>
       )}
       <span className="pt-4">
-        <ButtonPurple >
+        <ButtonPurple disabled={isDisable} >
           Submit
         </ButtonPurple >
       </span>

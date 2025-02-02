@@ -25,13 +25,13 @@ const UserSection = ({ state, dispatch, handleLogout }) => {
         <span>
           <ul
             id="dropdown"
-            className="absolute top-8 flex flex-col gap-2 bg-white px-3 py-2 md:top-10"
+            className="absolute top-8 -right-2 flex flex-col gap-2 bg-white pl-2 pr-5  pb-2 md:top-10"
           >
-            <li className="cursor-pointer">
+            <li className="cursor-pointer duration-300 hover:primary-color active:scale-[0.98]">
               <Link href="/profile">Profile</Link>
             </li>
             <hr />
-            <li onClick={handleLogout} className="cursor-pointer">
+            <li onClick={handleLogout} className="cursor-pointer duration-300 hover:primary-color active:scale-[0.98]">
               Logout
             </li>
           </ul>

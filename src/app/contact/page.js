@@ -15,7 +15,7 @@ const Page = () => {
       className="flex min-h-screen-minus-navbar  flex-col px-7 py-5 text-xs sm:mx-7 sm:flex-row sm:gap-10 sm:pt-24 sm:text-sm md:text-base lg:mx-16 lg:h-screen-minus-navbar"
     >
       <div id="left" className="flex-1 text-gray-600">
-        <h2 className="mb-2 flex items-center gap-3 text-xl font-bold text-black sm:whitespace-nowrap sm:text-2xl md:text-3xl">
+        <h2 className="mb-2 flex items-center gap-3 text-xl font-medium text-gray-800 sm:whitespace-nowrap sm:text-2xl md:text-3xl">
           Connect with us <IoMailOpen />
         </h2>
         <p className="mb-5 text-justify">
@@ -39,6 +39,7 @@ const Page = () => {
         </p>
       </div>
       <div id="right" className="my-5 w-full flex-1 sm:my-0 lg:ml-10">
+        <h1 className="sm:text-2xl md:text-3xl font-medium mb-2 text-gray-800">Submit Your Details</h1>
       <ContactForm/>
       </div>
       

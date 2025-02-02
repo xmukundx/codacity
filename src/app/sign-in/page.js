@@ -1,7 +1,7 @@
 "use client";
 import { IoEyeOutline } from "react-icons/io5";
 import { ButtonPurple } from "../../../components/utilityComponents/buttons";
-import RegistrationForm from "../../../components/sign-upForm";
+import SignUp from "../../../components/sign-upForm";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
@@ -166,7 +166,7 @@ export default function SignIn() {
         </div>
       ) : (
         <div>
-          <RegistrationForm
+          <SignUp
             isDisable={isDisable}
             toggle={toggle}
             setIsLogin={setIsLogin}

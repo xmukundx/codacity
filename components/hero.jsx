@@ -1,18 +1,33 @@
 "use client";
-import { Parallax } from "react-parallax";
+import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const Hero = () => {
+  // Hook to track scroll progress
+  const { scrollYProgress } = useScroll();
+
+  // Transform scroll progress into vertical movement for the text
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+
   return (
-    <Parallax
-      strength={400}
-      bgImage={"./codebg1.jpg"}
-      className="item-center flex h-[60vh] md:h-[80vh] w-full flex-col justify-center bg-gradient-to- p-3 text-black sm:bg-top"
+    <div
+      className="item-center flex min-h-screen-minus-navbar w-full flex-col justify-center p-3 text-black "
       id="hero-section"
-    
+      style={{
+        background: `url('./codebg1.jpg'), linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 8.8))`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed", // Keeps the background fixed
+        overflow: "hidden",
+        position: "relative",
+      }}
     >
-      <div className="backdrop-saturate-180 bg-opacity-75 text-gray-200 backdrop-blur-md">
+      <motion.div
+        style={{ y }} //Moving Text
+        className="backdrop-saturate-180 bg-opacity-75 text-gray-200 backdrop-blur-md"
+      >
         <div
-          id="hero-content "
+          id="hero-content"
           className="text-effect cursor-default px-3 drop-shadow-2xl sm:px-16 md:px-28"
         >
           <h1 className="inline-block text-3xl font-extrabold shadow-2xl sm:text-5xl md:text-6xl">
@@ -26,8 +41,9 @@ const Hero = () => {
             and real-world projects.
           </p>
         </div>
-      </div>
-    </Parallax>
+      </motion.div>
+    </div>
   );
 };
+
 export default Hero;
